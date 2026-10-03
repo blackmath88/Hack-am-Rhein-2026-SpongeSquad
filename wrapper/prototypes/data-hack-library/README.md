@@ -24,6 +24,11 @@ Each hack describes:
 - explicit limit;
 - next action.
 
+## Execution design
+
+- [Execution plans](EXECUTION-PLANS.md) — MVP pipeline, acceptance tests and implementation order for each hack.
+- [Architecture](ARCHITECTURE.md) — shared evidence contracts, review state machine, model boundary and integration with Street X-Ray.
+
 ## Run
 
 Serve this directory with any static web server, for example:
