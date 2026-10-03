@@ -1,0 +1,68 @@
+{
+  "schema_version": "sponge-data-hack-library/v0",
+  "status": "prototype",
+  "principle": "Unknown to us is not the same as unknown to the city, and neither is the same as not measured anywhere.",
+  "hacks": [
+    {
+      "id": "find-the-drain",
+      "number": "01",
+      "title": "Find the Drain",
+      "strapline": "Turn visible drainage clues into verification tasks.",
+      "gap": "We do not have a complete open street-level layer showing every inlet, grate, kerb opening or visible drainage clue.",
+      "method": "Use current street imagery or a short field capture to detect candidate visible drainage objects. Keep each detection attached to image date, source and spatial uncertainty.",
+      "inputs": [
+        "street imagery",
+        "capture date",
+        "street geometry",
+        "optional official asset layer"
+      ],
+      "output": "Candidate visible-drainage observations with evidence, location uncertainty and review state.",
+      "confidence": "Object-level confidence + image/date provenance + optional multi-view agreement.",
+      "validation": "Image review → field observation → authority/operator confirmation where needed.",
+      "gatekeeper": "Tiefbauamt / relevant infrastructure operator",
+      "limit": "Cannot infer pipe route, connectivity, invert level, capacity or excavation clearance.",
+      "next_action": "Create a review or field task; for shortlisted sites request authoritative drainage / utility evidence."
+    },
+    {
+      "id": "rain-walk",
+      "number": "02",
+      "title": "Rain Walk",
+      "strapline": "Create the current street evidence that no map can provide.",
+      "gap": "Public datasets rarely show what actually happens on one street during or immediately after rain.",
+      "method": "Guide a user through a 5-minute capture of kerbs, inlets, tree pits, surface condition, ponding, blockage and apparent flow direction; AI pre-tags observations and the user confirms them.",
+      "inputs": [
+        "phone photos/video",
+        "time",
+        "location",
+        "weather/rain context",
+        "human confirmation"
+      ],
+      "output": "Time-specific street observations: ponding, blockage, apparent flow, visible surface condition and candidate capture points.",
+      "confidence": "Observation status + timestamp + reviewer confirmation + repeat observations.",
+      "validation": "Contributor confirmation → project review → repeat after rainfall / field survey.",
+      "gatekeeper": "No gatekeeper for observation itself; authority or operator remains gatekeeper for network truth.",
+      "limit": "Does not prove underground routing, hydraulic capacity, soil infiltration or future storm behaviour.",
+      "next_action": "Attach observations to the Evidence Passport and escalate unresolved engineering questions."
+    },
+    {
+      "id": "find-the-disagreement",
+      "number": "03",
+      "title": "Find the Disagreement",
+      "strapline": "When sources disagree, create a question instead of a verdict.",
+      "gap": "Official layers, imagery, field observations and project documents can be incomplete, stale or mutually inconsistent.",
+      "method": "Compare two or more evidence sources for the same street feature and flag conflicts in presence, class, date or condition.",
+      "inputs": [
+        "official/open layer",
+        "imagery or field observation",
+        "timestamps",
+        "optional project documents"
+      ],
+      "output": "Evidence-conflict record with both sources, plausible explanations and a verification task.",
+      "confidence": "Conflict is factual only when the underlying source values are traceable; explanations remain hypotheses.",
+      "validation": "Remote review → current imagery → field check → holder confirmation.",
+      "gatekeeper": "Whichever authority, operator or project owner owns the stronger source for the disputed fact.",
+      "limit": "A discrepancy does not prove which source is wrong or that the street changed.",
+      "next_action": "Resolve remotely when possible; otherwise generate the cheapest field or gatekeeper action."
+    }
+  ]
+}
