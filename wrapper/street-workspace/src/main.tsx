@@ -114,6 +114,7 @@ function App() {
           <a href={scopingToolUrl()}>1 · Find</a><i>→</i><strong>2 · Test</strong><i>→</i><span>3 · Explain</span>
         </nav>
         <span className="tag">Illustrative scenario · v0.4</span>
+        <a className="tag" href="./rain-walk/">Rain Walk · collect street evidence →</a>
       </header>
       <section className="intro">
         <div>
