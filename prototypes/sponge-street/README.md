@@ -28,3 +28,7 @@ The water shares and heat indicator are explanatory scenario values. They demons
 ```sh
 node prototypes/sponge-street/smoke.mjs
 ```
+
+## Architecture
+
+See [`../../docs/ARCHITECTURE.md`](../../docs/ARCHITECTURE.md) for the relationship between site scoping, the street-world model, interventions, simulation, rendering and the decision pathway.
