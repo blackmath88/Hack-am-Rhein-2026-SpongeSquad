@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { createDemoStreet } from "./scenario.ts";
 import { applyPlan } from "./interventions.ts";
 import { simulate } from "./simulation.ts";
-import { WorldView } from "./WorldView.tsx";
+import { StreetDiagram } from "./StreetDiagram.tsx";
 import { parseSiteHandoff, scopingToolUrl } from "./site-context.ts";
 import type { InterventionPlan, SimulationSnapshot } from "./types.ts";
 import "./style.css";
@@ -208,7 +208,7 @@ function App() {
               {compare ? "Show your street" : "Compare baseline"}
             </button>
           </div>
-          <WorldView
+          <StreetDiagram
             world={activeWorld}
             snapshot={snapshot}
             previous={(compare ? baseFrames : frames)[Math.max(0, frame - 1)]}

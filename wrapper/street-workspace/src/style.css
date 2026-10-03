@@ -809,3 +809,186 @@ header .journey-progress i {
     gap: 14px;
   }
 }
+
+/* React/SVG renderer: a projection of the typed world and simulation state. */
+.street-diagram {
+  background: #f5f4ef;
+}
+.street-diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.diagram-background {
+  fill: #f5f4ef;
+}
+.zone {
+  cursor: pointer;
+  outline: none;
+}
+.zone .surface {
+  stroke: transparent;
+  stroke-width: 3;
+  transition: filter 160ms ease, stroke 160ms ease;
+}
+.zone:hover .surface,
+.zone:focus-visible .surface {
+  filter: brightness(1.04);
+  stroke: #cf951f;
+}
+.zone.selected .surface {
+  stroke: #f4b544;
+}
+.surface.roof {
+  fill: #d1c7b5;
+}
+.surface.paving {
+  fill: #e6e1d5;
+}
+.surface.asphalt {
+  fill: #626c70;
+}
+.surface.vegetated-soil {
+  fill: #87aa83;
+}
+.building-block {
+  fill: #bcb4a5;
+}
+.window-line {
+  fill: none;
+  stroke: #f6f2e7;
+  stroke-width: 1;
+  opacity: 0.8;
+}
+.road-centre {
+  fill: none;
+  stroke: #f2eee1;
+  stroke-width: 2;
+  stroke-dasharray: 38 42;
+  opacity: 0.65;
+}
+.car rect {
+  fill: #b5c6c2;
+}
+.car-2 rect {
+  fill: #d0b99d;
+}
+.car-3 rect {
+  fill: #98aebc;
+}
+.car .car-window {
+  fill: #53696e;
+}
+.planting circle:first-child {
+  fill: #4f8055;
+}
+.planting circle:last-child {
+  fill: #a9c68c;
+}
+.zone-label,
+.plan-caption,
+.hydro-node text {
+  font-family: Arial, sans-serif;
+  fill: #243b3b;
+}
+.zone-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  pointer-events: none;
+}
+.zone-label.on-dark {
+  fill: #fff;
+}
+.connection {
+  fill: none;
+  stroke-width: 3;
+  opacity: 0.86;
+  transition: opacity 120ms ease;
+}
+.connection.flow {
+  stroke: #235d80;
+}
+.connection.infiltration {
+  stroke: #2b764d;
+}
+.connection.overflow {
+  stroke: #b97138;
+}
+.connection.catchment {
+  stroke-width: 1;
+  opacity: 0.26;
+}
+.connection.active {
+  stroke-dasharray: 8 7;
+  animation: water-flow 700ms linear infinite;
+}
+.arrow.flow {
+  fill: #235d80;
+}
+.arrow.infiltration {
+  fill: #2b764d;
+}
+.arrow.overflow {
+  fill: #b97138;
+}
+.garden-storage > rect:first-child {
+  fill: #366943;
+}
+.garden-storage .stored-water {
+  fill: #65bee0;
+  opacity: 0.9;
+  transition: width 180ms linear;
+}
+.drain-asset rect {
+  fill: #273f40;
+}
+.drain-asset path {
+  stroke: #fff;
+  stroke-width: 2;
+  opacity: 0.75;
+}
+.hydro-node circle {
+  fill: #244e64;
+}
+.hydro-node.soil circle {
+  fill: #447653;
+}
+.hydro-node text {
+  font-size: 13px;
+  paint-order: stroke;
+  stroke: #f5f4ef;
+  stroke-width: 8px;
+  stroke-linejoin: round;
+}
+.plan-caption {
+  fill: #687778;
+  font-size: 12px;
+  letter-spacing: 0.7px;
+}
+.rain-layer {
+  opacity: 0;
+  transition: opacity 160ms ease;
+  pointer-events: none;
+}
+.is-raining .rain-layer {
+  opacity: 0.4;
+}
+.rain-layer line {
+  stroke: #3284a8;
+  stroke-width: 1.5;
+  animation: rainfall 900ms linear infinite;
+}
+@keyframes water-flow {
+  to { stroke-dashoffset: -15; }
+}
+@keyframes rainfall {
+  from { transform: translateY(-12px); }
+  to { transform: translateY(16px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .connection.active,
+  .rain-layer line {
+    animation: none;
+  }
+}

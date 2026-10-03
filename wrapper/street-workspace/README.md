@@ -1,6 +1,6 @@
 # Sponge Street workspace
 
-A structural vertical slice for SpongeSquad: one synthetic street, one rain garden, explicit water connections, and a conserved water balance. React owns controls; TypeScript owns the world and simulation; one Phaser scene renders the results. No bitmap swaps or external art are required.
+A structural vertical slice for SpongeSquad: one synthetic street, one rain garden, explicit water connections, and a conserved water balance. React owns controls; TypeScript owns the world and simulation; an accessible SVG component renders the results. No bitmap swaps, game loop or external art are required.
 
 ## Run
 
@@ -40,7 +40,7 @@ All volumes are m³. These are illustrative assumptions, not calibrated Basel pe
 | `src/scenario.ts`      | Six rectangular zones and baseline drainage graph; metric geometry         |
 | `src/interventions.ts` | Pure baseline → plan → world transformation; dependency check              |
 | `src/simulation.ts`    | Graph validation, topological routing and one-minute water balances        |
-| `src/WorldView.tsx`    | One Phaser scene: geometry, assets, arrows, water and selection events     |
+| `src/StreetDiagram.tsx` | React/SVG projection: geometry, assets, arrows, water and selection events |
 | `src/main.tsx`         | React controls, playback, comparison, inspector and model boundaries       |
 | `test/model.test.ts`   | Conservation, connectivity, overflow, invalid graphs and evidence boundary |
 
@@ -62,9 +62,9 @@ On `integration/spatial-journey`, Andy's map snapshot is copied into `data/site-
 
 The original `prototypes/sponge-street` is retained unchanged. This slice implements the meaning of `park:1` (rain garden) and `road:1` (open kerb, requiring a garden). It does **not** reuse the explainer's percentage deltas: applying those on top of routed water would double-count effects. Its twelve-state ladder and other tracks remain in the explainer.
 
-### Uploaded Phaser v5
+### Phaser v5 exploration
 
-Reviewed `basel-sponge-phaser-v5.zip`: retains the useful single-scene / DOM-controls division, but replaces whole-image state swaps with typed geometry and individual assets. No uploaded image or script is copied into this implementation. The original upload remains available independently.
+Reviewed `basel-sponge-phaser-v5.zip`: it proved the value of animated weather and an explorable street. The MVP now uses React/SVG because the product is an explanatory, evidence-bearing interface rather than a game loop. The typed world and simulation remain renderer-independent; see `wrapper/docs/adr/0003-use-react-svg-for-the-mvp-renderer.md`.
 
 ## Simulation contract
 
@@ -73,7 +73,7 @@ Reviewed `basel-sponge-phaser-v5.zip`: retains the useful single-scene / DOM-con
 - Graphs must be acyclic; missing references, duplicate IDs and ambiguous splits are rejected.
 - Every minute, available storage water infiltrates up to the rate allowance, then excess above capacity overflows. Node processing follows graph order.
 - At every snapshot: `rain = stored + infiltrated + sewer` within floating-point tolerance.
-- Edge volumes are cumulative throughput, **not** additive water destinations. Visual particles indicate an edge was active in the current step; particle counts/speeds are not physical measurements.
+- Edge volumes are cumulative throughput, **not** additive water destinations. An animated dashed line only indicates that an edge was active in the current step; animation speed is not a physical measurement.
 - Rectangles are in metres. Screen projection is separate. Assets reference their hydrological node; selection never mutates simulation state.
 - One 120 m² strip changes material and loses three illustrative parking spaces. Its spatial zone retains its original identity/type; the intervention does not rename the zone into an asset.
 - Baseline and intervention plans are immutable inputs. Recompilation from baseline makes removal/reset exact.
@@ -86,11 +86,11 @@ Real-site geometry, further intervention tracks, ownership/decision pathways, en
 
 ## Verification on 2026-10-03
 
-- Nine model tests pass, including conservation across 72 event/configuration combinations.
-- TypeScript check and Vite production build pass. Phaser produces a large bundle (about 406 kB gzip); code splitting is deferred.
+- Ten model tests pass, including conservation across 72 event/configuration combinations and candidate-handoff validation.
+- TypeScript check and Vite production build pass. The MVP has no Phaser runtime dependency; the Street Lab bundle is about 210 kB / 67 kB gzip.
 - Existing Sponge Street smoke test passes unchanged.
-- Headless Chromium checks pass: canvas loads without runtime errors; add/connect/compare/disconnect/reset; playback advances and pauses; 390 px layout has no horizontal overflow. Desktop and mobile screenshots were visually inspected.
-- No map navigation, deployment, or real-site calibration is claimed.
+- The earlier Phaser version passed desktop and mobile Chromium interaction checks. The React/SVG replacement is typechecked and build-tested; final desktop/mobile visual QA should be repeated before the demo.
+- No deployment or real-site calibration is claimed.
 
 ## UI slice 2
 
@@ -98,4 +98,4 @@ The design controls now sit above the street on desktop and mobile. Changing a d
 
 Two labelled water-balance bars compare the sealed street and the current design at the same minute. The original end-of-storm table remains separately labelled. Catchment links can be revealed on demand; the selected zone and the active drainage route are readable outside the canvas. Roof details, cars and planting are drawn from the existing zone/surface state without bitmap assets or model changes.
 
-Verified in Chromium at desktop and 390 px widths: same-minute design changes, before/after comparison, disconnect, reset, pause/resume, complete-storm shortcut and catchment toggle. No runtime errors or horizontal page overflow. The canvas remains a scaled schematic on small screens; the HTML route summary and zone controls provide readable alternatives.
+The SVG remains a scaled schematic on small screens; the HTML route summary and zone controls provide readable alternatives. Keyboard zone selection and reduced-motion behaviour are part of the renderer contract.

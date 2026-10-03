@@ -2,6 +2,12 @@
 
 This branch joins Andy's site-scoping prototype to Achim's Street Lab without changing either contributor's source branch.
 
+The product direction and current finish line are documented in:
+
+- [`wrapper/docs/PRODUCT_VISION.md`](../wrapper/docs/PRODUCT_VISION.md)
+- [`wrapper/docs/MVP.md`](../wrapper/docs/MVP.md)
+- [`wrapper/docs/adr/`](../wrapper/docs/adr/README.md)
+
 ## Run
 
 Install each app once:
@@ -28,3 +34,7 @@ Open `http://localhost:5173/data/site-scoping-tool/`, choose a candidate and sel
 - **Degrade explicitly.** Street Lab still works without a payload and rejects malformed or unknown handoff versions.
 
 We did not borrow the graph database, query language or backend. They solve a larger problem than this vertical slice requires.
+
+## Renderer decision
+
+Street Lab uses React + SVG/HTML as a replaceable view of the typed street and simulation state. Phaser was valuable visual exploration, but the explanatory product needs accessible DOM controls, evidence panels and a renderer that does not own intervention or calculation logic. See [ADR 0003](../wrapper/docs/adr/0003-use-react-svg-for-the-mvp-renderer.md).
