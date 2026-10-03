@@ -5,11 +5,14 @@ Port of Claude's `blackmath88/sponge-city` Data Charter solution into the integr
 Source branch: `feat/data-charter-map`  
 Source commit: `99ee7f669f49cf834bdd533afcc39c5057d1f5e0`
 
-The module keeps three things separate:
+The module keeps four things separate:
 
 - published evidence and official models;
 - explicitly inferred values with their methods;
-- restricted or missing inputs and the corresponding open-data ask.
+- information that exists but is gated by access, ownership or project purpose;
+- evidence that genuinely requires a site check, new measurement or further investigation.
+
+The access question is now explicit: **who is the gatekeeper, what unlocks the evidence, and which decision is blocked until then?** See [The data question: access, gatekeepers and true unknowns](docs/GATEKEEPERS.md).
 
 ## Run
 
