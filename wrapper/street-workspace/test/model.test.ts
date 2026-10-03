@@ -4,6 +4,7 @@ import { createDemoStreet } from "../src/scenario.ts";
 import { applyPlan } from "../src/interventions.ts";
 import { simulate, validateWorld } from "../src/simulation.ts";
 import { parseSiteHandoff } from "../src/site-context.ts";
+import { explainMechanisms } from "../src/knowledge.ts";
 const baseline = createDemoStreet();
 const storm = { depthMm: 30, durationMinutes: 30 };
 const close = (a: number, b: number) =>
@@ -134,6 +135,21 @@ test("site context does not become geometry or change simulation", () => {
   assert.deepEqual(linked.evidence.site, site);
   site.indicators.sources.push("later");
   assert.equal(linked.evidence.site!.indicators.sources.length, 1);
+});
+
+test("routing remains an explicit assumption and mechanisms name their drivers", () => {
+  assert.equal(baseline.evidence.routing.state, "assumed");
+  const isolated = explainMechanisms({ rainGarden: true, connected: false }, baseline);
+  assert.equal(isolated.find((claim) => claim.id === "store")!.active, true);
+  assert.equal(isolated.find((claim) => claim.id === "slow")!.active, false);
+  const connected = explainMechanisms(
+    { rainGarden: true, connected: true },
+    applyPlan(baseline, { rainGarden: true, connected: true }),
+  );
+  const slow = connected.find((claim) => claim.id === "slow")!;
+  assert.equal(slow.active, true);
+  assert.equal(slow.state, "illustrative");
+  assert.deepEqual(slow.drivers, ["runoff-outlet → garden", "garden-overflow → drain"]);
 });
 
 test("versioned site handoff is validated and preserves unicode", () => {

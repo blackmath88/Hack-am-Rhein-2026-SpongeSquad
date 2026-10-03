@@ -5,6 +5,7 @@ import { applyPlan } from "./interventions.ts";
 import { simulate } from "./simulation.ts";
 import { StreetDiagram } from "./StreetDiagram.tsx";
 import { parseSiteHandoff, scopingToolUrl } from "./site-context.ts";
+import { DATA_READINESS, DESIGN_SOURCES, explainMechanisms } from "./knowledge.ts";
 import type { InterventionPlan, SimulationSnapshot } from "./types.ts";
 import "./style.css";
 
@@ -78,6 +79,7 @@ function App() {
   const surface = activeWorld.surfaces.find((s) => s.zoneId === selected)!;
   const end = frames.at(-1)!;
   const baseEnd = baseFrames.at(-1)!;
+  const mechanisms = explainMechanisms(plan, world);
   const changePlan = (next: InterventionPlan) => {
     setPlan(next);
     setRunning(false);
@@ -111,7 +113,7 @@ function App() {
         <nav className="journey-progress" aria-label="Prototype journey">
           <a href={scopingToolUrl()}>1 · Find</a><i>→</i><strong>2 · Test</strong><i>→</i><span>3 · Explain</span>
         </nav>
-        <span className="tag">Illustrative scenario · v0.3</span>
+        <span className="tag">Illustrative scenario · v0.4</span>
       </header>
       <section className="intro">
         <div>
@@ -452,6 +454,47 @@ function App() {
               {JSON.stringify({ plan, world: activeWorld, snapshot }, null, 2)}
             </pre>
           </details>
+        </div>
+      </section>
+      <section className="evidence-layer" aria-labelledby="evidence-title">
+        <div className="evidence-heading">
+          <p className="eyebrow">FROM DEMO TO DECISION SUPPORT</p>
+          <h2 id="evidence-title">Show the mechanism. Label the evidence.</h2>
+          <p>
+            The diagram explains a connected system. Its exact volumes are demo
+            parameters; source-backed guidance and real Basel inputs stay visibly separate.
+          </p>
+        </div>
+        <div className="mechanism-grid">
+          {mechanisms.map((claim) => (
+            <article key={claim.id} className={claim.active ? "mechanism active" : "mechanism"}>
+              <div><strong>{claim.label}</strong><span className={`evidence-badge ${claim.state}`}>{claim.state}</span></div>
+              <p>{claim.explanation}</p>
+              <small>Driven by: {claim.drivers.join(" · ")}</small>
+            </article>
+          ))}
+        </div>
+        <div className="evidence-columns">
+          <div>
+            <h3>Routing evidence</h3>
+            <p><span className="evidence-badge illustrative">{world.evidence.routing.state}</span>{world.evidence.routing.note}</p>
+            <p className="evidence-rule">A selected candidate adds context only. It never creates pipes, gullies or flow paths.</p>
+          </div>
+          <div>
+            <h3>Curb-opening references</h3>
+            {DESIGN_SOURCES.map((source) => (
+              <a className="source-row" href={source.href} target="_blank" rel="noreferrer" key={source.href}>
+                <span>{source.label}<small>{source.geography}</small></span><b aria-hidden="true">↗</b>
+              </a>
+            ))}
+          </div>
+        </div>
+        <div className="data-readiness">
+          <div><p className="eyebrow">BASEL DATA ADAPTER / NEXT</p><h3>What can replace the demo inputs?</h3></div>
+          {DATA_READINESS.map((source) => {
+            const content = <><strong>{source.label}</strong><span>{source.detail}</span><i className={source.state}>{source.state}</i></>;
+            return "href" in source ? <a href={source.href} target="_blank" rel="noreferrer" key={source.label}>{content}</a> : <div key={source.label}>{content}</div>;
+          })}
         </div>
       </section>
       <footer>

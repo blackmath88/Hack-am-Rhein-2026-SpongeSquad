@@ -28,6 +28,8 @@ flowchart LR
 | Intervention | Working | Deterministic rain-garden and connection patch |
 | Simulation | Working | Minute-based mass-conserving illustrative water balance |
 | Explanation | Working | Accessible React/SVG renderer plus HTML controls and comparison |
+| Claim transparency | Working | Mechanism cards expose active state, evidence class and state drivers |
+| Data readiness | Working | Basel source prospects and the routing gap are visible in-product |
 | Verification | Working | Handoff, topology, immutability and conservation tests |
 | Real site calibration | Not claimed | Candidate values and street remain illustrative |
 
@@ -56,10 +58,9 @@ flowchart LR
 
 ## Next, in order
 
-1. Improve the explanatory sequence and visual polish without changing model ownership.
-2. Add a stable explainer/story destination when Bala and Mary expose their entry points.
-3. Replace provisional candidate fixtures with one prepared, provenance-bearing Basel dataset slice.
-4. Define `StreetScenarioSeed v1` for verified site geometry and assets.
-5. Add a second intervention only when it proves a new dependency or trade-off.
+1. Replace provisional candidate fixtures with one prepared, provenance-bearing Basel dataset slice.
+2. Define `StreetScenarioSeed v1` for verified site geometry and assets while preserving unknown routing.
+3. Add a stable explainer/story destination when Bala and Mary expose their entry points.
+4. Add a second intervention only when it proves a new dependency or trade-off.
 
 Do not add a backend, generic graph framework, calibrated engineering claims or a broad intervention catalogue before the vertical slice is demo-ready.

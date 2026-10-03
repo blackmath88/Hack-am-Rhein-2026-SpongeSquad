@@ -1,6 +1,6 @@
 # SpongeSquad architecture and build status
 
-See also [Product vision](PRODUCT_VISION.md), [MVP boundary](MVP.md) and the [architecture decision records](adr/README.md).
+See also [Product vision](PRODUCT_VISION.md), [MVP boundary](MVP.md), [PR 3 sparring review](PR3-SPARRING.md) and the [architecture decision records](adr/README.md).
 
 ## Product spine
 
@@ -54,7 +54,7 @@ flowchart TD
 | Scenario adapter | Translate an area into a street case | Versioned candidate-context handoff implemented on `integration/spatial-journey` | Replace the illustrative context only when verified street-scale inputs exist |
 | Street world | Describe what physically exists | Minimal typed street with zones, surfaces, assets, nodes and connections | Add verified site input only through a scenario-seed contract |
 | Intervention engine | Describe what changes | Reversible rain-garden and runoff-connection patch | Add measures only when they demonstrate a new dependency or trade-off |
-| Simulation | Explain directional effects | Pure deterministic water balance independent of rendering | Keep illustrative until a calibrated model and suitable inputs exist |
+| Simulation | Explain directional effects | Pure deterministic water balance plus driver-bearing mechanism claims, independent of rendering | Keep exact volumes illustrative until a calibrated model and suitable inputs exist |
 | Application shell | Navigation, evidence and controls | Site scoping → Street Lab transition, journey markers and candidate evidence panel implemented | Add presentation/explainer transition when that workstream exposes a stable entry point |
 | Renderer | Make the world state visible | Accessible React/SVG renderer consumes `WorldState` and `SimulationSnapshot` | Improve explanatory sequencing and visual polish without moving rules into the view |
 | Decision pathway | Explain who can act and how | Basel-specific research direction exists | Model ownership, actors, approvals, evidence gates and public influence |
