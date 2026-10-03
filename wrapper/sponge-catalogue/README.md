@@ -2,12 +2,13 @@
 
 What a sponge city can do in Basel, as data first; the sketch page comes after review.
 
-One column per action (14), three rows plus a band:
+One column per action (14), four rows plus a band:
 
 1. **Possible**: what the action is, for new developments or existing structures, and for which owner (private, public buildings, Allmend).
 2. **Basel today**: verified items with a status (in force, done, in progress, announced) or a visible `none-found`.
 3. **Potential**: where the impact lies, typed as observed, derived, assumed or unknown.
-4. **How to get there**: six levers. These are our proposals (`assumed`).
+4. **Missing data and the hack**: per action, the gaps that block a decision, each with an access state (from `../data-charter-map/docs/GATEKEEPERS.md`), gatekeeper, the decision it blocks, and hacks (derive, digitise, annotate, observe, request, site-test, design-around). Each hack names the prototype it feeds and what it cannot establish.
+5. **How to get there**: six levers. These are our proposals (`assumed`).
 
 | File | Role |
 |---|---|

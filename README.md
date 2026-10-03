@@ -40,7 +40,8 @@ Open **http://localhost:4173/**. The command installs any missing module depende
 | `/team/` | Workstreams, weekend plan, Observatory status, records, how to contribute | `integration/team/`, `team/` |
 | `/frontend/`, `/data/`, `/explainer-videos-context/`, `/presentation-story/`, `/wrapper/` | One page per workstream | `<folder>/index.html` |
 | `/basel-site-scoping-tool/`, `/wrapper/street-workspace/`, `/wrapper/data-charter-map/`, `/wrapper/prototypes/sponge-street/` | The built modules, full screen | their folders |
-| `/view/?m=sponge-street`, `/view/?m=data-charter` | Standalone modules shown with the site header | `integration/view/` |
+| `/view/?m=street-xray`, `/view/?m=rain-walk`, `/view/?m=sponge-street`, `/view/?m=data-charter` | Standalone modules shown with the site header | `integration/view/` |
+| `/wrapper/street-xray/`, `/wrapper/street-workspace/rain-walk/` | Street X-Ray evidence gate and Rain Walk campaign, full screen | `wrapper/street-xray/`, `wrapper/street-workspace/public/rain-walk/` |
 
 ## Where to change things
 
@@ -69,4 +70,5 @@ The research library, resource catalogue and weekend plan come from the team's e
 - Each app keeps its own `package.json` and lockfile. The root has no dependencies.
 - Apps are built with a relative base (`./`) instead of the absolute bases in their own Vite configs, so the site works under any subpath. Each app's own `npm run dev` is unchanged.
 - The Street Lab is built with Rollup tree-shaking off. Rollup 4.64, pinned by its lockfile, otherwise takes several minutes on this app; the bundle grows by about 0.1 %.
+- Street X-Ray uses absolute links to `/` for its brand link, so it expects the site at the domain root; everything else works under a subpath.
 - The Street Lab's own `npm test` script needs Node 23.6 or newer. `npm test` at the root picks the matching flag for Node 22.

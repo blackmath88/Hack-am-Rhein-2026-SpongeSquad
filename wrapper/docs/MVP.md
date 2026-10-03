@@ -4,20 +4,21 @@
 
 Deliver one complete, understandable journey before adding breadth:
 
-> Select one provisional Basel candidate, carry its evidence context into an illustrative street, apply and connect one rain garden, run one storm and explain what changed.
+> Select one provisional Basel candidate, inspect what is known and blocked, carry only its bounded context into an illustrative street, apply and connect one rain garden, run one storm and explain what changed.
 
 ## Implemented vertical slice
 
 ```mermaid
 flowchart LR
     A["Candidate map"]
-    B["Versioned handoff"]
-    C["Typed street world"]
-    D["Rain-garden patch"]
-    E["Water simulation"]
-    F["React/SVG explanation"]
+    B["Street X-Ray"]
+    C["Versioned handoff"]
+    D["Typed street world"]
+    E["Rain-garden patch"]
+    F["Water simulation"]
+    G["React/SVG explanation"]
 
-    A --> B --> C --> D --> E --> F
+    A --> B --> C --> D --> E --> F --> G
 ```
 
 | Capability | Status | Evidence |
@@ -25,6 +26,7 @@ flowchart LR
 | Candidate selection | Working | Andy's map snapshot under `data/site-scoping-tool` |
 | City-wide data gaps | Working | Data Charter distinguishes open, partial, restricted and missing inputs, with inferred layers kept separate |
 | Evidence-aware handoff | Working | `candidate-site-context.v1.schema.json` and runtime validation |
+| Street evidence gate | Working | Three-layer Street X-Ray, typed claims, decision blockers and Evidence Passport |
 | Example street | Working | Typed zones, surfaces, assets, nodes and connections |
 | Intervention | Working | Deterministic rain-garden and connection patch |
 | Simulation | Working | Minute-based mass-conserving illustrative water balance |

@@ -57,7 +57,7 @@ function buildModules() {
     } else if (mod.build === 'copy') {
       rmSync(output, { recursive: true, force: true });
       mkdirSync(output, { recursive: true });
-      for (const file of mod.files) cpSync(join(source, file), join(output, file));
+      for (const file of mod.files) cpSync(join(source, file), join(output, file), { recursive: true });
     } else {
       throw new Error(`Unknown build type for ${mod.id}`);
     }

@@ -2,7 +2,7 @@
   "schema_version": "sponge-catalogue/0.1",
   "updated": "2026-10-03",
   "title": "What a sponge city can do: Basel",
-  "purpose": "One column per action. Row 1: what is possible, for whom. Row 2: what Basel is already doing (verified, or visibly empty). Row 3: where the potential is, with numbers from open data. Row 4: how to get there (our proposals).",
+  "purpose": "One column per action. Row 1: what is possible, for whom. Row 2: what Basel is already doing (verified, or visibly empty). Row 3: where the potential is, with numbers from open data. Row 4: what data is missing, who holds it and the hack that fills or works around the gap. Band: how to get there (our proposals).",
   "segments": {
     "context": {
       "new": "New development or full street rebuild",
@@ -115,6 +115,34 @@
     "bern36": {
       "label": "Stadt Bern: Arbeitshilfe Wurzelraum für Strassenbäume",
       "url": "https://www.bern.ch/themen/planen-und-bauen/bern-baut/arbeitshilfen/wurzelraum-fuer-baeume-im-strassenraum/anhang/arbeitshilfe-wurzelraum-fur-strassenbaume-version.pdf"
+    },
+    "leitungskataster": {
+      "label": "Grundbuch- und Vermessungsamt Basel-Stadt: Leitungskataster",
+      "url": "https://www.bs.ch/bvd/grundbuch-und-vermessungsamt/leitungskataster"
+    },
+    "gep": {
+      "label": "Amt für Umwelt und Energie: Genereller Entwässerungsplan (GEP)",
+      "url": "https://www.bs.ch/wsu/aue/abteilung-gewaesser-und-boden/genereller-entwaesserungsplan"
+    },
+    "gep-map": {
+      "label": "GEP Stadt Basel: Karte Entwässerungsarten (PDF, 18 Sept 2012, 1:20,000)",
+      "url": "https://media.bs.ch/original_file/6c906a4607e4c2c068f631e6bd27aeac09a977e9/karte-genereller-entwaesserungsplan-entwaesserungsarten-bs-0.pdf"
+    },
+    "overland": {
+      "label": "BAFU Gefährdungskarte Oberflächenabfluss",
+      "url": "https://map.geo.admin.ch/?layers=ch.bafu.gefaehrdungskarte-oberflaechenabfluss"
+    },
+    "solar": {
+      "label": "data.bs.ch 100382 Solarkataster",
+      "url": "https://data.bs.ch/explore/dataset/100382/"
+    },
+    "canopy": {
+      "label": "data.bs.ch 100357 Baumkronenbedeckung",
+      "url": "https://data.bs.ch/explore/dataset/100357/"
+    },
+    "protection": {
+      "label": "data.bs.ch 100292 Grundwasserschutz",
+      "url": "https://data.bs.ch/explore/dataset/100292/"
     }
   },
   "city_findings": [
@@ -217,6 +245,71 @@
           "text": "137.7 km of traffic-suitable streets lie in heat areas.",
           "finding": "suitable-in-heat"
         }
+      ],
+      "gaps": [
+        {
+          "indicator": "utilities",
+          "question": "Is there a line under the footprint?",
+          "access": "restricted",
+          "access_basis": "sourced",
+          "gatekeepers": [
+            "leitungskataster",
+            "operators"
+          ],
+          "blocks": "Whether digging here can go to detailed design",
+          "hacks": [
+            {
+              "kind": "request",
+              "text": "Order a Leitungskataster extract for the footprint plus a 5 m buffer, stated as early planning.",
+              "cannot": "Depths and clearances; only the operators give depths.",
+              "prototype": "gap-investigator"
+            },
+            {
+              "kind": "design-around",
+              "text": "Keep a no-dig and a shallow variant ready, so a conflict changes the family rather than ending the idea.",
+              "cannot": "Whether the deep variant is possible.",
+              "prototype": "constraint-simulator"
+            }
+          ]
+        },
+        {
+          "indicator": "soil",
+          "question": "What lies under the asphalt?",
+          "access": "site-check",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "field"
+          ],
+          "blocks": "Excavation cost and the depth of new soil",
+          "hacks": [
+            {
+              "kind": "site-test",
+              "text": "Core the pavement during works that open the street anyway.",
+              "prototype": "gap-investigator"
+            }
+          ]
+        },
+        {
+          "indicator": "works-calendar",
+          "question": "Will this street be dug up soon anyway?",
+          "access": "unknown",
+          "access_basis": "assumed",
+          "gatekeepers": [],
+          "blocks": "Whether a sponge rebuild can ride on planned works",
+          "hacks": [
+            {
+              "kind": "derive",
+              "text": "Use active and upcoming permits as a screening signal (231 near suitable streets in heat areas).",
+              "cannot": "A coordinated works plan; permits are not one.",
+              "prototype": "overlay"
+            },
+            {
+              "kind": "request",
+              "text": "Ask the canton who holds the street's multi-year works horizon, then ask them.",
+              "prototype": "gap-investigator"
+            }
+          ]
+        }
       ]
     },
     {
@@ -265,6 +358,68 @@
           "evidence": "observed",
           "text": "The canton itself sees the greatest potential on private open spaces.",
           "finding": "official-private-potential"
+        }
+      ],
+      "gaps": [
+        {
+          "indicator": "sealing-fraction",
+          "question": "Which courtyards are most sealed?",
+          "access": "open",
+          "access_basis": "sourced",
+          "gatekeepers": [],
+          "blocks": "Whom to approach first",
+          "hacks": [
+            {
+              "kind": "derive",
+              "text": "Sealed share per parcel from land cover and parcels, as in scripts/compute_potential.py.",
+              "cannot": "Ownership type, use or willingness; parcels carry no owner field.",
+              "prototype": "overlay"
+            }
+          ],
+          "sources": [
+            "landcover",
+            "parcels"
+          ]
+        },
+        {
+          "question": "Who owns the parcel and would they act?",
+          "access": "unknown",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "owner"
+          ],
+          "blocks": "Any private unsealing",
+          "hacks": [
+            {
+              "kind": "request",
+              "text": "Route owners of large sealed courtyards in heat areas to the canton's advice and the 2026 fund.",
+              "cannot": "Whether they agree.",
+              "prototype": "gap-investigator"
+            }
+          ]
+        },
+        {
+          "indicator": "infiltration",
+          "question": "Does water soak away here?",
+          "access": "site-check",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "field"
+          ],
+          "blocks": "Whether infiltration is a credible mechanism at this footprint",
+          "hacks": [
+            {
+              "kind": "derive",
+              "text": "Screen with open layers: groundwater protection zones (infiltration bans), contaminated sites and the nearest groundwater station.",
+              "cannot": "Local permeability.",
+              "prototype": "overlay"
+            },
+            {
+              "kind": "site-test",
+              "text": "Commission an infiltration test at the footprint.",
+              "prototype": "gap-investigator"
+            }
+          ]
         }
       ]
     },
@@ -328,6 +483,56 @@
             "bern36"
           ]
         }
+      ],
+      "gaps": [
+        {
+          "indicator": "tree-pits",
+          "question": "How big is each tree's pit and root space?",
+          "access": "unknown",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "stadtgaertnerei"
+          ],
+          "blocks": "Which trees most need more root space",
+          "hacks": [
+            {
+              "kind": "annotate",
+              "text": "Measure the visible pit opening on the orthophoto or with a tape on site.",
+              "cannot": "Root volume below the surface.",
+              "prototype": "annotation"
+            },
+            {
+              "kind": "request",
+              "text": "Ask Stadtgärtnerei whether pit records exist for street trees.",
+              "prototype": "gap-investigator"
+            }
+          ]
+        },
+        {
+          "indicator": "utilities",
+          "question": "Is there a line under the footprint?",
+          "access": "restricted",
+          "access_basis": "sourced",
+          "gatekeepers": [
+            "leitungskataster",
+            "operators"
+          ],
+          "blocks": "Whether digging here can go to detailed design",
+          "hacks": [
+            {
+              "kind": "request",
+              "text": "Order a Leitungskataster extract for the footprint plus a 5 m buffer, stated as early planning.",
+              "cannot": "Depths and clearances; only the operators give depths.",
+              "prototype": "gap-investigator"
+            },
+            {
+              "kind": "design-around",
+              "text": "Keep a no-dig and a shallow variant ready, so a conflict changes the family rather than ending the idea.",
+              "cannot": "Whether the deep variant is possible.",
+              "prototype": "constraint-simulator"
+            }
+          ]
+        }
       ]
     },
     {
@@ -371,6 +576,69 @@
           "text": "231 active or upcoming works lie near traffic-suitable streets in heat areas: moments when the street is open anyway.",
           "finding": "works-near-suitable"
         }
+      ],
+      "gaps": [
+        {
+          "indicator": "utilities",
+          "question": "Is there a line under the footprint?",
+          "access": "restricted",
+          "access_basis": "sourced",
+          "gatekeepers": [
+            "leitungskataster",
+            "operators"
+          ],
+          "blocks": "Whether digging here can go to detailed design",
+          "hacks": [
+            {
+              "kind": "request",
+              "text": "Order a Leitungskataster extract for the footprint plus a 5 m buffer, stated as early planning.",
+              "cannot": "Depths and clearances; only the operators give depths.",
+              "prototype": "gap-investigator"
+            },
+            {
+              "kind": "design-around",
+              "text": "Keep a no-dig and a shallow variant ready, so a conflict changes the family rather than ending the idea.",
+              "cannot": "Whether the deep variant is possible.",
+              "prototype": "constraint-simulator"
+            }
+          ]
+        },
+        {
+          "indicator": "utilities",
+          "question": "How deep are the lines?",
+          "access": "operator-held",
+          "access_basis": "sourced",
+          "gatekeepers": [
+            "operators"
+          ],
+          "blocks": "How deep a trench or pit may go",
+          "hacks": [
+            {
+              "kind": "request",
+              "text": "Ask the operators named on the extract for depths in the footprint.",
+              "cannot": "Anything outside the asked footprint.",
+              "prototype": "gap-investigator"
+            }
+          ]
+        },
+        {
+          "indicator": "sewer-network",
+          "question": "Can the sewer take an overflow here?",
+          "access": "restricted",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "tba-aue"
+          ],
+          "blocks": "Whether the design may rely on a sewer overflow",
+          "hacks": [
+            {
+              "kind": "design-around",
+              "text": "Design retention-first with a surface overflow route, so no capacity is promised.",
+              "cannot": "Network capacity.",
+              "prototype": "constraint-simulator"
+            }
+          ]
+        }
       ]
     },
     {
@@ -412,6 +680,75 @@
           ],
           "claim": "groundwater-depth-at-stations"
         }
+      ],
+      "gaps": [
+        {
+          "indicator": "infiltration",
+          "question": "Does water soak away here?",
+          "access": "site-check",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "field"
+          ],
+          "blocks": "Whether infiltration is a credible mechanism at this footprint",
+          "hacks": [
+            {
+              "kind": "derive",
+              "text": "Screen with open layers: groundwater protection zones (infiltration bans), contaminated sites and the nearest groundwater station.",
+              "cannot": "Local permeability.",
+              "prototype": "overlay"
+            },
+            {
+              "kind": "site-test",
+              "text": "Commission an infiltration test at the footprint.",
+              "prototype": "gap-investigator"
+            }
+          ]
+        },
+        {
+          "indicator": "sewer-network",
+          "question": "Which drainage system serves this area, and where may water go?",
+          "access": "open",
+          "access_basis": "sourced",
+          "gatekeepers": [
+            "tba-aue"
+          ],
+          "blocks": "Whether to infiltrate, retain or connect an overflow",
+          "hacks": [
+            {
+              "kind": "digitise",
+              "text": "Trace the published 2012 GEP map of drainage systems (combined, combined with infiltration duty, modified separate) and its infiltration bans in protection zones.",
+              "cannot": "Pipe routes, connections or capacity; the map is 1:20,000 and from 2012.",
+              "prototype": "overlay"
+            },
+            {
+              "kind": "request",
+              "text": "Ask Tiefbauamt where overflow from the footprint may discharge.",
+              "prototype": "gap-investigator"
+            }
+          ],
+          "sources": [
+            "gep-map"
+          ]
+        },
+        {
+          "indicator": "sewer-network",
+          "question": "Can the sewer take an overflow here?",
+          "access": "restricted",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "tba-aue"
+          ],
+          "blocks": "Whether the design may rely on a sewer overflow",
+          "hacks": [
+            {
+              "kind": "design-around",
+              "text": "Design retention-first with a surface overflow route, so no capacity is promised.",
+              "cannot": "Network capacity.",
+              "prototype": "constraint-simulator"
+            }
+          ]
+        }
       ]
     },
     {
@@ -449,6 +786,83 @@
         {
           "evidence": "unknown",
           "text": "Where each road drains today is not open data (no sewer or gully data found)."
+        }
+      ],
+      "gaps": [
+        {
+          "indicator": "gullies",
+          "question": "Where are the gullies and kerb inlets?",
+          "access": "restricted",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "leitungskataster",
+            "public"
+          ],
+          "blocks": "Where road water can be led into green",
+          "hacks": [
+            {
+              "kind": "annotate",
+              "text": "Mark visible gullies on the orthophoto and own photos as reviewed candidates.",
+              "cannot": "Connections, owner or condition.",
+              "prototype": "annotation"
+            },
+            {
+              "kind": "request",
+              "text": "Check whether the Leitungskataster extract for the footprint shows inlets (it covers lines and their structures).",
+              "prototype": "gap-investigator"
+            },
+            {
+              "kind": "observe",
+              "text": "Rain Walk: note flow direction at the kerb and where water ponds.",
+              "cannot": "Network behaviour.",
+              "prototype": "rain-walk"
+            }
+          ]
+        },
+        {
+          "indicator": "overland-flow",
+          "question": "Which way does surface water run?",
+          "access": "open",
+          "access_basis": "sourced",
+          "gatekeepers": [],
+          "blocks": "Which kerb gets the inlet",
+          "hacks": [
+            {
+              "kind": "derive",
+              "text": "Read the federal overland-flow hazard map at the street.",
+              "cannot": "Kerb-scale flow; the map is modelled and simplified.",
+              "prototype": "overlay"
+            }
+          ],
+          "sources": [
+            "overland"
+          ]
+        },
+        {
+          "indicator": "sewer-network",
+          "question": "Which drainage system serves this area, and where may water go?",
+          "access": "open",
+          "access_basis": "sourced",
+          "gatekeepers": [
+            "tba-aue"
+          ],
+          "blocks": "Whether to infiltrate, retain or connect an overflow",
+          "hacks": [
+            {
+              "kind": "digitise",
+              "text": "Trace the published 2012 GEP map of drainage systems (combined, combined with infiltration duty, modified separate) and its infiltration bans in protection zones.",
+              "cannot": "Pipe routes, connections or capacity; the map is 1:20,000 and from 2012.",
+              "prototype": "overlay"
+            },
+            {
+              "kind": "request",
+              "text": "Ask Tiefbauamt where overflow from the footprint may discharge.",
+              "prototype": "gap-investigator"
+            }
+          ],
+          "sources": [
+            "gep-map"
+          ]
         }
       ]
     },
@@ -500,6 +914,44 @@
           "evidence": "unknown",
           "text": "Bay geometry is not open, so the paved parking area cannot be measured yet."
         }
+      ],
+      "gaps": [
+        {
+          "indicator": "parking",
+          "question": "Where exactly are the parking bays?",
+          "access": "open",
+          "access_basis": "sourced",
+          "gatekeepers": [],
+          "blocks": "How much paved parking could become permeable",
+          "hacks": [
+            {
+              "kind": "annotate",
+              "text": "Trace the bays of the demo street on the orthophoto; check against the open counts per street section.",
+              "cannot": "Bay areas citywide.",
+              "prototype": "annotation"
+            }
+          ],
+          "sources": [
+            "parkingcounts"
+          ]
+        },
+        {
+          "indicator": "soil",
+          "question": "What lies under the asphalt?",
+          "access": "site-check",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "field"
+          ],
+          "blocks": "Excavation cost and the depth of new soil",
+          "hacks": [
+            {
+              "kind": "site-test",
+              "text": "Core the pavement during works that open the street anyway.",
+              "prototype": "gap-investigator"
+            }
+          ]
+        }
       ]
     },
     {
@@ -548,6 +1000,44 @@
           "evidence": "unknown",
           "text": "Which roofs are flat, already green or strong enough is not open data."
         }
+      ],
+      "gaps": [
+        {
+          "indicator": "roofs",
+          "question": "Which roofs are flat?",
+          "access": "open",
+          "access_basis": "sourced",
+          "gatekeepers": [],
+          "blocks": "Which buildings to approach",
+          "hacks": [
+            {
+              "kind": "derive",
+              "text": "Screen roof surfaces in the solar register for low pitch (fields to be checked).",
+              "cannot": "Existing greening or load capacity.",
+              "prototype": "overlay"
+            }
+          ],
+          "sources": [
+            "solar"
+          ]
+        },
+        {
+          "indicator": "roofs",
+          "question": "Can the roof carry soil and water?",
+          "access": "project-held",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "owner"
+          ],
+          "blocks": "Any retrofit",
+          "hacks": [
+            {
+              "kind": "site-test",
+              "text": "Structural check by the owner's engineer.",
+              "prototype": "gap-investigator"
+            }
+          ]
+        }
       ]
     },
     {
@@ -586,6 +1076,74 @@
           "evidence": "unknown",
           "text": "How roofs drain today (sewer, infiltration) is not open data."
         }
+      ],
+      "gaps": [
+        {
+          "question": "Where does this roof drain today?",
+          "access": "project-held",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "owner",
+            "tba-aue"
+          ],
+          "blocks": "Whether a downpipe can be led into green",
+          "hacks": [
+            {
+              "kind": "observe",
+              "text": "Rain Walk: note visible downpipes and where they enter the ground.",
+              "cannot": "The connection underground.",
+              "prototype": "rain-walk"
+            },
+            {
+              "kind": "request",
+              "text": "Owner checks the house-drainage plans of the property.",
+              "prototype": "gap-investigator"
+            }
+          ]
+        },
+        {
+          "question": "Does disconnection lower the rainwater fee?",
+          "access": "unknown",
+          "access_basis": "assumed",
+          "gatekeepers": [],
+          "blocks": "The owner's financial case",
+          "hacks": [
+            {
+              "kind": "request",
+              "text": "Ask the office named on the wastewater-fee page whether disconnected sealed area is exempt.",
+              "prototype": "gap-investigator"
+            }
+          ],
+          "sources": [
+            "rainfee"
+          ]
+        },
+        {
+          "indicator": "sewer-network",
+          "question": "Which drainage system serves this area, and where may water go?",
+          "access": "open",
+          "access_basis": "sourced",
+          "gatekeepers": [
+            "tba-aue"
+          ],
+          "blocks": "Whether to infiltrate, retain or connect an overflow",
+          "hacks": [
+            {
+              "kind": "digitise",
+              "text": "Trace the published 2012 GEP map of drainage systems (combined, combined with infiltration duty, modified separate) and its infiltration bans in protection zones.",
+              "cannot": "Pipe routes, connections or capacity; the map is 1:20,000 and from 2012.",
+              "prototype": "overlay"
+            },
+            {
+              "kind": "request",
+              "text": "Ask Tiefbauamt where overflow from the footprint may discharge.",
+              "prototype": "gap-investigator"
+            }
+          ],
+          "sources": [
+            "gep-map"
+          ]
+        }
       ]
     },
     {
@@ -615,6 +1173,26 @@
         {
           "evidence": "assumed",
           "text": "≈ Small for flooding, useful for watering young trees and gardens in dry summers."
+        }
+      ],
+      "gaps": [
+        {
+          "indicator": "measures-registry",
+          "question": "How many barrels and cisterns exist?",
+          "access": "unknown",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "public"
+          ],
+          "blocks": "Whether this matters at street scale",
+          "hacks": [
+            {
+              "kind": "observe",
+              "text": "Count visible barrels on a Rain Walk.",
+              "cannot": "Volume or use.",
+              "prototype": "rain-walk"
+            }
+          ]
         }
       ]
     },
@@ -655,6 +1233,53 @@
           "evidence": "unknown",
           "text": "Where Basel's streets pond in cloudbursts is not open (only a modelled national overland-flow map)."
         }
+      ],
+      "gaps": [
+        {
+          "indicator": "overland-flow",
+          "question": "Where do streets pond in cloudbursts?",
+          "access": "open",
+          "access_basis": "sourced",
+          "gatekeepers": [
+            "public"
+          ],
+          "blocks": "Where storage would intercept water",
+          "hacks": [
+            {
+              "kind": "derive",
+              "text": "Read the federal overland-flow hazard map for low points.",
+              "cannot": "Observed flooding; no open event record was found.",
+              "prototype": "overlay"
+            },
+            {
+              "kind": "observe",
+              "text": "Rain Walk after heavy rain: photograph ponding with time and place.",
+              "cannot": "Depth or frequency.",
+              "prototype": "rain-walk"
+            }
+          ],
+          "sources": [
+            "overland"
+          ]
+        },
+        {
+          "indicator": "sewer-network",
+          "question": "Can the sewer take an overflow here?",
+          "access": "restricted",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "tba-aue"
+          ],
+          "blocks": "Whether the design may rely on a sewer overflow",
+          "hacks": [
+            {
+              "kind": "design-around",
+              "text": "Design retention-first with a surface overflow route, so no capacity is promised.",
+              "cannot": "Network capacity.",
+              "prototype": "constraint-simulator"
+            }
+          ]
+        }
       ]
     },
     {
@@ -685,6 +1310,26 @@
           "finding": null,
           "sources": [
             "tudelft"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "indicator": "gullies",
+          "question": "Which gullies are blocked?",
+          "access": "unknown",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "public"
+          ],
+          "blocks": "Where cleaning comes first",
+          "hacks": [
+            {
+              "kind": "observe",
+              "text": "Rain Walk: report blocked or covered gullies.",
+              "cannot": "The cleaning schedule.",
+              "prototype": "rain-walk"
+            }
           ]
         }
       ]
@@ -721,6 +1366,54 @@
           "evidence": "derived",
           "text": "231 of 334 active or upcoming permits lie near traffic-suitable streets in heat areas.",
           "finding": "works-near-suitable"
+        }
+      ],
+      "gaps": [
+        {
+          "indicator": "works-calendar",
+          "question": "Will this street be dug up soon anyway?",
+          "access": "unknown",
+          "access_basis": "assumed",
+          "gatekeepers": [],
+          "blocks": "Whether a sponge rebuild can ride on planned works",
+          "hacks": [
+            {
+              "kind": "derive",
+              "text": "Use active and upcoming permits as a screening signal (231 near suitable streets in heat areas).",
+              "cannot": "A coordinated works plan; permits are not one.",
+              "prototype": "overlay"
+            },
+            {
+              "kind": "request",
+              "text": "Ask the canton who holds the street's multi-year works horizon, then ask them.",
+              "prototype": "gap-investigator"
+            }
+          ]
+        },
+        {
+          "indicator": "utilities",
+          "question": "Is there a line under the footprint?",
+          "access": "restricted",
+          "access_basis": "sourced",
+          "gatekeepers": [
+            "leitungskataster",
+            "operators"
+          ],
+          "blocks": "Whether digging here can go to detailed design",
+          "hacks": [
+            {
+              "kind": "request",
+              "text": "Order a Leitungskataster extract for the footprint plus a 5 m buffer, stated as early planning.",
+              "cannot": "Depths and clearances; only the operators give depths.",
+              "prototype": "gap-investigator"
+            },
+            {
+              "kind": "design-around",
+              "text": "Keep a no-dig and a shallow variant ready, so a conflict changes the family rather than ending the idea.",
+              "cannot": "Whether the deep variant is possible.",
+              "prototype": "constraint-simulator"
+            }
+          ]
         }
       ]
     },
@@ -767,6 +1460,54 @@
           "evidence": "assumed",
           "text": "≈ The cheapest moment: water paths and soil volume cost least before buildings and pipes are fixed."
         }
+      ],
+      "gaps": [
+        {
+          "indicator": "sewer-network",
+          "question": "Which drainage system serves this area, and where may water go?",
+          "access": "open",
+          "access_basis": "sourced",
+          "gatekeepers": [
+            "tba-aue"
+          ],
+          "blocks": "Whether to infiltrate, retain or connect an overflow",
+          "hacks": [
+            {
+              "kind": "digitise",
+              "text": "Trace the published 2012 GEP map of drainage systems (combined, combined with infiltration duty, modified separate) and its infiltration bans in protection zones.",
+              "cannot": "Pipe routes, connections or capacity; the map is 1:20,000 and from 2012.",
+              "prototype": "overlay"
+            },
+            {
+              "kind": "request",
+              "text": "Ask Tiefbauamt where overflow from the footprint may discharge.",
+              "prototype": "gap-investigator"
+            }
+          ],
+          "sources": [
+            "gep-map"
+          ]
+        },
+        {
+          "indicator": "measures-registry",
+          "question": "How do built sponge measures perform?",
+          "access": "project-held",
+          "access_basis": "assumed",
+          "gatekeepers": [
+            "tba-aue"
+          ],
+          "blocks": "Evidence that a design works after construction",
+          "hacks": [
+            {
+              "kind": "request",
+              "text": "Ask for the Volta Nord pilot monitoring results once published.",
+              "prototype": "gap-investigator"
+            }
+          ],
+          "sources": [
+            "voltanord"
+          ]
+        }
       ]
     }
   ],
@@ -807,5 +1548,73 @@
       "text": "Invite residents to water young trees and report blocked gullies; advise owners of large courtyards directly.",
       "evidence": "assumed"
     }
-  ]
+  ],
+  "access_states": {
+    "open": "Directly available and reusable from an official or public source",
+    "registered": "Available through a login or bounded self-service request",
+    "restricted": "Exists, but released only for a legitimate area, project or purpose",
+    "operator-held": "The infrastructure operator holds the authoritative detail",
+    "project-held": "Held within a private project, property or professional workflow",
+    "site-check": "A decision-quality value must be inspected, sampled, surveyed or tested locally",
+    "unknown": "We do not yet know whether usable evidence exists or who holds it"
+  },
+  "access_note": "Access states follow wrapper/data-charter-map/docs/GATEKEEPERS.md. 'sourced' means an official page states the access rule; 'assumed' is our expectation.",
+  "gatekeepers": {
+    "leitungskataster": {
+      "name": "Leitungskataster (Grundbuch- und Vermessungsamt)",
+      "role": "Overview of all supply and disposal lines in public space; released case by case as B-Daten, e.g. for planning and building projects; no depths.",
+      "sources": [
+        "leitungskataster"
+      ]
+    },
+    "operators": {
+      "name": "Network operators (Werke)",
+      "role": "Only the operators give depths; they must be contacted before digging.",
+      "sources": [
+        "leitungskataster"
+      ]
+    },
+    "tba-aue": {
+      "name": "Tiefbauamt and Amt für Umwelt und Energie",
+      "role": "Review the drainage plan (GEP), the basis for property-drainage permits and municipal rainwater management.",
+      "sources": [
+        "gep"
+      ]
+    },
+    "stadtgaertnerei": {
+      "name": "Stadtgärtnerei",
+      "role": "Maintains the city's trees and the tree cadastre.",
+      "sources": [
+        "trees"
+      ]
+    },
+    "owner": {
+      "name": "Property owner and their engineer",
+      "role": "Hold building, roof and house-drainage records."
+    },
+    "field": {
+      "name": "Qualified field team",
+      "role": "Survey, coring, infiltration test, arborist review."
+    },
+    "public": {
+      "name": "Residents and team",
+      "role": "Visible, time-stamped observations; never asset records."
+    }
+  },
+  "hack_kinds": {
+    "derive": "Compute from open inputs; result is derived and named with its method",
+    "digitise": "Trace a published map or document into data; keeps its date and scale",
+    "annotate": "People mark visible features on open imagery or own photos; candidates, reviewed",
+    "observe": "Structured site observation (Rain Walk); time-stamped, reviewable",
+    "request": "Ask the gatekeeper with a bounded, polygon-specific question",
+    "site-test": "Commission the measurement that only exists on site",
+    "design-around": "Choose an intervention that does not depend on the missing fact"
+  },
+  "prototypes": {
+    "gap-investigator": "Gap → gatekeeper → request brief",
+    "constraint-simulator": "Toggle a gatekeeper's answer; see the intervention family change",
+    "annotation": "Manual marking of visible features on the orthophoto or photos",
+    "rain-walk": "Five-minute on-site checklist, kept on the phone",
+    "overlay": "Open or digitised layer added to the map or street profile"
+  }
 }

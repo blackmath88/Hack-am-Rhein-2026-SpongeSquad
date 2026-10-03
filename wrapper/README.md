@@ -7,6 +7,7 @@ This folder contains the complete latest state from the fork's `feature/street-l
 - `docs/ARCHITECTURE.md` — product spine, module boundaries and integration contract;
 - `docs/TODO-DATA-GAP-TO-DECISION.md` — broader evidence-profile and gap-investigator direction, deliberately kept outside tonight's MVP;
 - `data-charter-map/` — city-wide evidence charter, gap-filling research and real/inferred/missing Basel map;
+- `street-xray/` — one-street evidence gate, verification rehearsal and printable Evidence Passport;
 - `prototypes/sponge-street/` — original standalone explainer;
 - `street-workspace/` — typed React, TypeScript and SVG Street Lab.
 
@@ -19,6 +20,7 @@ Andy's hot-spot finder remains unchanged at `../basel-site-scoping-tool/`. The i
 ```text
 Data Charter / inference claims
 → CandidateArea
+→ Street X-Ray / Evidence Passport
 → example StreetScenarioSeed
 → Street Lab
 → explanation and comparison

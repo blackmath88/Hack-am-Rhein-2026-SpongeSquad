@@ -11,5 +11,7 @@ ADRs capture decisions that should survive the hackathon conversation and explai
 | [0005](0005-treat-routing-as-evidence.md) | Treat routing as evidence and preserve unknowns | Accepted |
 | [0006](0006-bound-computational-gap-filling.md) | Bound computational gap filling by evidence class and permitted use | Accepted |
 | [0007](0007-data-charter-inferences-are-typed-claims.md) | Data Charter inferences are typed claims; the site handoff stays closed to them | Accepted |
+| [0008](0008-street-xray-is-an-evidence-gate.md) | Street X-Ray is an evidence gate, not a recommendation engine | Accepted |
+| [0009](0009-computed-street-profile-and-assessment-engine.md) | Computed street profile and deterministic assessment engine for Street X-Ray | Accepted |
 
 Create a new ADR when a decision changes system boundaries, data authority, claim level, runtime topology or a major technology choice. Supersede old decisions instead of rewriting their history.

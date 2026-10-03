@@ -6,6 +6,8 @@
   if (!S) return;
   var MODULES = {
     'sponge-street': { path: 'wrapper/prototypes/sponge-street/', title: 'Sponge Street explainer · Achim · early prototype', note: 'Standalone explainer: seven intervention tracks, twelve guided states. Water shares and the heat indicator are scenario values, not measured Basel performance.' },
+    'street-xray': { path: 'wrapper/street-xray/', title: 'Street X-Ray · evidence gate', note: 'One illustrative study point near the Klybeck candidate. The street segment, candidate strip and intervention are illustrative; known context, hypotheses and decisive unknowns are kept apart.' },
+    'rain-walk': { path: 'wrapper/street-workspace/rain-walk/', title: 'Rain Walk · street evidence campaign', note: 'Demo campaign on a synthetic 120 m segment. Observations stay in this browser; review is by a local user, not an authority. No observation changes geometry or simulation.' },
     'data-charter': { path: 'wrapper/data-charter-map/', title: 'Data Charter map · Achim', note: 'City-wide evidence: published, inferred and missing layers for Basel. Inferred layers are not validated and may only explain or screen. Map layers need internet access.' }
   };
   var key = new URLSearchParams(window.location.search).get('m');
