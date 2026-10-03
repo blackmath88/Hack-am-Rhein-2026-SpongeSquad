@@ -350,14 +350,18 @@
       ],
       "basel": {
         "status": "restricted",
-        "detail": "Not found in the reviewed open Basel and federal sources. Only the wastewater-plant catchment (13 polygons) is open.",
+        "detail": "Network data not found in the reviewed open Basel and federal sources. Open: the wastewater-plant catchment (13 polygons). Published, not as data: the 2012 GEP map of drainage systems (combined, combined with infiltration duty, modified separate) and infiltration bans in protection zones (PDF, 1:20,000).",
         "sources": [
           {
             "label": "data.bs.ch 100336 Einzugsgebiet ARA",
             "url": "https://data.bs.ch/explore/dataset/100336/"
+          },
+          {
+            "label": "AUE: GEP Stadt Basel, Karte Entwässerungsarten (PDF, 2012)",
+            "url": "https://media.bs.ch/original_file/6c906a4607e4c2c068f631e6bd27aeac09a977e9/karte-genereller-entwaesserungsplan-entwaesserungsarten-bs-0.pdf"
           }
         ],
-        "existence_basis": "Assumed: Swiss municipalities keep a general drainage plan (GEP) under the VSA guideline, so network data is expected to exist; it was not found as open data."
+        "existence_basis": "Assumed: the GEP page states that Tiefbauamt and AUE review the drainage plan, so network data is expected to exist; it was not found as open data."
       },
       "fill": {
         "status": "proposed",
