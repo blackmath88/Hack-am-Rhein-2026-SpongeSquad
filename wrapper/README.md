@@ -9,6 +9,7 @@ This folder contains the complete latest state consolidated from the fork's `fea
 - `data-charter-map/` — city-wide evidence charter, gap-filling research and real/inferred/missing Basel map;
 - `street-xray/` — one-street evidence gate, verification rehearsal and printable Evidence Passport;
 - `prototypes/sponge-street/` — original standalone explainer;
+- `prototypes/data-hack-library/` — prototype catalogue for turning missing/gated evidence into candidate evidence, validation tasks and gatekeeper actions;
 - `street-workspace/` — typed React, TypeScript and SVG Street Lab.
 
 That source already includes the structured street-world work and subsequent UI improvements, so older overlapping branch versions are not duplicated.
