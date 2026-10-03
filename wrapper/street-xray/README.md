@@ -24,7 +24,7 @@ candidate strip, flow arrow and intervention are deliberately illustrative.
 From the repository root:
 
 ```bash
-npm run shell:dev
+npm --prefix wrapper run dev
 node wrapper/street-xray/smoke.mjs
 ```
 

@@ -62,3 +62,16 @@ These were already in this repository (Achim's `integration/spatial-journey` wor
 - `wrapper/data-charter-map/docs/DATA-CHARTER.md`, `DATA-SOURCES.md`, `GAP-FILLING.md`, `GATEKEEPERS.md`
 - `wrapper/sponge-catalogue/docs/CATALOGUE.md`
 - `wrapper/docs/TODO-DATA-GAP-TO-DECISION.md`, `PRODUCT_VISION.md`, `MVP.md`, `ARCHITECTURE.md`
+
+## Group main relocation (4 October 2026)
+
+Website source imported from `blackmath88/Hack-am-Rhein-2026-SpongeSquad`
+branch `claude/laughing-tesla-xmtuec`, commit
+`74826d744caaffc5aa25f160b682e0f44b10c739`, into `wrapper/site/`.
+All paths above are now prefixed with `wrapper/site/` in the group repository.
+Existing modules remain canonical in `wrapper/`; assembly copies them into an
+ignored staging tree. The site-scoping app is an unchanged source snapshot from
+that commit in `wrapper/site/basel-site-scoping-tool/` because group main has no
+runnable copy. This is not a change to Andy's original folder. Replace this
+snapshot or its build input explicitly when Andy provides the canonical app.
+Rain Walk and references come from current group main and are preserved.

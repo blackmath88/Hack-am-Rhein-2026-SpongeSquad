@@ -19,7 +19,8 @@ const routes = JSON.parse(readFileSync(join(root, 'integration/routes.json'), 'u
 
 // Where "view source" links point. Update when the work lands on another branch.
 const GROUP_REPO = 'https://github.com/andymucyo-ops/Hack-am-Rhein-2026-SpongeSquad';
-const GROUP_BRANCH = 'feature/site-wrapper';
+const GROUP_BRANCH = 'main';
+const repoPath = p => p.startsWith('wrapper/') ? p : 'wrapper/site/' + p;
 const SOURCE_REPO = 'https://github.com/blackmath88/the-spongesuad-hackamrhein';
 const SOURCE_COMMIT = '51273960e54f730328383931665f2d95da33107c';
 
@@ -150,7 +151,7 @@ function linkResolver(fromPath, rootPrefix) {
     const imported = sourceRepoPath(target);
     if (!existsSync(join(root, target)) && imported === null && target.startsWith('..')) return href;
     const kind = existsSync(join(root, target)) && statSync(join(root, target)).isDirectory() ? 'tree' : 'blob';
-    return `${GROUP_REPO}/${kind}/${GROUP_BRANCH}/${target}${hash}`;
+    return `${GROUP_REPO}/${kind}/${GROUP_BRANCH}/${repoPath(target)}${hash}`;
   };
 }
 
@@ -186,7 +187,7 @@ function renderDocs() {
     const imported = sourceRepoPath(doc.path);
     const origin = imported
       ? `<p><span class="label source">Imported</span></p><p>From <a href="${SOURCE_REPO}/blob/${SOURCE_COMMIT}/${imported}" rel="noreferrer">${escapeHtml(imported)}</a> in the team's separate research repository, commit <code>${SOURCE_COMMIT.slice(0, 7)}</code>, copied verbatim. Status labels such as VERIFIED and VERIFY are the original authors'.</p><p><a href="${rootPrefix}research/migration/">Migration manifest</a></p>`
-      : `<p><span class="label neutral">Group repository</span></p><p>Rendered from <a href="${GROUP_REPO}/blob/${GROUP_BRANCH}/${doc.path}" rel="noreferrer">${escapeHtml(doc.path)}</a>.</p>`;
+      : `<p><span class="label neutral">Group repository</span></p><p>Rendered from <a href="${GROUP_REPO}/blob/${GROUP_BRANCH}/${repoPath(doc.path)}" rel="noreferrer">${escapeHtml(doc.path)}</a>.</p>`;
     const back = doc.section === 'team' ? `<a href="${rootPrefix}team/">← Team</a>` : `<a href="${rootPrefix}research/">← Sources &amp; Research</a>`;
     const body = `    <div class="wrap section plain">
       <div class="doc-layout">

@@ -1,5 +1,7 @@
 # Data
 
-Workspace for datasets, schemas, transformations and provenance.
+Home for Andy's site-scoping, map and data workstream.
 
-Every derived value should identify its source and transformation. Keep measured, modelled, inferred and illustrative values distinguishable. Andy's current site-scoping implementation remains unchanged in `../basel-site-scoping-tool/`; new reusable data artifacts can be prepared here.
+Andy's current implementation remains unchanged on `feature/hot-spot-map`. This folder is available when that workstream is ready to bring selected artifacts into the shared structure.
+
+Keep sources, schemas, transformations and provenance together. Distinguish measured, modelled, inferred and illustrative values.

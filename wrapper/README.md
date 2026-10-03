@@ -1,36 +1,38 @@
-# Wrapper and integration
+# SpongeSquad website and wrapper
 
-Achim's workspace for bringing the SpongeSquad modules together.
+From the group repository:
 
-This folder contains the complete latest state from the fork's `feature/street-lab-ui` branch:
-
-- `docs/ARCHITECTURE.md` — product spine, module boundaries and integration contract;
-- `docs/TODO-DATA-GAP-TO-DECISION.md` — broader evidence-profile and gap-investigator direction, deliberately kept outside tonight's MVP;
-- `data-charter-map/` — city-wide evidence charter, gap-filling research and real/inferred/missing Basel map;
-- `street-xray/` — one-street evidence gate, verification rehearsal and printable Evidence Passport;
-- `prototypes/sponge-street/` — original standalone explainer;
-- `street-workspace/` — typed React, TypeScript and SVG Street Lab.
-
-The source branch already includes the structured street-world work and the subsequent Street Lab UI improvements, so older overlapping branches are not copied separately.
-
-## Integration boundary
-
-Andy's hot-spot finder remains unchanged at `../basel-site-scoping-tool/`. The intended seam is:
-
-```text
-Data Charter / inference claims
-→ CandidateArea
-→ Street X-Ray / Evidence Passport
-→ example StreetScenarioSeed
-→ Street Lab
-→ explanation and comparison
+```bash
+cd wrapper
+npm start
 ```
 
-Integration must not turn illustrative area scores into measured street geometry, soil or drainage facts.
+Open http://localhost:4173/ . The command installs missing dependencies, builds
+all modules and serves the complete website. Requires Node 24 (Node 22.6+ is
+supported by the imported test runner). `npm test` builds and runs module,
+adapter and internal-link checks. `npm run serve` serves the last build.
+Deployable static output is `wrapper/dist/`; no deployment is performed here.
 
-## Shared shell
+## What lives where
 
-The repository root now builds a shared landing page plus a linked page for every
-team workstream. These pages are routing templates, not replacements for the
-workstream implementations. Add or replace a card when a team exposes a stable
-entry point.
+- `site/integration/`: landing, FIND, UNDERSTAND, DESIGN/TEST/SEE, DECIDE,
+  Sources & Research and Team pages. `routes.json` controls the journey.
+- `site/research/`, `site/team/`: imported source material and migration record.
+- `site/frontend/`, `site/data/`, `site/explainer-videos-context/`,
+  `site/presentation-story/`: integration templates, not changes to teammates' folders.
+- `site/basel-site-scoping-tool/`: unchanged snapshot from fork commit `74826d7`.
+  Current group main has no runnable Andy app. This snapshot supplies FIND and
+  candidate fixtures; its provenance is in `site/research/MIGRATION.md`.
+- `street-workspace/`, `street-xray/`, `data-charter-map/`, `sponge-catalogue/`,
+  `prototypes/`, `docs/`: canonical existing modules, including Rain Walk and references.
+- `scripts/website.mjs`: copies inputs into ignored `.site-workspace/` for the
+  existing site builder, then copies the output to `dist/`. All writes stay here.
+
+Candidates carry identity and evidence questions, never scores as geometry.
+Examples and simulation remain illustrative. Rain Walk saves locally; there is
+no shared review service. Some workstream pages and Basel procedures remain
+explicit placeholders. Team planning records are historical.
+
+Street Lab's site build disables Rollup tree-shaking to avoid the pinned version's
+slow transform; its standalone configuration remains unchanged. Existing module
+commands remain available. Build output is disposable; edit sources, not staging.

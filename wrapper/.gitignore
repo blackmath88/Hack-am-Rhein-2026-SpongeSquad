@@ -7,3 +7,7 @@ random/
 node_modules/
 dist/
 *.tsbuildinfo
+
+/dist/
+
+/.site-workspace/
