@@ -8,6 +8,7 @@ const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 const apps = [
   ['data/site-scoping-tool', 'data/site-scoping-tool'],
   ['wrapper/street-workspace', 'wrapper/street-workspace'],
+  ['wrapper/data-charter-map', 'wrapper/data-charter-map'],
 ];
 
 for (const [source] of apps) {

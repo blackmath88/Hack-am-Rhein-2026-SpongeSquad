@@ -12,6 +12,11 @@ const services = [
     url: 'http://localhost:5174/wrapper/street-workspace/',
     args: ['run', 'dev', '--prefix', 'wrapper/street-workspace', '--', '--host', '0.0.0.0', '--port', '5174', '--strictPort'],
   },
+  {
+    label: 'Data Charter',
+    url: 'http://localhost:5175/wrapper/data-charter-map/',
+    args: ['run', 'dev', '--prefix', 'wrapper/data-charter-map'],
+  },
 ];
 
 const children = services.map(({ label, url, args }) => {

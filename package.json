@@ -6,6 +6,6 @@
   "scripts": {
     "dev": "node scripts/dev-integration.mjs",
     "build": "node scripts/build-integration.mjs",
-    "test": "npm test --prefix wrapper/street-workspace"
+    "test": "npm test --prefix wrapper/street-workspace && npm test --prefix wrapper/data-charter-map"
   }
 }

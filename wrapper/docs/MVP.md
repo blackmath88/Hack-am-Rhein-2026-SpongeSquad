@@ -23,6 +23,7 @@ flowchart LR
 | Capability | Status | Evidence |
 | --- | --- | --- |
 | Candidate selection | Working | Andy's map snapshot under `data/site-scoping-tool` |
+| City-wide data gaps | Working | Data Charter distinguishes open, partial, restricted and missing inputs, with inferred layers kept separate |
 | Evidence-aware handoff | Working | `candidate-site-context.v1.schema.json` and runtime validation |
 | Example street | Working | Typed zones, surfaces, assets, nodes and connections |
 | Intervention | Working | Deterministic rain-garden and connection patch |

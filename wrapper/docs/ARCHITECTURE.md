@@ -30,7 +30,7 @@ Who can act, what evidence is required, and how does a proposal advance?
 
 ```mermaid
 flowchart TD
-    A["1 · Evidence discovery<br/>Andy · mostly built"]
+    A["1 · Data Charter<br/>real, inferred, missing"]
     B["2 · Site scoping<br/>Andy · prototype built"]
     C["3 · Street world model<br/>vertical slice built"]
     D["4 · Intervention engine<br/>one patch built"]
@@ -49,6 +49,7 @@ flowchart TD
 
 | Module | Purpose | Current state | Remaining work |
 | --- | --- | --- | --- |
+| Evidence charter and gap engine | State what should exist, what Basel publishes and what can be inferred | Ported Data Charter with 25 indicators, frozen/live inputs, four inference pilots and explicit missing-data asks | Add structured validation and permitted-use fields before claims enter a site scenario |
 | Evidence discovery | Find relevant Basel datasets | Basel-Stadt and opendata.swiss connectors, source registry and metadata model exist in Andy's `feature/hot-spot-map` branch | Verify dataset IDs, schemas, licences, temporal coverage and spatial extent |
 | Site scoping | Identify places worth investigating | React/Leaflet map, `CandidateArea`, indicators, scoring, shortlist and comparison exist | Replace illustrative pins and values with spatially derived evidence |
 | Scenario adapter | Translate an area into a street case | Versioned candidate-context handoff implemented on `integration/spatial-journey` | Replace the illustrative context only when verified street-scale inputs exist |

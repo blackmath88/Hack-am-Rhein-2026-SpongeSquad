@@ -9,5 +9,6 @@ ADRs capture decisions that should survive the hackathon conversation and explai
 | [0003](0003-use-react-svg-for-the-mvp-renderer.md) | Use React/SVG rather than Phaser for the MVP renderer | Accepted |
 | [0004](0004-use-versioned-provenance-bearing-handoffs.md) | Use versioned, provenance-bearing handoffs | Accepted |
 | [0005](0005-treat-routing-as-evidence.md) | Treat routing as evidence and preserve unknowns | Accepted |
+| [0006](0006-bound-computational-gap-filling.md) | Bound computational gap filling by evidence class and permitted use | Accepted |
 
 Create a new ADR when a decision changes system boundaries, data authority, claim level, runtime topology or a major technology choice. Supersede old decisions instead of rewriting their history.
