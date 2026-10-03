@@ -38,6 +38,23 @@ The MVP currently proves this journey with an illustrative street. It transfers 
 | Explanation | What should the user understand? | React/SVG street, water paths, before/after balance | Same interface populated by richer state |
 | Decision | What happens next? | Unknowns remain visible | Ownership, actors, approvals, maintenance and evidence gates |
 
+## The data question
+
+The evidence layer must not collapse every unavailable value into "missing data".
+
+For each decision-relevant input, the product should distinguish:
+
+- **open** evidence that can be used now;
+- **gated** evidence that exists but requires registration, a bounded request, operator access or project authority;
+- **site-check evidence** that must be produced through inspection, testing or measurement;
+- **unknowns** where existence, ownership or adequacy is not yet established.
+
+The corresponding product question is:
+
+> **Who is the gatekeeper, what evidence can they unlock, and what decision remains blocked until that happens?**
+
+This means **unknown to the prototype is not the same as unknown to the city, and neither is the same as not measured anywhere**. The selected-site experience should eventually expose the gatekeeper, access route and blocked decision as part of the Evidence Passport. See [the gatekeeper model](../data-charter-map/docs/GATEKEEPERS.md).
+
 ## Evidence ladder
 
 The interface must distinguish four levels of claim:
