@@ -28,6 +28,12 @@ npm run fetch --prefix wrapper/data-charter-map
 
 `fetch` calls the live Basel APIs, replaces the snapshot and reruns the build and smoke test. The checked-in snapshot keeps the demo reproducible without those point-data API calls; WMS/WMTS map layers still require internet access.
 
+## Typed inference claims
+
+Every inferred layer has one claim in `data/data-charter.json` (`claims[]`): evidence class (derived or modelled), method, inputs, spatial and temporal resolution, validation, limitations and permitted use. All four current claims are **not validated** and may only be used to **explain** or **screen**. The map shows this beside each inferred layer and in popups; the smoke test enforces it. See [ADR 0007](../docs/adr/0007-data-charter-inferences-are-typed-claims.md).
+
+`missing` means no open data was found in the reviewed Basel and federal sources; `restricted` means the data is expected to exist (an assumption, with its basis stated) but was not found as open data.
+
 ## Integration boundary
 
-The charter describes city-wide data availability. It does not directly populate Street Lab. A future adapter may transfer a site-specific evidence claim only when it declares its method, inputs, validation, permitted use and limitations.
+The charter describes city-wide data availability. It does not directly populate Street Lab. A future adapter may transfer a site-specific evidence claim only when it declares its method, inputs, validation, permitted use and limitations. A possible `candidate-site-context.v2` with an optional `claims` array is proposed in ADR 0007 but not implemented; it needs agreement from the integration, site-scoping and Street Lab owners.

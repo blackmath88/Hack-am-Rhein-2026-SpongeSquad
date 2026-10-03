@@ -49,7 +49,7 @@ flowchart TD
 
 | Module | Purpose | Current state | Remaining work |
 | --- | --- | --- | --- |
-| Evidence charter and gap engine | State what should exist, what Basel publishes and what can be inferred | Ported Data Charter with 25 indicators, frozen/live inputs, four inference pilots and explicit missing-data asks | Add structured validation and permitted-use fields before claims enter a site scenario |
+| Evidence charter and gap engine | State what should exist, what Basel publishes and what can be inferred | Ported Data Charter with 25 indicators, frozen/live inputs, four inference pilots with typed claims (class, method, inputs, resolution, validation, limitations, permitted use) and explicit missing-data asks | Validate claims before any use beyond explain/screen; agree a handoff v2 before claims enter a site scenario (ADR 0007) |
 | Evidence discovery | Find relevant Basel datasets | Basel-Stadt and opendata.swiss connectors, source registry and metadata model exist in Andy's `feature/hot-spot-map` branch | Verify dataset IDs, schemas, licences, temporal coverage and spatial extent |
 | Site scoping | Identify places worth investigating | React/Leaflet map, `CandidateArea`, indicators, scoring, shortlist and comparison exist | Replace illustrative pins and values with spatially derived evidence |
 | Scenario adapter | Translate an area into a street case | Versioned candidate-context handoff implemented on `integration/spatial-journey` | Replace the illustrative context only when verified street-scale inputs exist |

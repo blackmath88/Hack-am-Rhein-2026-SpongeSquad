@@ -6,8 +6,8 @@
   "real_status": {
     "open": "Real data, openly downloadable or queryable, close to the north star",
     "partial": "Real open data exists but falls short of the north star (resolution, coverage, format or only as a map image)",
-    "restricted": "Real data exists but is not public",
-    "missing": "No real data found in any open Basel or federal source"
+    "restricted": "Expected to exist but not openly available; not found as open data in the reviewed Basel and federal sources. The basis for expecting it is stated per indicator and is an assumption, not a verified fact",
+    "missing": "No open data found in the reviewed Basel and federal sources"
   },
   "fill_status": {
     "run": "Inferred by us in a pilot on live open data; shown on the map as inferred, never as real",
@@ -316,13 +316,14 @@
       "refs": [],
       "basel": {
         "status": "restricted",
-        "detail": "The utility cadastre exists but is not public. Open: large pipelines only, district-heating area.",
+        "detail": "Not found as open data in the reviewed sources. Open: large pipelines only, district-heating area.",
         "sources": [
           {
             "label": "geo.bs.ch STAC AVRO, IWBF",
             "url": "https://api.geo.bs.ch/stac/v1/collections"
           }
-        ]
+        ],
+        "existence_basis": "Assumed: a utility cadastre is expected to exist for Basel-Stadt; it was not found as open data."
       },
       "fill": {
         "status": "run",
@@ -349,13 +350,14 @@
       ],
       "basel": {
         "status": "restricted",
-        "detail": "Not found in any open Basel or federal source. Only the wastewater-plant catchment (13 polygons) is open.",
+        "detail": "Not found in the reviewed open Basel and federal sources. Only the wastewater-plant catchment (13 polygons) is open.",
         "sources": [
           {
             "label": "data.bs.ch 100336 Einzugsgebiet ARA",
             "url": "https://data.bs.ch/explore/dataset/100336/"
           }
-        ]
+        ],
+        "existence_basis": "Assumed: Swiss municipalities keep a general drainage plan (GEP) under the VSA guideline, so network data is expected to exist; it was not found as open data."
       },
       "fill": {
         "status": "proposed",
@@ -738,6 +740,130 @@
       "ask": "Start an open registry of sponge measures (Stadtgärtnerei, Tiefbauamt).",
       "layers": [
         "m-measures-registry"
+      ]
+    }
+  ],
+  "evidence_classes": {
+    "observed": "Published or directly measured",
+    "derived": "Deterministically calculated from named observed inputs",
+    "modelled": "Produced by an explicit statistical, computer-vision or physical model",
+    "assumed": "Introduced only for a declared scenario or stated without verification",
+    "unknown": "No defensible evidence is available"
+  },
+  "permitted_uses": {
+    "explain": "Use to explain a mechanism or a data gap",
+    "screen": "Use to decide where to look more closely; never to decide what to build",
+    "prioritise": "Use to rank places or options; needs validation against independent data",
+    "design": "Use as a design input; needs validated, site-level evidence"
+  },
+  "claims": [
+    {
+      "id": "tree-planting-context",
+      "layer": "i-pits",
+      "indicator": "tree-pits",
+      "evidence_class": "derived",
+      "statement": "Whether a street-tree point lies inside a mapped planted land-cover polygon.",
+      "method": "Point-in-polygon test of street-tree points (ba_gruppe 'Strassenbäume') against land-cover polygons of classes humusiert* and bestockt*.",
+      "inputs": [
+        {
+          "label": "data.bs.ch 100052 Baumkataster",
+          "url": "https://data.bs.ch/explore/dataset/100052/"
+        },
+        {
+          "label": "data.bs.ch 100477 Bodenbedeckung",
+          "url": "https://data.bs.ch/explore/dataset/100477/"
+        }
+      ],
+      "spatial_resolution": "Per tree point; land-cover polygons at official-survey scale",
+      "temporal_resolution": "Snapshot 2026-10-03; inputs as published on that date",
+      "validation": "not validated",
+      "limitations": [
+        "Describes mapped planting context at the tree point only",
+        "No mapped planted polygon at the point does not prove sealed paving",
+        "Says nothing about pit area, soil volume or substrate",
+        "Planted areas below the survey's mapping threshold are not distinguished"
+      ],
+      "permitted_use": [
+        "explain",
+        "screen"
+      ]
+    },
+    {
+      "id": "groundwater-depth-at-stations",
+      "layer": "i-gwdepth",
+      "indicator": "groundwater-depth",
+      "evidence_class": "derived",
+      "statement": "Shallowest and mean depth to groundwater at each monitoring station.",
+      "method": "Terrain height minus the 10-year maximum (and mean) groundwater level published per station; shallowest value per station.",
+      "inputs": [
+        {
+          "label": "data.bs.ch 100180 Wasserstand Grundwasser: langjährige Statistiken",
+          "url": "https://data.bs.ch/explore/dataset/100180/"
+        }
+      ],
+      "spatial_resolution": "Per monitoring station (point); not interpolated",
+      "temporal_resolution": "Statistic period per station (usually 10 years), as published",
+      "validation": "not validated",
+      "limitations": [
+        "Point values; nothing is known between stations",
+        "The shallowest observed level is not a design groundwater level",
+        "Local perched water and construction effects are not represented"
+      ],
+      "permitted_use": [
+        "explain",
+        "screen"
+      ]
+    },
+    {
+      "id": "underground-activity-by-network",
+      "layer": "i-underground",
+      "indicator": "utilities",
+      "evidence_class": "derived",
+      "statement": "Which network a works permit concerns (sewer, district heating, house connection, water, gas, electricity, unspecified utility).",
+      "method": "Keyword rules on the permit description; the first matching category wins.",
+      "inputs": [
+        {
+          "label": "data.bs.ch 100018 Allmendbewilligungen",
+          "url": "https://data.bs.ch/explore/dataset/100018/"
+        }
+      ],
+      "spatial_resolution": "Per permit point (centroid of the permitted area)",
+      "temporal_resolution": "Permits in the snapshot of 2026-10-03, with their own start and end dates",
+      "validation": "not validated",
+      "limitations": [
+        "Shows permitted activity, not the location, depth or density of networks",
+        "Keyword rules were not checked against permit documents; mixed works get one category",
+        "A street without permits may still contain utilities"
+      ],
+      "permitted_use": [
+        "explain",
+        "screen"
+      ]
+    },
+    {
+      "id": "active-or-upcoming-works",
+      "layer": "i-digwindows",
+      "indicator": "works-calendar",
+      "evidence_class": "derived",
+      "statement": "Permits whose end date is on or after the snapshot date.",
+      "method": "Date filter on the permit end date.",
+      "inputs": [
+        {
+          "label": "data.bs.ch 100018 Allmendbewilligungen",
+          "url": "https://data.bs.ch/explore/dataset/100018/"
+        }
+      ],
+      "spatial_resolution": "Per permit point (centroid of the permitted area)",
+      "temporal_resolution": "Relative to the snapshot date 2026-10-03",
+      "validation": "not validated",
+      "limitations": [
+        "Only works that are already permitted",
+        "Not a coordinated future works plan",
+        "Permit dates can change"
+      ],
+      "permitted_use": [
+        "explain",
+        "screen"
       ]
     }
   ]

@@ -44,6 +44,10 @@
     .row input { margin: 3px 0 0; accent-color: var(--accent); }
     .row .meta { display: block; font: 11px/1.4 var(--mono); color: var(--muted); }
     .row.dim { opacity: .55; }
+    .row .claim { color: var(--inferred); }
+    .row details.limits { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .row details.limits summary { cursor: pointer; }
+    .row details.limits ul { margin: 2px 0 0; padding-left: 16px; }
     .sw { width: 18px; height: 18px; margin-top: 1px; }
     .sw.real { background: var(--real); }
     .sw.official { background: var(--official); }
@@ -155,9 +159,17 @@
       { id: "i-underground", evidence: "inferred", title: "≈ Underground activity by network", meta: "Network type read from permit text (keywords)", type: "underground" },
       { id: "i-digwindows", evidence: "inferred", title: "≈ Active or upcoming works", meta: "Permits ending after the snapshot date; not a coordinated future works plan", type: "digwindows" }
     ];
+    // Typed inference claims (ADR 0006/0007): evidence class, validation, permitted use and limitations travel with each inferred layer.
+    const CLAIMS = Object.fromEntries(CHARTER.claims.map(claim => [claim.layer, claim]));
+    function claimSummary(claim) {
+      if (!claim) return "";
+      const cls = claim.evidence_class[0].toUpperCase() + claim.evidence_class.slice(1);
+      const verb = { explain: "explaining", screen: "screening", prioritise: "prioritising", design: "design" };
+      return `${cls} · ${claim.validation} · for ${claim.permitted_use.map(use => verb[use] || use).join(" and ")} only`;
+    }
     // Missing layers come from the charter: every indicator Basel does not have as open real data.
     for (const ind of CHARTER.indicators) {
-      if (["missing", "restricted"].includes(ind.basel.status)) LAYERS.push({ id: `m-${ind.id}`, evidence: "missing", title: ind.name, meta: ind.basel.status === "restricted" ? "Exists, not public" : "No open data found", type: "missing", indicator: ind.id });
+      if (["missing", "restricted"].includes(ind.basel.status)) LAYERS.push({ id: `m-${ind.id}`, evidence: "missing", title: ind.name, meta: ind.basel.status === "restricted" ? "Expected to exist (assumed), not found as open data" : "No open data found in the reviewed sources", type: "missing", indicator: ind.id });
     }
 
     // ---------- Pure logic (tested by smoke.mjs)
@@ -197,7 +209,7 @@
       const groups = [
         ["real", "Real data", "published by an authority, as published", LAYERS.filter(l => l.evidence === "real" || l.evidence === "official")],
         ["inferred", "Inferred by us", "derived from real data; method shown, never shown as real", LAYERS.filter(l => l.evidence === "inferred")],
-        ["missing", "Missing", "no open real data; pick one to see its coverage", LAYERS.filter(l => l.evidence === "missing")]
+        ["missing", "Missing", "no open data found in the reviewed Basel and federal sources; pick one to see its coverage", LAYERS.filter(l => l.evidence === "missing")]
       ];
       $("#layer-groups").innerHTML = groups.map(([key, title, hint, layers]) => `
         <div style="margin-bottom:12px">
@@ -205,10 +217,17 @@
           ${layers.map(layer => `<label class="row" data-layer="${layer.id}">
             <input type="${key === "missing" ? "radio" : "checkbox"}" name="${key === "missing" ? "missing" : layer.id}" ${key === "missing" ? (state.missing === layer.id ? "checked" : "") : (state.on.has(layer.id) ? "checked" : "")}>
             <span class="sw ${layer.evidence}"></span>
-            <span>${escapeHtml(layer.title)}${layer.evidence === "official" ? ' <span class="tag partial">official model</span>' : ""}<span class="meta">${escapeHtml(layer.meta)}</span>${LEGENDS[layer.id] ? `<span class="meta">${LEGENDS[layer.id].map(([colour, label, key]) => `<span style="display:inline-block;width:9px;height:9px;border-radius:50%;border:2px solid ${colour || PERMIT_COLOURS[key]};margin-right:4px"></span>${escapeHtml(label)}`).join("<br>")}</span>` : ""}</span>
+            <span>${escapeHtml(layer.title)}${layer.evidence === "official" ? ' <span class="tag partial">official model</span>' : ""}<span class="meta">${escapeHtml(layer.meta)}</span>${CLAIMS[layer.id] ? `<span class="meta claim">${escapeHtml(claimSummary(CLAIMS[layer.id]))}</span><details class="limits"><summary>Limitations</summary><ul>${CLAIMS[layer.id].limitations.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul></details>` : ""}${LEGENDS[layer.id] ? `<span class="meta">${LEGENDS[layer.id].map(([colour, label, key]) => `<span style="display:inline-block;width:9px;height:9px;border-radius:50%;border:2px solid ${colour || PERMIT_COLOURS[key]};margin-right:4px"></span>${escapeHtml(label)}`).join("<br>")}</span>` : ""}</span>
           </label>`).join("")}
         </div>`).join("");
     }
+    // "Limitations" sits inside the layer's label: open it without toggling the layer.
+    $("#layer-groups").addEventListener("click", event => {
+      const summary = event.target.closest("details.limits summary");
+      if (!summary) return;
+      event.preventDefault();
+      summary.parentElement.open = !summary.parentElement.open;
+    });
     $("#layer-groups").addEventListener("change", event => {
       const row = event.target.closest("[data-layer]");
       if (!row) return;
@@ -312,7 +331,7 @@
       if (missing) {
         const layer = LAYERS.find(l => l.id === state.missing);
         const ind = CHARTER.indicators.find(i => i.id === layer.indicator);
-        notice.innerHTML = `<b>Missing · ${escapeHtml(ind.name)}</b> — ${ind.basel.status === "restricted" ? "real data exists but is not public" : "no open real data found"}. The hatch covers the whole canton.<br>${escapeHtml(ind.basel.detail)}${ind.fill && ind.fill.status !== "none" ? `<br><span style="color:var(--inferred)">≈ ${ind.fill.status === "run" ? "Inferred" : "Could be inferred"}: ${escapeHtml(ind.fill.method)}</span>` : ""}${ind.ask ? `<br><span class="refs">Ask: ${escapeHtml(ind.ask)}</span>` : ""} <button type="button" class="tool" id="clear-missing">clear</button>`;
+        notice.innerHTML = `<b>Missing · ${escapeHtml(ind.name)}</b> — ${ind.basel.status === "restricted" ? "expected to exist but not found as open data in the reviewed Basel and federal sources" : "no open data found in the reviewed Basel and federal sources"}. The hatch covers the whole canton.<br>${escapeHtml(ind.basel.detail)}${ind.basel.existence_basis ? `<br><small>${escapeHtml(ind.basel.existence_basis)}</small>` : ""}${ind.fill && ind.fill.status !== "none" ? `<br><span style="color:var(--inferred)">≈ ${ind.fill.status === "run" ? "Inferred" : "Could be inferred"}: ${escapeHtml(ind.fill.method)}</span>` : ""}${ind.ask ? `<br><span class="refs">Ask: ${escapeHtml(ind.ask)}</span>` : ""} <button type="button" class="tool" id="clear-missing">clear</button>`;
         notice.style.display = "block";
       } else notice.style.display = "none";
       $("#hud").textContent = `snapshot ${SNAPSHOT.fetched_at.slice(0, 10)} · ${state.on.size} layers on`;
@@ -333,15 +352,15 @@
       if (["i-pits", "r-trees"].includes(f.layer.id)) {
         const t = TREES[f.properties.i];
         html = `<div class="pop-real"><span class="pop-k">Real · tree cadastre</span><br><b>${escapeHtml(t.species)}</b><br>Tree ${escapeHtml(t.id)} · ${t.years ?? "?"} years at site</div>
-          <div class="pop-inferred"><span class="pop-k">≈ Inferred by us</span><br>${t.pit ? `Tree point lies in a mapped planted polygon of ${t.strip?.toLocaleString("de-CH")} m²; this is not a pit measurement` : "No mapped planted land-cover polygon at this tree point; the actual pit remains unknown"}</div>`;
+          <div class="pop-inferred"><span class="pop-k">≈ Inferred by us</span><br>${t.pit ? `Tree point lies in a mapped planted polygon of ${t.strip?.toLocaleString("de-CH")} m²; this is not a pit measurement` : "No mapped planted land-cover polygon at this tree point; the actual pit remains unknown"}<br><small>${escapeHtml(claimSummary(CLAIMS["i-pits"]))}</small></div>`;
       } else if (["i-gwdepth", "r-gwstations"].includes(f.layer.id)) {
         const s = SNAPSHOT.groundwater[f.properties.i];
         html = `<div class="pop-real"><span class="pop-k">Real · groundwater statistics</span><br><b>${escapeHtml(s.name)}</b><br>Terrain ${s.real.terrain_masl} m a.s.l. · 10-year max level ${s.real.level_10y_max_masl} m · mean ${s.real.level_10y_mean_masl} m</div>
-          <div class="pop-inferred"><span class="pop-k">≈ Inferred by us</span><br>Shallowest depth to groundwater ≈ ${s.inferred.depth_min_m} m (mean ≈ ${s.inferred.depth_mean_m} m)<br><small>${escapeHtml(s.inferred.method)}</small></div>`;
+          <div class="pop-inferred"><span class="pop-k">≈ Inferred by us</span><br>Shallowest depth to groundwater ≈ ${s.inferred.depth_min_m} m (mean ≈ ${s.inferred.depth_mean_m} m)<br><small>${escapeHtml(s.inferred.method)}<br>${escapeHtml(claimSummary(CLAIMS["i-gwdepth"]))}</small></div>`;
       } else {
         const p = PERMITS[f.properties.i];
         html = `<div class="pop-real"><span class="pop-k">Real · works permit</span><br>${fmtYm(p.from)} – ${fmtYm(p.to)}</div>
-          <div class="pop-inferred"><span class="pop-k">≈ Inferred by us</span><br>Network: <b>${escapeHtml(p.category)}</b> (keyword in permit text)${p.upcoming ? "<br>Upcoming: a dig window" : ""}</div>`;
+          <div class="pop-inferred"><span class="pop-k">≈ Inferred by us</span><br>Network: <b>${escapeHtml(p.category)}</b> (keyword in permit text)${p.upcoming ? "<br>Active or upcoming permitted works; not a coordinated works plan" : ""}<br><small>${escapeHtml(claimSummary(CLAIMS[p.upcoming && state.on.has("i-digwindows") ? "i-digwindows" : "i-underground"]))}</small></div>`;
       }
       popup.setLngLat(event.lngLat).setHTML(html).addTo(map);
     });

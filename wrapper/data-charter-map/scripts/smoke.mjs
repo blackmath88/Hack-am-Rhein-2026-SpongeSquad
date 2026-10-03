@@ -13,7 +13,7 @@ const fail = message => { throw new Error(`data-charter-map: ${message}`); };
 const match = html.match(/<script id="map-logic">\s*([\s\S]*?)\s*<\/script>/);
 if (!match) fail("map logic script not found");
 const context = vm.createContext({ console });
-vm.runInContext(`${match[1]}\nthis.api = { CHARTER, SNAPSHOT, LAYERS, EVIDENCE, TREES, PERMITS, SCORE, scorecard, decodeTrees, decodePermits, depthColour };`, context);
+vm.runInContext(`${match[1]}\nthis.api = { CHARTER, SNAPSHOT, LAYERS, EVIDENCE, TREES, PERMITS, SCORE, scorecard, decodeTrees, decodePermits, depthColour, CLAIMS, claimSummary };`, context);
 const api = context.api;
 
 // Embedded data is current
@@ -53,6 +53,34 @@ for (const layer of api.LAYERS) {
   if (!layer.id.startsWith(prefix)) fail(`${layer.id}: id prefix does not match evidence ${layer.evidence}`);
   if (layer.evidence === "inferred" && !layer.title.startsWith("≈")) fail(`${layer.id}: inferred layer title must start with ≈`);
 }
+
+// Typed inference claims (ADR 0006/0007)
+const classes = Object.keys(charter.evidence_classes || {});
+const uses = Object.keys(charter.permitted_uses || {});
+for (const required of ["observed", "derived", "modelled", "assumed", "unknown"]) if (!classes.includes(required)) fail(`evidence class ${required} not defined`);
+for (const required of ["explain", "screen", "prioritise", "design"]) if (!uses.includes(required)) fail(`permitted use ${required} not defined`);
+const claimed = new Set();
+for (const claim of charter.claims) {
+  const layer = api.LAYERS.find(l => l.id === claim.layer);
+  if (!layer || layer.evidence !== "inferred") fail(`${claim.id}: claim must belong to an inferred layer`);
+  if (claimed.has(claim.layer)) fail(`${claim.layer}: more than one claim`);
+  claimed.add(claim.layer);
+  if (!charter.indicators.some(i => i.id === claim.indicator && i.layers.includes(claim.layer))) fail(`${claim.id}: indicator does not show this layer`);
+  for (const field of ["statement", "method", "spatial_resolution", "temporal_resolution", "validation"]) if (!claim[field]) fail(`${claim.id}: missing ${field}`);
+  if (!["derived", "modelled"].includes(claim.evidence_class)) fail(`${claim.id}: an inference must be derived or modelled, never ${claim.evidence_class}`);
+  if (!claim.inputs?.length || claim.inputs.some(input => !/^https:\/\//.test(input.url))) fail(`${claim.id}: inputs need https sources`);
+  if (!claim.limitations?.length) fail(`${claim.id}: limitations missing`);
+  if (!claim.permitted_use?.length || claim.permitted_use.some(use => !uses.includes(use))) fail(`${claim.id}: unknown permitted use`);
+  if (claim.validation === "not validated" && claim.permitted_use.some(use => ["prioritise", "design"].includes(use))) fail(`${claim.id}: unvalidated claims may only explain or screen`);
+  if (!api.claimSummary(api.CLAIMS[claim.layer]).includes(claim.validation)) fail(`${claim.id}: map label does not show validation`);
+}
+for (const layer of api.LAYERS.filter(l => l.evidence === "inferred")) if (!claimed.has(layer.id)) fail(`${layer.id}: inferred layer without a typed claim`);
+
+// Missing means "not found in the reviewed sources", never "does not exist"
+if (!charter.real_status.missing.includes("reviewed Basel and federal sources")) fail("missing status must say 'in the reviewed sources'");
+if (!html.includes("no open data found in the reviewed Basel and federal sources")) fail("map must say 'no open data found in the reviewed Basel and federal sources'");
+if (/dig window/i.test(html) || /no open real data/i.test(html) || /real data exists but is not public/i.test(html)) fail("overstated gap wording on the map");
+for (const ind of charter.indicators.filter(i => i.basel.status === "restricted")) if (!/^Assumed:/.test(ind.basel.existence_basis || "")) fail(`${ind.id}: restricted needs an assumed existence basis`);
 
 // Scorecard adds up
 const s = api.SCORE;
