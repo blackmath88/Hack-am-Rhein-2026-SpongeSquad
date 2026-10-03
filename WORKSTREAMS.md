@@ -18,3 +18,7 @@ Keep active work inside the relevant folder or feature branch. Existing feature 
 Each workstream folder now also contains an `index.html` drop-in page. The
 shared landing page links these stable folder routes; teams can replace their
 placeholder cards when they expose a working entry point.
+
+## Website
+
+`npm start` builds and serves the shared website (see [README.md](README.md)). Every row above has a page there. Workstream pages are configured in `integration/routes.json`; replace your folder's `index.html` when you have a stable entry point.

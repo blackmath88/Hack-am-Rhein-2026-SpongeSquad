@@ -1,26 +1,58 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-root="../" data-section="workstream">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Story · SpongeSquad</title><link rel="stylesheet" href="/assets/shell.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SpongeSquad presentation and story workstream." />
+  <title>Story · SpongeSquad</title>
+  <link rel="stylesheet" href="../assets/site.css" />
+  <script src="../assets/routes.js" defer></script>
+  <script src="../assets/site.js" defer></script>
 </head>
-<body><div class="app-shell">
-  <aside class="sidebar">
-    <a class="brand" href="/"><span class="brand-mark">BS</span><span><b>Basel / Sponge</b><small>HACK AM RHEIN 2026</small></span></a>
-    <div class="workspace-label">SHARED WORKSPACE</div><div class="workspace">SpongeSquad <span>●</span></div><div class="nav-label">WORKSTREAMS</div>
-    <nav class="side-nav"><a class="nav-item" href="/"><span class="nav-icon">⌂</span>Overview</a><a class="nav-item" href="/frontend/"><span class="nav-icon">◫</span>Frontend</a><a class="nav-item" href="/data/"><span class="nav-icon">⌖</span>Data</a><a class="nav-item" href="/explainer-videos-context/"><span class="nav-icon">▶</span>Explainers</a><a class="nav-item active" href="/presentation-story/" aria-current="page"><span class="nav-icon">▤</span>Story</a><a class="nav-item" href="/wrapper/"><span class="nav-icon">⌘</span>Wrapper <em>3</em></a></nav>
-    <div class="sidebar-bottom"><div class="scope-card"><span class="pulse"></span> Presentation linked<small>The live Canva remains the source; this page is its stable place in the demo shell.</small></div><small class="version">STORY · PRESENTATION</small></div>
-  </aside>
-  <main class="main">
-    <header class="topbar"><div class="crumb"><a href="/">Shared workspace</a> <span>/</span> Story</div><span class="internal-pill">Canva available</span></header>
-    <section class="page-hero"><div><div class="eyebrow">PRESENTATION & STORY WORKSTREAM</div><h1>Turn the modules<br /><i>into one narrative.</i></h1><p>The presentation connects the challenge, evidence, interactive demonstration and final ask into a clear five-minute story.</p><div class="hero-actions"><a class="button primary" href="https://canva.link/rf93c9zgsb7nns8" target="_blank" rel="noreferrer">Open Canva presentation <span>↗</span></a></div></div><aside class="owner-card"><small>WORKSTREAM OWNER</small><b>Mary</b><p>Demo narrative, slides, speaker flow and final presentation assets.</p></aside></section>
-    <section class="page-section"><div class="section-heading"><div><div class="eyebrow">STORY ASSETS</div><h2>Presentation entry points</h2></div><p>The external source stays authoritative; supporting material can live beside it here.</p></div>
-      <div class="content-grid">
-        <article class="content-card"><small>LIVE SOURCE</small><h3>Canva deck</h3><p>The current shared presentation and PDF link.</p><a class="card-link" href="https://canva.link/rf93c9zgsb7nns8" target="_blank" rel="noreferrer">Open presentation ↗</a></article>
-        <article class="content-card placeholder"><span class="placeholder-label">PLACEHOLDER</span><h3>Five-minute flow</h3><p>Capture who speaks, what is shown and which transition triggers the next module.</p><div class="drop-zone">Suggested artifact: <code>DEMO-SCRIPT.md</code></div></article>
-        <article class="content-card placeholder"><span class="placeholder-label">PLACEHOLDER</span><h3>Final screenshots</h3><p>Store or link the stable visuals used in the final deck and submission.</p><div class="drop-zone">Use screenshots from tested routes and record the build or commit.</div></article>
+<body>
+  <div id="site-header"></div>
+  <main id="main">
+    <section class="section plain">
+      <div class="wrap hero-grid" style="align-items:end">
+        <div>
+          <p class="eyebrow">Workstream · presentation-story/</p>
+          <h1>The five-minute story</h1>
+          <p class="lead">Demo narrative, speaker flow and slides. The presentation links to working modules instead of copying them.</p>
+        </div>
+        <aside class="panel">
+          <p class="eyebrow">Workstream owner</p>
+          <h3>Mary · Story</h3>
+          <p class="small">Narrative, pitch and final presentation material.</p>
+          <p><span class="label illustrative">Partial</span></p>
+        </aside>
       </div>
     </section>
-    <footer><span>SpongeSquad · Story</span><a href="/">Back to overview</a></footer>
+    <section class="section">
+      <div class="wrap">
+        <div class="grid-2">
+          <article class="panel"><span class="label works">Available</span><h3 style="margin-top:10px">Presentation</h3><p class="small">Mary's Canva presentation. The shared PDF uses the same link.</p><p class="small"><a href="https://canva.link/rf93c9zgsb7nns8" rel="noreferrer">Open the Canva presentation ↗</a></p><p class="tiny">External link. Its content is not reviewed or mirrored on this site.</p></article>
+          <article class="panel dashed"><span class="label placeholder">Template</span><h3 style="margin-top:10px">Demo script</h3><p class="small">A starting point that follows the website. Replace it with the agreed speaker flow.</p>
+            <ol class="small">
+              <li><a href="../">Overview</a>: the problem in one sentence.</li>
+              <li><a href="../find/">Find</a>: screen Basel and pick a candidate.</li>
+              <li><a href="../understand/">Understand</a>: what is known, gated and unknown.</li>
+              <li><a href="../lab/#design">Design, Test, See</a>: add the garden, connect it, run the storm.</li>
+              <li><a href="../decide/">Decide</a>: who could act and what must be established.</li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="section white">
+      <div class="wrap">
+        <div class="panel dashed">
+          <span class="label placeholder">For the owner</span>
+          <h3 style="margin-top:10px">Replace this page</h3>
+          <p class="small">This file is <code>presentation-story/index.html</code>. Edit or replace it freely; keep the two slot <code>div</code>s and the script tags so the site header and footer stay. Then set your <code>status</code> in <code>integration/routes.json</code> and run <code>npm run build:shell</code>.</p>
+        </div>
+      </div>
+    </section>
   </main>
-</div></body></html>
+  <div id="site-footer"></div>
+</body>
+</html>

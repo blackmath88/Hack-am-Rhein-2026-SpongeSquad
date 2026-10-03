@@ -1,14 +1,17 @@
 {
-  "name": "sponge-squad-integration",
+  "name": "sponge-squad-website",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
+  "description": "SpongeSquad shared website: one static site that connects every workstream.",
+  "engines": { "node": ">=22.18" },
   "scripts": {
-    "dev": "node scripts/dev-integration.mjs",
-    "shell:dev": "node scripts/serve-shell.mjs",
-    "preview": "node scripts/serve-dist.mjs",
-    "build": "node scripts/build-integration.mjs",
+    "start": "node scripts/start.mjs",
+    "setup": "node scripts/setup.mjs",
+    "build": "node scripts/setup.mjs && node scripts/build-integration.mjs",
     "build:shell": "node scripts/build-integration.mjs --shell-only",
-    "test": "npm test --prefix wrapper/street-workspace && npm test --prefix wrapper/data-charter-map"
+    "preview": "node scripts/serve-dist.mjs",
+    "check": "node scripts/check-site.mjs",
+    "test": "node scripts/test-all.mjs"
   }
 }

@@ -1,6 +1,6 @@
-# End-to-end integration branch
+# Shared website (integration)
 
-This branch joins Andy's site-scoping prototype to Achim's Street Lab without changing either contributor's source branch.
+The shared SpongeSquad website. It joins Andy's site-scoping tool, the Street Lab and every other workstream into one static site without changing their source folders.
 
 The product direction and current finish line are documented in:
 
@@ -10,20 +10,27 @@ The product direction and current finish line are documented in:
 
 ## Run
 
-Install each app once:
+From the repository root:
 
 ```sh
-npm ci --prefix data/site-scoping-tool
-npm ci --prefix wrapper/street-workspace
+npm start
 ```
 
-Then start both development servers:
+Open `http://localhost:4173/`. The landing page leads into the journey; FIND embeds Andy's tool, and UNDERSTAND carries a chosen candidate into the Street Lab through `assets/street-lab-adapter.js`.
 
-```sh
-npm run dev
-```
+## What lives here
 
-Open `http://localhost:5173/data/site-scoping-tool/`, choose a candidate and select **Explore in Street Lab**. A static deployable bundle can be produced with `npm run build`; its entry point is `dist/index.html`.
+| Path | Role |
+| --- | --- |
+| `routes.json` | Single configuration: stages, sections, workstreams and module builds |
+| `index.html`, `find/`, `understand/`, `lab/`, `decide/`, `research/`, `team/`, `view/` | Shell pages |
+| `assets/site.css`, `assets/site.js` | Shared styling, header, journey stepper and candidate state |
+| `assets/street-lab-adapter.js` | The explicit candidate → Street Lab adapter |
+| `contracts/` | Versioned handoff schema |
+
+Pages may contain build-time includes such as `<!--@docs:team-->` or `<!--@catalog:sponge-->`; `scripts/build-integration.mjs` expands them.
+
+The earlier multi-port development setup (`scripts/dev-integration.mjs`, `scripts/serve-shell.mjs`) was replaced by one static build. Andy's tool is now built from `basel-site-scoping-tool/` unchanged, so the snapshot copy in `data/site-scoping-tool/` is no longer part of the site.
 
 ## Borrowed from Basel Spatial Graph
 
