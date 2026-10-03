@@ -91,3 +91,11 @@ Map navigation integration, real-site geometry, further intervention tracks, own
 - Existing Sponge Street smoke test passes unchanged.
 - Headless Chromium checks pass: canvas loads without runtime errors; add/connect/compare/disconnect/reset; playback advances and pauses; 390 px layout has no horizontal overflow. Desktop and mobile screenshots were visually inspected.
 - No map navigation, deployment, or real-site calibration is claimed.
+
+## UI slice 2
+
+The design controls now sit above the street on desktop and mobile. Changing a design pauses playback but preserves the selected minute, so the effect can be compared at the same point in the storm. Pause/continue, rewind and a complete-storm shortcut make playback explicit. Reset returns to minute zero.
+
+Two labelled water-balance bars compare the sealed street and the current design at the same minute. The original end-of-storm table remains separately labelled. Catchment links can be revealed on demand; the selected zone and the active drainage route are readable outside the canvas. Roof details, cars and planting are drawn from the existing zone/surface state without bitmap assets or model changes.
+
+Verified in Chromium at desktop and 390 px widths: same-minute design changes, before/after comparison, disconnect, reset, pause/resume, complete-storm shortcut and catchment toggle. No runtime errors or horizontal page overflow. The canvas remains a scaled schematic on small screens; the HTML route summary and zone controls provide readable alternatives.

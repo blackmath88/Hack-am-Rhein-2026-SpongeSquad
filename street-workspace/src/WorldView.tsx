@@ -8,6 +8,7 @@ type Props = {
   previous: SimulationSnapshot;
   selected: string;
   running: boolean;
+  showCatchments: boolean;
   onSelect: (id: string) => void;
 };
 const colors = {
@@ -64,6 +65,27 @@ export function WorldView(props: Props) {
             r.width * 14,
             r.height * 14 - 2,
           );
+          if (z.kind === "building") {
+            for (let i = 0; i < 6; i++) {
+              const x = px(3 + i * 6);
+              g.fillStyle(0xbcb4a5).fillRect(x, py(r.y + 2), 65, 62);
+              g.lineStyle(1, 0xf6f2e7, 0.7).strokeRect(
+                x + 5,
+                py(r.y + 2) + 5,
+                55,
+                52,
+              );
+              g.lineBetween(x + 32, py(r.y + 2) + 5, x + 32, py(r.y + 2) + 57);
+            }
+          }
+          if (material === "vegetated-soil") {
+            for (let i = 0; i < 12; i++) {
+              const x = px(3 + i * 2.2),
+                y = py(r.y + 1.2);
+              g.fillStyle(0x4f8055).fillCircle(x, y, 5);
+              g.fillStyle(0xa9c68c).fillCircle(x + 3, y - 3, 3);
+            }
+          }
           if (z.kind === "parking" && z.parkingSpaces > 0) {
             for (let i = 0; i < z.parkingSpaces; i++) {
               g.lineStyle(1, 0xc9d0ce, 0.6).strokeRect(
@@ -72,6 +94,12 @@ export function WorldView(props: Props) {
                 80,
                 20,
               );
+              const carX = px(3 + i * 7) + 12,
+                carY = py(r.y + 0.25) + 4;
+              g.fillStyle(
+                [0xb5c6c2, 0xd0b99d, 0x98aebc][i % 3],
+              ).fillRoundedRect(carX, carY, 52, 13, 4);
+              g.fillStyle(0x53696e).fillRect(carX + 12, carY + 2, 15, 9);
             }
           }
           if (z.kind === "road") {
@@ -98,7 +126,7 @@ export function WorldView(props: Props) {
             );
           label(
             px(1),
-            py(r.y) + 4,
+            py(r.y) + (z.kind === "parking" ? -14 : 4),
             z.id === "zone-2" && material === "vegetated-soil"
               ? "RAIN GARDEN · former parking"
               : z.label.toUpperCase(),
@@ -111,6 +139,7 @@ export function WorldView(props: Props) {
           const a = byId.get(e.from)!.position,
             b = byId.get(e.to)!.position;
           const catchment = e.id.startsWith("rain-");
+          if (catchment && !current.current.showCatchments) return;
           const color =
             e.kind === "overflow"
               ? 0xb97138
@@ -167,13 +196,14 @@ export function WorldView(props: Props) {
                 py(n.position.y),
                 6,
               );
-            label(
+            const badge = label(
               px(n.position.x) - 28,
               py(n.position.y) + 15,
               n.label,
-              ["runoff", "drain", "garden", "soil"].includes(n.id) ? "#ffffff" : "#173f46",
-              12,
+              "#173f46",
+              13,
             );
+            badge.setBackgroundColor("#f5f4ef").setPadding(4, 2, 4, 2);
           });
         label(
           30,
@@ -197,6 +227,8 @@ export function WorldView(props: Props) {
           overlay.lineBetween(x, y, x - 3, y + 10);
         }
         world.connections.forEach((e, i) => {
+          if (e.id.startsWith("rain-") && !current.current.showCatchments)
+            return;
           if (
             (snapshot.edgeVolumes[e.id] ?? 0) -
               (previous.edgeVolumes[e.id] ?? 0) <=
