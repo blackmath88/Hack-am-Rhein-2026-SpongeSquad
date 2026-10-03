@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 760" role="img" aria-labelledby="t d" font-family="DM Sans, Helvetica Neue, Helvetica, Arial, sans-serif">
+  <title id="t">The round table: who must agree on one street concept</title>
+  <desc id="d">Six actors sit around one shared street concept, each holding one question. Stadtklima asks whether it moves Basel toward a climate-adapted city. The Stadtgärtnerei asks whether it can live here. The Tiefbauamt asks whether the public street can work here. The AUE asks whether water may go here. IWB and the Leitungskataster ask whether it can coexist safely with the networks. BVB, private owners and residents add their own questions. The agreed concept then goes to fieldwork and engineering, becomes a built living system, and is cared for. What is learned feeds the next street.</desc>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#6f7c74"/></marker>
+  </defs>
+  <rect width="960" height="760" fill="#f7f9f6"/>
+
+  <!-- threads into the concept -->
+  <g fill="none" stroke-width="3" stroke-linecap="round">
+    <path d="M480 112 L480 172" stroke="#3b4a41" stroke-dasharray="2 7"/>
+    <path d="M262 176 C300 190 310 200 336 206" stroke="#2f7d55"/>
+    <path d="M698 176 C660 190 650 200 624 206" stroke="#7d8781"/>
+    <path d="M262 316 C300 300 310 290 336 278" stroke="#2f7fa6"/>
+    <path d="M698 316 C660 300 650 290 624 278" stroke="#7d8781"/>
+    <path d="M220 418 C300 380 360 350 400 316" stroke="#9aa59e" stroke-dasharray="6 6"/>
+    <path d="M480 404 L480 322" stroke="#9aa59e" stroke-dasharray="6 6"/>
+    <path d="M740 418 C660 380 600 350 560 316" stroke="#9aa59e" stroke-dasharray="6 6"/>
+  </g>
+
+  <!-- Stadtklima -->
+  <rect x="340" y="24" width="280" height="88" rx="12" fill="#fff" stroke="#c9d3cb"/>
+  <text x="480" y="52" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="#3b4a41">STADTKLIMA · PLANNING</text>
+  <text x="480" y="76" text-anchor="middle" font-size="15" fill="#202a25">“Does this move Basel toward</text>
+  <text x="480" y="96" text-anchor="middle" font-size="15" fill="#202a25">a climate-adapted city?”</text>
+
+  <!-- Stadtgärtnerei (lead) -->
+  <rect x="22" y="134" width="240" height="96" rx="12" fill="#e7f2e9" stroke="#2f7d55" stroke-width="2"/>
+  <circle cx="54" cy="166" r="14" fill="#2f7d55"/><path d="M54 178 L54 192 M46 192 L62 192" stroke="#2f7d55" stroke-width="3"/>
+  <text x="78" y="160" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1c654b">STADTGÄRTNEREI</text>
+  <text x="78" y="186" font-size="19" font-weight="700" fill="#1c654b">“Can it live here?”</text>
+  <text x="78" y="210" font-size="13" fill="#3e5e4c">roots · soil · planting · care</text>
+
+  <!-- Tiefbauamt -->
+  <rect x="698" y="134" width="240" height="96" rx="12" fill="#fff" stroke="#9aa59e" stroke-width="1.5"/>
+  <rect x="716" y="160" width="26" height="10" fill="#7d8781"/><rect x="716" y="172" width="26" height="6" fill="#b4bcb6"/>
+  <text x="756" y="160" font-size="13" font-weight="700" letter-spacing="1.5" fill="#3b4a41">TIEFBAUAMT</text>
+  <text x="756" y="184" font-size="16" font-weight="700" fill="#202a25">“Can the public</text>
+  <text x="756" y="204" font-size="16" font-weight="700" fill="#202a25">street work here?”</text>
+
+  <!-- AUE -->
+  <rect x="22" y="268" width="240" height="96" rx="12" fill="#eaf3f7" stroke="#2f7fa6" stroke-width="1.5"/>
+  <path d="M54 290 C46 302 44 308 44 312 A10 10 0 0 0 64 312 C64 308 62 302 54 290 z" fill="#2f7fa6"/>
+  <text x="78" y="294" font-size="13" font-weight="700" letter-spacing="1.5" fill="#2f5d68">AUE</text>
+  <text x="78" y="320" font-size="17" font-weight="700" fill="#202a25">“May water go here?”</text>
+  <text x="78" y="344" font-size="13" fill="#3e5a63">groundwater · soil · permits</text>
+
+  <!-- IWB / Leitungskataster -->
+  <rect x="698" y="268" width="240" height="96" rx="12" fill="#fff" stroke="#9aa59e" stroke-width="1.5"/>
+  <g stroke-width="5" stroke-linecap="round"><path d="M716 296 L742 296" stroke="#c98a2b"/><path d="M716 308 L742 308" stroke="#2f7fa6"/><path d="M716 320 L742 320" stroke="#9b4f2e"/></g>
+  <text x="756" y="294" font-size="13" font-weight="700" letter-spacing="1.5" fill="#3b4a41">IWB · UTILITIES</text>
+  <text x="756" y="318" font-size="16" font-weight="700" fill="#202a25">“Can it coexist safely</text>
+  <text x="756" y="338" font-size="16" font-weight="700" fill="#202a25">with the networks?”</text>
+
+  <!-- the concept -->
+  <rect x="336" y="172" width="288" height="150" rx="16" fill="#202a25"/>
+  <text x="480" y="210" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="2" fill="#cfe6d8">ONE STREET CONCEPT</text>
+  <text x="480" y="244" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">rain · roots · roads</text>
+  <text x="480" y="270" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">pipes · soil · care</text>
+  <text x="480" y="300" text-anchor="middle" font-size="13" fill="#b8c7bd">must agree</text>
+
+  <!-- supporting voices -->
+  <g font-size="13.5" fill="#46524b">
+    <rect x="110" y="404" width="220" height="56" rx="10" fill="#fff" stroke="#d3dad4"/>
+    <text x="220" y="428" text-anchor="middle" font-weight="700">BVB</text>
+    <text x="220" y="448" text-anchor="middle">“Can it coexist with the tram?”</text>
+    <rect x="370" y="404" width="220" height="56" rx="10" fill="#fff" stroke="#d3dad4"/>
+    <text x="480" y="428" text-anchor="middle" font-weight="700">PRIVATE OWNERS</text>
+    <text x="480" y="448" text-anchor="middle">“Who looks after it?”</text>
+    <rect x="630" y="404" width="220" height="56" rx="10" fill="#fff" stroke="#d3dad4"/>
+    <text x="740" y="428" text-anchor="middle" font-weight="700">RESIDENTS</text>
+    <text x="740" y="448" text-anchor="middle">“What must the street still do?”</text>
+  </g>
+
+  <!-- flow to built system -->
+  <path d="M480 462 L480 500" stroke="#6f7c74" stroke-width="2.5" marker-end="url(#arr)"/>
+  <rect x="300" y="504" width="360" height="66" rx="12" fill="#fff" stroke="#9aa59e"/>
+  <text x="480" y="530" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="#3b4a41">FIELDWORK + ENGINEERING</text>
+  <text x="480" y="554" text-anchor="middle" font-size="15" fill="#202a25">“Can it be designed and built safely?”</text>
+  <path d="M480 572 L480 606" stroke="#6f7c74" stroke-width="2.5" marker-end="url(#arr)"/>
+  <rect x="300" y="610" width="360" height="74" rx="12" fill="#e7f2e9" stroke="#2f7d55" stroke-width="2"/>
+  <text x="480" y="638" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1c654b">BUILT LIVING SYSTEM</text>
+  <text x="480" y="664" text-anchor="middle" font-size="15" fill="#1f4f39">trees · shade · retention · safe overflow</text>
+
+  <!-- care loop -->
+  <path d="M662 648 L716 648" stroke="#2f7d55" stroke-width="2.5" marker-end="url(#arr)"/>
+  <rect x="720" y="614" width="218" height="68" rx="12" fill="#fff" stroke="#2f7d55" stroke-width="1.5"/>
+  <text x="829" y="642" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="#1c654b">CARE + LEARNING</text>
+  <text x="829" y="664" text-anchor="middle" font-size="13.5" fill="#3e5e4c">pruning · cleaning · monitoring</text>
+  <path d="M829 612 C829 540 829 470 829 372" fill="none" stroke="#2f7d55" stroke-width="2" stroke-dasharray="5 6" marker-end="url(#arr)"/>
+  <text x="838" y="520" font-size="12.5" fill="#3e5e4c">back to the</text>
+  <text x="838" y="536" font-size="12.5" fill="#3e5e4c">table, next street</text>
+
+  <!-- key -->
+  <g font-size="12.5" fill="#46524b">
+    <path d="M24 712 L54 712" stroke="#2f7d55" stroke-width="3"/><text x="62" y="716">living system</text>
+    <path d="M170 712 L200 712" stroke="#7d8781" stroke-width="3"/><text x="208" y="716">hard infrastructure</text>
+    <path d="M346 712 L376 712" stroke="#2f7fa6" stroke-width="3"/><text x="384" y="716">water and ground</text>
+    <path d="M520 712 L550 712" stroke="#9aa59e" stroke-width="3" stroke-dasharray="6 6"/><text x="558" y="716">local voices</text>
+    <text x="24" y="744" fill="#6c7770">Not an approval sequence: the questions converge on one concept, then return as care and learning.</text>
+  </g>
+</svg>

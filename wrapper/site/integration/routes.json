@@ -23,7 +23,7 @@
     { "folder": "frontend/", "owner": "Simon", "title": "Frontend", "page": "frontend/", "status": "placeholder", "summary": "Shared product interface. Template page until the frontend exposes an entry point." },
     { "folder": "data/", "owner": "Andy", "title": "Data and provenance", "page": "data/", "status": "partial", "summary": "Datasets, schemas, transformations and provenance for the map and the street." },
     { "folder": "explainer-videos-context/", "owner": "Bala Chandar Muppala", "title": "Explainers and context", "page": "explainer-videos-context/", "status": "placeholder", "summary": "Explanations and video assets. Template page until assets are added." },
-    { "folder": "presentation-story/", "owner": "Mary", "title": "Presentation and story", "page": "presentation-story/", "status": "partial", "summary": "Demo narrative and slides. The Canva deck is linked; the story page is a template." }
+    { "folder": "presentation-story/", "owner": "Mary", "title": "Presentation and story", "page": "presentation-story/", "status": "partial", "summary": "Demo narrative and slides. The Canva deck is linked, with a draft pitch, six slides and diagrams for Mary." }
   ],
   "modules": [
     { "id": "site-scoping", "source": "basel-site-scoping-tool", "output": "basel-site-scoping-tool", "build": "vite" },

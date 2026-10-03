@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" role="img" aria-labelledby="t d" font-family="DM Sans, Helvetica Neue, Helvetica, Arial, sans-serif">
+  <title id="t">The life of a sponge-city intervention, and where Street X-Ray helps</title>
+  <desc id="d">Six stations in a loop: opportunity from public GIS, constraints and who to ask, fieldwork with tests and surveys, coordinated design by Tiefbauamt, IWB, BVB and Stadtgärtnerei, a built living system, then maintenance and learning that feed the next opportunity. Street X-Ray works in the first two stations and prepares fieldwork. Everything after that is professional work.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6f7c74"/></marker>
+  </defs>
+  <rect width="960" height="330" fill="#f7f9f6"/>
+  <rect x="14" y="24" width="378" height="210" rx="16" fill="#e7f2e9" stroke="#9cc4a6" stroke-dasharray="6 5"/>
+  <text x="30" y="48" font-size="12.5" font-weight="700" letter-spacing="1.6" fill="#1c654b">STREET X-RAY WORKS HERE</text>
+  <text x="944" y="48" text-anchor="end" font-size="12.5" font-weight="700" letter-spacing="1.6" fill="#6c7770">PROFESSIONAL WORK · PERMITS · CARE</text>
+
+  <g fill="none" stroke="#6f7c74" stroke-width="2.5">
+    <path d="M152 132 L184 132" marker-end="url(#a)"/>
+    <path d="M308 132 L340 132" marker-end="url(#a)"/>
+    <path d="M464 132 L496 132" marker-end="url(#a)"/>
+    <path d="M620 132 L652 132" marker-end="url(#a)"/>
+    <path d="M776 132 L808 132" marker-end="url(#a)"/>
+    <path d="M870 190 C870 290 90 290 90 196" stroke="#2f7d55" stroke-dasharray="6 6" marker-end="url(#a)"/>
+  </g>
+  <text x="480" y="300" text-anchor="middle" font-size="13" fill="#2f5e45">what is learned on one street feeds the next opportunity</text>
+
+  <g text-anchor="middle">
+    <circle cx="90" cy="132" r="60" fill="#fff" stroke="#2f7d55" stroke-width="2"/>
+    <text x="90" y="124" font-size="14" font-weight="700" fill="#202a25">Opportunity</text>
+    <text x="90" y="144" font-size="12" fill="#46524b">public GIS</text>
+    <circle cx="246" cy="132" r="60" fill="#fff" stroke="#2f7d55" stroke-width="2"/>
+    <text x="246" y="124" font-size="14" font-weight="700" fill="#202a25">Constraints</text>
+    <text x="246" y="144" font-size="12" fill="#46524b">who to ask</text>
+    <circle cx="402" cy="132" r="60" fill="#fff" stroke="#9a7426" stroke-width="2"/>
+    <text x="402" y="124" font-size="14" font-weight="700" fill="#202a25">Fieldwork</text>
+    <text x="402" y="144" font-size="12" fill="#46524b">tests · surveys</text>
+    <circle cx="558" cy="132" r="60" fill="#fff" stroke="#7d8781" stroke-width="2"/>
+    <text x="558" y="118" font-size="14" font-weight="700" fill="#202a25">Coordinated</text>
+    <text x="558" y="136" font-size="14" font-weight="700" fill="#202a25">design</text>
+    <text x="558" y="156" font-size="11.5" fill="#46524b">TBA · IWB</text>
+    <text x="558" y="171" font-size="11.5" fill="#46524b">BVB · STG</text>
+    <circle cx="714" cy="132" r="60" fill="#e7f2e9" stroke="#2f7d55" stroke-width="2"/>
+    <text x="714" y="118" font-size="14" font-weight="700" fill="#1c654b">Built living</text>
+    <text x="714" y="136" font-size="14" font-weight="700" fill="#1c654b">system</text>
+    <text x="714" y="156" font-size="11.5" fill="#3e5e4c">trees · retention</text>
+    <circle cx="870" cy="132" r="60" fill="#fff" stroke="#2f7d55" stroke-width="2"/>
+    <text x="870" y="118" font-size="14" font-weight="700" fill="#202a25">Care and</text>
+    <text x="870" y="136" font-size="14" font-weight="700" fill="#202a25">learning</text>
+    <text x="870" y="156" font-size="11.5" fill="#46524b">Stadtgärtnerei</text>
+  </g>
+  <text x="402" y="220" text-anchor="middle" font-size="12" fill="#6b5420">X-Ray prepares the brief</text>
+</svg>

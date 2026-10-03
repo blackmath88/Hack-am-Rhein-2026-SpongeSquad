@@ -24,7 +24,7 @@
           <div><h3><span class="dot works"></span>Works now</h3><ul>
             <li>Candidate identity, evidence leads, constraints and missing data from the site-scoping fixture</li>
             <li>City-wide availability of the evidence a street decision needs</li>
-            <li>Who holds the gated evidence</li>
+            <li>Who to ask next for each missing fact</li>
             <li>Street X-Ray evidence gate for one study point</li>
           </ul></div>
           <div><h3><span class="dot illustrative"></span>Illustrative</h3><ul>
@@ -53,27 +53,50 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="labels">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Above and below the line</p><h2>Visible evidence is not underground evidence</h2></div>
+          <p>Public data describes what anyone can see. What decides a design lies below the pavement, and is asked for or tested, not inferred.</p>
+        </div>
+        <figure class="figure">
+          <img src="../assets/diagrams/street-section.svg" width="960" height="600" alt="A schematic street section. Above the pavement line: facade, sidewalk, street tree, parking, road and tram, described by open measured land cover, tree points and canopy, open modelled heat analysis and an open derived sealed share. Below the line: root extent needs a site investigation with the Stadtgärtnerei and an arborist; the utility zone is a restricted record from the Leitungskataster and IWB; soil permeability and contamination need a site test; the sewer is a restricted record held by the Tiefbauamt; groundwater is known only at monitoring stations and assessed by the AUE." style="width:100%;height:auto" />
+          <figcaption>Schematic, not a real street. The utility zone is drawn as a band on purpose: the website never shows pipe geometry. <a href="../assets/diagrams/street-section.svg" download>Download SVG</a></figcaption>
+        </figure>
+        <h3 style="margin-top:28px">How evidence is labelled</h3>
+        <div class="ev-legend">
+          <div><span class="ev om">Open measured</span><p>Published observations, such as land cover, tree points or LiDAR canopy.</p></div>
+          <div><span class="ev mod">Open modelled</span><p>Published model results, such as the heat analysis or sponge suitability.</p></div>
+          <div><span class="ev der">Open derived</span><p>Computed by the team from open data, with the method named. For screening only.</p></div>
+          <div><span class="ev res">Restricted measured · request required</span><p>Exists and is held for safety, such as utility lines or the sewer network.</p></div>
+          <div><span class="ev site">Site investigation required</span><p>Nobody knows it until it is tested on site, such as permeability or root extent.</p></div>
+          <div><span class="ev asm">Assumption</span><p>A value chosen for an illustration, such as the strip width in the Street Lab.</p></div>
+          <div><span class="ev unk">Unknown</span><p>Not known, and not yet clear who could know it.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white">
       <div class="wrap">
         <div class="section-head">
           <div><p class="eyebrow">City-wide context</p><h2>What Basel publishes for a street decision</h2></div>
-          <p>From the team's Data Charter review of Basel and federal sources, snapshot 3 October 2026. "Restricted" means the data is expected to exist but was not found as open data.</p>
+          <p>From the team's Data Charter review of Basel and federal sources, snapshot 3 October 2026. "Restricted" means the data exists but is held for safety and released on request.</p>
         </div>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Evidence</th><th>Status</th><th>What exists openly</th></tr></thead>
             <tbody>
-              <tr><td>Land cover and surfaces</td><td><span class="label works">Open</span></td><td>Official survey land cover, <a href="https://data.bs.ch/explore/dataset/100477/" rel="noreferrer">data.bs.ch 100477</a></td></tr>
-              <tr><td>Trees</td><td><span class="label works">Open</span></td><td>Tree cadastre with species and daily updates, <a href="https://data.bs.ch/explore/dataset/100052/" rel="noreferrer">100052</a>; LiDAR canopy cover 2012, 2021, 2024, <a href="https://data.bs.ch/explore/dataset/100357/" rel="noreferrer">100357</a></td></tr>
-              <tr><td>Ownership and public realm</td><td><span class="label works">Open</span></td><td>Parcels with public-realm (Allmend) parcels, <a href="https://data.bs.ch/explore/dataset/100201/" rel="noreferrer">100201</a></td></tr>
-              <tr><td>Sponge suitability and heat focus areas</td><td><span class="label works">Open</span></td><td>Street suitability by daily traffic (<a href="https://api.geo.bs.ch/stac/v1/collections/SETV" rel="noreferrer">SETV</a>) and city-climate focus areas (<a href="https://api.geo.bs.ch/stac/v1/collections/FGSK" rel="noreferrer">FGSK</a>)</td></tr>
-              <tr><td>Urban climate analysis</td><td><span class="label illustrative">Partial</span></td><td>Open as map images; the grids are in the geodata shop</td></tr>
-              <tr><td>Works calendar</td><td><span class="label illustrative">Partial</span></td><td>Public-ground permits, <a href="https://data.bs.ch/explore/dataset/100018/" rel="noreferrer">100018</a>; no coordinated multi-year works plan is published</td></tr>
-              <tr><td>Sewer and drainage network</td><td><span class="label missing">Restricted</span></td><td>Only the treatment-plant catchment is open</td></tr>
-              <tr><td>Underground utilities</td><td><span class="label missing">Restricted</span></td><td>Works permits show activity, not the network or its depth</td></tr>
-              <tr><td>Gullies and inlets</td><td><span class="label missing">Missing</span></td><td>No open gully data found</td></tr>
-              <tr><td>Infiltration capacity</td><td><span class="label missing">Missing</span></td><td>Groundwater station statistics are open; local permeability needs a site test</td></tr>
-              <tr><td>Tree pits and root space</td><td><span class="label missing">Missing</span></td><td>The tree cadastre has no pit size field</td></tr>
+              <tr><td>Land cover and surfaces</td><td><span class="ev om">Open measured</span></td><td>Official survey land cover, <a href="https://data.bs.ch/explore/dataset/100477/" rel="noreferrer">data.bs.ch 100477</a></td></tr>
+              <tr><td>Trees (points) and canopy</td><td><span class="ev om">Open measured</span></td><td>Tree cadastre with species and daily updates, <a href="https://data.bs.ch/explore/dataset/100052/" rel="noreferrer">100052</a>; LiDAR canopy cover 2012, 2021, 2024, <a href="https://data.bs.ch/explore/dataset/100357/" rel="noreferrer">100357</a></td></tr>
+              <tr><td>Ownership and public realm</td><td><span class="ev om">Open measured</span></td><td>Parcels with public-realm (Allmend) parcels, <a href="https://data.bs.ch/explore/dataset/100201/" rel="noreferrer">100201</a></td></tr>
+              <tr><td>Sponge suitability and heat focus areas</td><td><span class="ev mod">Open modelled</span></td><td>Street suitability by daily traffic (<a href="https://api.geo.bs.ch/stac/v1/collections/SETV" rel="noreferrer">SETV</a>) and city-climate focus areas (<a href="https://api.geo.bs.ch/stac/v1/collections/FGSK" rel="noreferrer">FGSK</a>)</td></tr>
+              <tr><td>Urban climate analysis</td><td><span class="ev mod">Open modelled</span></td><td>Open as map images; the grids are in the geodata shop</td></tr>
+              <tr><td>Works calendar</td><td><span class="ev der">Open derived</span></td><td>Public-ground permits, <a href="https://data.bs.ch/explore/dataset/100018/" rel="noreferrer">100018</a>; no coordinated multi-year works plan is published</td></tr>
+              <tr><td>Sewer and drainage network</td><td><span class="ev res">Restricted measured · request required</span></td><td>Only the treatment-plant catchment is open</td></tr>
+              <tr><td>Underground utilities</td><td><span class="ev res">Restricted measured · request required</span></td><td>Works permits show activity, not the network or its depth</td></tr>
+              <tr><td>Gullies and inlets</td><td><span class="ev unk">Unknown</span></td><td>No open gully data found</td></tr>
+              <tr><td>Infiltration capacity</td><td><span class="ev site">Site investigation required</span></td><td>Groundwater station statistics are open; local permeability needs a site test</td></tr>
+              <tr><td>Tree pits and root space</td><td><span class="ev site">Site investigation required</span></td><td>The tree cadastre has no pit size field</td></tr>
             </tbody>
           </table>
         </div>
@@ -81,24 +104,25 @@
       </div>
     </section>
 
-    <section class="section white">
+    <section class="section" id="who-to-ask">
       <div class="wrap">
         <div class="section-head">
-          <div><p class="eyebrow">The data question</p><h2>Unknown to us is not unknown to the city</h2></div>
-          <p>The team's gatekeeper model asks who holds the evidence, what unlocks it, and which decision waits until then. Role names come from the team's research and still need confirmation with the authorities.</p>
+          <div><p class="eyebrow">Who to ask next</p><h2>Unknown to us is not unknown to the city</h2></div>
+          <p>Much of what a design needs exists, but is held for good reasons: safety, privacy or professional responsibility. The right next step is a question to the right office.</p>
         </div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Decision-relevant fact</th><th>Access</th><th>Gatekeeper</th><th>Decision blocked until then</th></tr></thead>
+            <thead><tr><th>Decision-relevant fact</th><th>Status</th><th>Who to ask</th><th>What it unlocks</th></tr></thead>
             <tbody>
-              <tr><td>Utility conflicts under a footprint</td><td><span class="label missing">Restricted · operator-held</span></td><td>Cadastral authority and the relevant network operator</td><td>Can this footprint proceed to detailed design?</td></tr>
-              <tr><td>Drainage destination and sewer context</td><td><span class="label missing">Restricted</span></td><td>Tiefbauamt drainage and general drainage plan (GEP) owners; property records for private drainage</td><td>Where can retained or overflow water safely go?</td></tr>
-              <tr><td>Infiltration feasibility</td><td><span class="label illustrative">Mixed</span></td><td>Environmental authorities for context; a qualified site investigation for the local value</td><td>Is infiltration credible at this footprint?</td></tr>
-              <tr><td>Performance after construction</td><td><span class="label illustrative">Project-held</span></td><td>Project owner, research partner or monitoring operator</td><td>Does a built design perform as expected?</td></tr>
+              <tr><td>Root extent and protection of existing trees</td><td><span class="ev site">Site investigation required</span></td><td>Stadtgärtnerei and an arborist</td><td>Can it live here, and does it spare the trees already cooling the street?</td></tr>
+              <tr><td>Utility conflicts under a footprint</td><td><span class="ev res">Restricted measured · request required</span></td><td>Leitungskataster overview, then IWB and other operators</td><td>Can this footprint go to detailed design?</td></tr>
+              <tr><td>Drainage destination and sewer connection</td><td><span class="ev res">Restricted measured · request required</span></td><td>Tiefbauamt</td><td>Where can retained or overflow water safely go?</td></tr>
+              <tr><td>Infiltration</td><td><span class="ev site">Site investigation required</span></td><td>Soil tests, then the AUE, which issues the permit</td><td>May water go into the ground here?</td></tr>
+              <tr><td>Performance after construction</td><td><span class="ev unk">Unknown</span></td><td>Project owner, research partner or monitoring operator</td><td>Does a built design work as expected?</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="small" style="margin-top:12px"><a href="../research/gatekeepers/">Read the gatekeeper model</a></p>
+        <p class="small" style="margin-top:12px"><a href="../decide/#actors">Who each actor is</a> · <a href="../research/sponge-city-actors/">Sources for these roles</a> · <a href="../research/gatekeepers/">The team's data-access model</a></p>
       </div>
     </section>
 

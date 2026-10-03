@@ -105,6 +105,7 @@ function sourceRepoPath(path) {
 
 // slug, repo path, section (research|team), group (for listing)
 const DOCS = [
+  ['sponge-city-actors', 'research/actors/SPONGE_CITY_ACTORS.md', 'research', 'team'],
   ['data-charter', 'wrapper/data-charter-map/docs/DATA-CHARTER.md', 'research', 'team'],
   ['gatekeepers', 'wrapper/data-charter-map/docs/GATEKEEPERS.md', 'research', 'team'],
   ['data-sources', 'wrapper/data-charter-map/docs/DATA-SOURCES.md', 'research', 'team'],

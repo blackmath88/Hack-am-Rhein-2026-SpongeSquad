@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="t d" font-family="DM Sans, Helvetica Neue, Helvetica, Arial, sans-serif">
+  <title id="t">Above and below the line: what a street shows and what it hides</title>
+  <desc id="d">A schematic Basel street section. Above the pavement line, anyone can see facades, sidewalk, a street tree, parking, the road and a tram track. Public data describes these: land cover and tree points are open measured, the heat analysis is open modelled, the sealed share is open derived. Below the line, roots need a site investigation by an arborist and the Stadtgärtnerei; utility lines are restricted records held by the Leitungskataster and IWB; soil permeability needs a site test; groundwater is open modelled context assessed by the AUE; the sewer is a restricted record held by the Tiefbauamt. Visible evidence is not underground evidence.</desc>
+  <defs>
+    <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#f7ece6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#9b4f2e" stroke-width="2.5"/></pattern>
+    <pattern id="dots" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#e6f0f4"/><circle cx="4" cy="4" r="1.4" fill="#3f7f99"/></pattern>
+    <pattern id="soil" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="#efe6d6"/><circle cx="3" cy="4" r="1.2" fill="#c9b48e"/><circle cx="10" cy="10" r="1" fill="#c9b48e"/></pattern>
+  </defs>
+  <rect width="960" height="600" fill="#f7f9f6"/>
+
+  <!-- ABOVE -->
+  <text x="24" y="34" font-size="13" font-weight="700" letter-spacing="2" fill="#2f7d55">ABOVE · WHAT ANYONE CAN SEE</text>
+  <rect x="24" y="60" width="110" height="170" fill="#e2e6e0" stroke="#b9c2bb"/>
+  <g fill="#cdd4cc"><rect x="40" y="80" width="30" height="34"/><rect x="88" y="80" width="30" height="34"/><rect x="40" y="134" width="30" height="34"/><rect x="88" y="134" width="30" height="34"/></g>
+  <rect x="134" y="222" width="150" height="8" fill="#cfd4cd"/>
+  <rect x="284" y="222" width="110" height="8" fill="#a9c79b"/>
+  <circle cx="339" cy="128" r="58" fill="#7fb07f" opacity=".9"/><circle cx="306" cy="150" r="34" fill="#6aa06d"/><circle cx="372" cy="146" r="36" fill="#6aa06d"/>
+  <rect x="333" y="168" width="12" height="56" fill="#7a5f45"/>
+  <rect x="394" y="222" width="140" height="8" fill="#b4b9b3"/>
+  <rect x="412" y="196" width="104" height="26" rx="8" fill="#c8ced0"/>
+  <rect x="534" y="222" width="300" height="8" fill="#9fa59f"/>
+  <rect x="834" y="222" width="102" height="8" fill="#9fa59f"/>
+  <g stroke="#6f7c74" stroke-width="3"><line x1="856" y1="218" x2="856" y2="230"/><line x1="914" y1="218" x2="914" y2="230"/></g>
+  <line x1="885" y1="120" x2="885" y2="218" stroke="#6f7c74" stroke-width="2"/>
+  <g font-size="11.5" fill="#46524b" text-anchor="middle">
+    <text x="79" y="248">facade · roof</text><text x="209" y="248">sidewalk</text><text x="339" y="248">street tree</text>
+    <text x="464" y="248">parking</text><text x="684" y="248">road</text><text x="885" y="248">tram</text>
+  </g>
+  <!-- above chips -->
+  <g font-size="12" fill="#202a25">
+    <rect x="452" y="54" width="186" height="26" rx="5" fill="#e3f0e6" stroke="#c6dfcc"/><rect x="460" y="61" width="12" height="12" rx="2" fill="#2f7d55"/><text x="480" y="72">land cover, tree points</text>
+    <rect x="648" y="54" width="150" height="26" rx="5" fill="#eef3f6" stroke="#d3e1e8"/><rect x="656" y="61" width="12" height="12" rx="2" fill="url(#dots)" stroke="#3f7f99"/><text x="676" y="72">heat analysis</text>
+    <rect x="452" y="88" width="186" height="26" rx="5" fill="#fff" stroke="#b9c9bd" stroke-dasharray="4 3"/><rect x="460" y="95" width="12" height="12" rx="2" fill="none" stroke="#2f7d55" stroke-dasharray="3 2"/><text x="480" y="106">sealed share (derived)</text>
+    <rect x="648" y="88" width="150" height="26" rx="5" fill="#e3f0e6" stroke="#c6dfcc"/><rect x="656" y="95" width="12" height="12" rx="2" fill="#2f7d55"/><text x="676" y="106">canopy (LiDAR)</text>
+  </g>
+
+  <!-- the line -->
+  <line x1="0" y1="262" x2="960" y2="262" stroke="#202a25" stroke-width="3"/>
+  <text x="936" y="284" text-anchor="end" font-size="12.5" font-weight="700" fill="#202a25">pavement line</text>
+
+  <!-- BELOW -->
+  <rect x="0" y="264" width="960" height="336" fill="url(#soil)"/>
+  <text x="24" y="292" font-size="13" font-weight="700" letter-spacing="2" fill="#9b4f2e">BELOW · ASK OR TEST</text>
+
+  <!-- roots: site investigation -->
+  <ellipse cx="339" cy="330" rx="110" ry="46" fill="#fff" fill-opacity=".55" stroke="#9a7426" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="339" y="326" text-anchor="middle" font-size="22" font-weight="700" fill="#9a7426">?</text>
+  <text x="339" y="346" text-anchor="middle" font-size="12" fill="#6b5420">root extent unknown</text>
+
+  <!-- utility band: restricted -->
+  <rect x="134" y="392" width="400" height="34" fill="url(#hatch)" stroke="#9b4f2e"/>
+  <rect x="162" y="399" width="344" height="20" rx="4" fill="#fff"/>
+  <text x="334" y="414" text-anchor="middle" font-size="12.5" font-weight="700" fill="#6d3a22">utility zone · position, depth and clearance not shown</text>
+
+  <!-- sewer: restricted -->
+  <rect x="560" y="436" width="250" height="34" fill="url(#hatch)" stroke="#9b4f2e"/>
+  <rect x="605" y="443" width="160" height="20" rx="4" fill="#fff"/>
+  <text x="685" y="458" text-anchor="middle" font-size="12.5" font-weight="700" fill="#6d3a22">sewer and connections</text>
+
+  <!-- soil permeability: site test -->
+  <rect x="134" y="446" width="400" height="40" fill="#fff" fill-opacity=".5" stroke="#9a7426" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="334" y="471" text-anchor="middle" font-size="12.5" font-weight="700" fill="#6b5420">soil permeability ? · contamination ?</text>
+
+  <!-- groundwater: modelled context -->
+  <rect x="0" y="512" width="960" height="34" fill="url(#dots)"/>
+  <rect x="270" y="519" width="420" height="20" rx="4" fill="#fff"/>
+  <text x="480" y="534" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2f5d68">groundwater · station statistics only, nothing known in between</text>
+
+  <!-- who to ask -->
+  <g font-size="12" fill="#202a25">
+    <text x="456" y="324" font-weight="700" fill="#1c654b">Stadtgärtnerei + arborist</text><text x="456" y="340" fill="#3e5e4c">“Can it live here?”</text>
+    <text x="548" y="404" font-weight="700" fill="#6d3a22">Leitungskataster + IWB</text><text x="548" y="420" fill="#6d3a22">request required</text>
+    <text x="826" y="452" font-weight="700" fill="#6d3a22">Tiefbauamt</text><text x="826" y="468" fill="#6d3a22">restricted</text>
+    <text x="24" y="472" font-weight="700" fill="#6b5420">site test</text><text x="24" y="488" fill="#6b5420">engineer</text>
+    <text x="24" y="574" font-weight="700" fill="#2f5d68">AUE</text><text x="58" y="574" fill="#2f5d68">“May water go here?” · permit for infiltration</text>
+  </g>
+  <text x="936" y="586" text-anchor="end" font-size="13" font-weight="700" fill="#202a25">Visible evidence is not underground evidence.</text>
+</svg>

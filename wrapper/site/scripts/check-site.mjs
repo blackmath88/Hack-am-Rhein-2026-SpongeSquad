@@ -26,6 +26,19 @@ for (const file of files) {
     if (!existsSync(target)) broken.push(`${relative(dist, file)} → ${url}`);
   }
 }
+// Wording guard for the website's own pages. Rendered research documents and passages wrapped in
+// <!--quoted--> ... <!--/quoted--> are quoted as written and skipped.
+const shellPages = files.filter((f) => !/[\/](research|team)[\/][^\/]+[\/]index\.html$/.test(f) && !/^wrapper[\/]/.test(relative(dist, f)) && !/basel-site-scoping-tool/.test(f));
+const avoid = [
+  [/gatekeeper/i, 'say "who to ask next"'],
+  [/\bAI (finds|detects|knows)\b/i, 'AI explains and drafts; it does not find facts'],
+  [/infiltration potential/i, 'infiltration is assessed by the AUE'],
+  [/sponge score/i, 'no single sponge-city score'],
+];
+for (const file of shellPages) {
+  const text = readFileSync(file, 'utf8').replace(/<script[\s\S]*?<\/script>/g, '').replace(/<!--quoted-->[\s\S]*?<!--\/quoted-->/g, '').replace(/<[^>]+>/g, ' ');
+  for (const [re, why] of avoid) if (re.test(text)) broken.push(`${relative(dist, file)} uses "${text.match(re)[0]}": ${why}`);
+}
 if (broken.length) {
   console.error(`Broken internal references (${broken.length}):\n  ${broken.join('\n  ')}`);
   process.exit(1);
