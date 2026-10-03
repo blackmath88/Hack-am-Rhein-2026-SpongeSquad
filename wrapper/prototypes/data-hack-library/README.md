@@ -26,6 +26,12 @@ Each hack describes:
 
 ## Run
 
-Open `index.html` directly in a browser or serve this directory with any static web server.
+Serve this directory with any static web server, for example:
+
+```bash
+python3 -m http.server 8080 -d wrapper/prototypes/data-hack-library
+```
+
+Then open `http://localhost:8080/`.
 
 The prototype is intentionally dependency-free so it can be reviewed or integrated without adding another build system.
