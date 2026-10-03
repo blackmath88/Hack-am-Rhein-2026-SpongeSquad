@@ -13,4 +13,8 @@ This branch is a shared assembly space. Each workstream can develop inside its o
 
 ## Working rule
 
-Keep contributions inside the relevant folder. Andy's existing `basel-site-scoping-tool/` stays in place and unchanged. Integration happens in `wrapper/` through explicit seams rather than by moving or rewriting another workstream's source.
+Keep active work inside the relevant folder or feature branch. Existing feature branches remain unchanged. Bring work together through documented inputs and outputs; do not silently rewrite another workstream's implementation.
+
+Each workstream folder now also contains an `index.html` drop-in page. The
+shared landing page links these stable folder routes; teams can replace their
+placeholder cards when they expose a working entry point.

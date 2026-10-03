@@ -1,0 +1,14 @@
+{
+  "name": "sponge-squad-integration",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev-integration.mjs",
+    "shell:dev": "node scripts/serve-shell.mjs",
+    "preview": "node scripts/serve-dist.mjs",
+    "build": "node scripts/build-integration.mjs",
+    "build:shell": "node scripts/build-integration.mjs --shell-only",
+    "test": "npm test --prefix wrapper/street-workspace && npm test --prefix wrapper/data-charter-map"
+  }
+}
