@@ -1,0 +1,11 @@
+{
+  "name": "sponge-squad-integration",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev-integration.mjs",
+    "build": "node scripts/build-integration.mjs",
+    "test": "npm test --prefix wrapper/street-workspace"
+  }
+}

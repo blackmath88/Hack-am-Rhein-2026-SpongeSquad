@@ -2,3 +2,6 @@
 .DS_Store
 hackamrhein-kit/
 random/
+node_modules/
+dist/
+*.tsbuildinfo

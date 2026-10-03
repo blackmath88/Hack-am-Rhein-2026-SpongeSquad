@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { createDemoStreet } from "../src/scenario.ts";
 import { applyPlan } from "../src/interventions.ts";
 import { simulate, validateWorld } from "../src/simulation.ts";
+import { parseSiteHandoff } from "../src/site-context.ts";
 const baseline = createDemoStreet();
 const storm = { depthMm: 30, durationMinutes: 30 };
 const close = (a: number, b: number) =>
@@ -133,4 +134,34 @@ test("site context does not become geometry or change simulation", () => {
   assert.deepEqual(linked.evidence.site, site);
   site.indicators.sources.push("later");
   assert.equal(linked.evidence.site!.indicators.sources.length, 1);
+});
+
+test("versioned site handoff is validated and preserves unicode", () => {
+  const payload = {
+    version: 1,
+    site: {
+      id: "GUN",
+      name: "Gundeldinger Feld & environs",
+      district: "Gundeldingen",
+      coordinates: [7.594, 47.54],
+      indicators: { sources: ["Baumkataster Zürich/Basel"], missingData: ["Boden"] },
+      constraints: ["Ownership unknown"],
+      directions: ["Rain garden"],
+    },
+    provenance: {
+      classification: "illustrative",
+      source: "Basel Site Scoping Tool",
+      note: "Identity context only",
+    },
+  };
+  const bytes = new TextEncoder().encode(JSON.stringify(payload));
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  const encoded = btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replace(/=+$/, "");
+  assert.deepEqual(parseSiteHandoff(`?site=${encoded}`), {
+    site: payload.site,
+    provenance: payload.provenance,
+  });
+  assert.equal(parseSiteHandoff("?site=not-json"), undefined);
+  assert.equal(parseSiteHandoff("?site="), undefined);
 });

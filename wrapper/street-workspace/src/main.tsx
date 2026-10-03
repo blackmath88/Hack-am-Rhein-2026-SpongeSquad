@@ -4,10 +4,12 @@ import { createDemoStreet } from "./scenario.ts";
 import { applyPlan } from "./interventions.ts";
 import { simulate } from "./simulation.ts";
 import { WorldView } from "./WorldView.tsx";
+import { parseSiteHandoff, scopingToolUrl } from "./site-context.ts";
 import type { InterventionPlan, SimulationSnapshot } from "./types.ts";
 import "./style.css";
 
-const baseline = createDemoStreet();
+const handoff = parseSiteHandoff(window.location.search);
+const baseline = createDemoStreet(handoff?.site);
 const emptyPlan: InterventionPlan = { rainGarden: false, connected: false };
 function WaterBalance({
   snapshot,
@@ -103,10 +105,13 @@ function App() {
   return (
     <main>
       <header>
-        <a className="brand" href="#">
+        <a className="brand" href={scopingToolUrl()}>
           SPONGE SQUAD <span>/ STREET LAB</span>
         </a>
-        <span className="tag">Illustrative scenario · v0.2</span>
+        <nav className="journey-progress" aria-label="Prototype journey">
+          <a href={scopingToolUrl()}>1 · Find</a><i>→</i><strong>2 · Test</strong><i>→</i><span>3 · Explain</span>
+        </nav>
+        <span className="tag">Illustrative scenario · v0.3</span>
       </header>
       <section className="intro">
         <div>
@@ -118,13 +123,18 @@ function App() {
           </p>
         </div>
         <div className="place">
-          BASEL-INSPIRED
+          {handoff ? 'SELECTED CANDIDATE' : 'BASEL-INSPIRED'}
           <br />
-          <strong>Synthetic demo street</strong>
+          <strong>{handoff?.site.name ?? 'Synthetic demo street'}</strong>
           <br />
-          No surveyed site selected
+          {handoff ? `${handoff.site.district} · context only` : 'No surveyed site selected'}
         </div>
       </section>
+      {handoff && <section className="site-context" aria-label="Selected candidate context">
+        <div><p className="eyebrow">HANDOFF FROM SITE SCOPING</p><h2>{handoff.site.name}</h2><p>{handoff.provenance.note}</p></div>
+        <div><strong>Evidence leads</strong>{handoff.site.indicators.sources.map((item) => <span key={item}>{item}</span>)}</div>
+        <div><strong>Still unknown</strong>{[...handoff.site.indicators.missingData, ...handoff.site.constraints].slice(0, 4).map((item) => <span key={item}>{item}</span>)}</div>
+      </section>}
       <section className="design-controls" aria-label="Design your street">
         <div className="design-title">
           <p className="eyebrow">DESIGN YOUR STREET</p>

@@ -49,11 +49,11 @@ flowchart TD
 | --- | --- | --- | --- |
 | Evidence discovery | Find relevant Basel datasets | Basel-Stadt and opendata.swiss connectors, source registry and metadata model exist in Andy's `feature/hot-spot-map` branch | Verify dataset IDs, schemas, licences, temporal coverage and spatial extent |
 | Site scoping | Identify places worth investigating | React/Leaflet map, `CandidateArea`, indicators, scoring, shortlist and comparison exist | Replace illustrative pins and values with spatially derived evidence |
-| Scenario adapter | Translate an area into a street case | Contract identified | Implement `candidateAreaToScenarioSeed()` |
+| Scenario adapter | Translate an area into a street case | Versioned candidate-context handoff implemented on `integration/spatial-journey` | Replace the illustrative context only when verified street-scale inputs exist |
 | Street world | Describe what physically exists | Five-primitives model designed | Implement one minimal typed street |
 | Intervention engine | Describe what changes | Seven tracks, dependencies, combinations and twelve states exist in the explainer | Convert one intervention into a typed world patch |
 | Simulation | Explain directional effects | Illustrative runoff, infiltration, storage, evapotranspiration and heat logic exists | Extract a pure deterministic function independent of the renderer |
-| Application shell | Navigation, evidence and controls | Andy's React application exists | Add an `Open Street Lab` transition and scenario workspace |
+| Application shell | Navigation, evidence and controls | Site scoping → Street Lab transition, journey markers and candidate evidence panel implemented | Add presentation/explainer transition when that workstream exposes a stable entry point |
 | Renderer | Make the world state visible | Standalone explainer and Phaser prototypes exist | Make the renderer consume `WorldState` rather than own domain logic |
 | Decision pathway | Explain who can act and how | Basel-specific research direction exists | Model ownership, actors, approvals, evidence gates and public influence |
 | Persistence/backend | Save and share scenarios | Not implemented and not yet required | Add only when shared scenarios or server-side processing justify it |
@@ -325,4 +325,3 @@ Do not build yet:
 ## Immediate finish line
 
 > Select one provisional Basel site, instantiate one small example street, apply one intervention, and visibly explain what changed physically, hydrologically and evidentially.
-

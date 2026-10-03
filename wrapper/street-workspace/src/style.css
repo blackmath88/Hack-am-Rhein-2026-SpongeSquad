@@ -738,3 +738,74 @@ button {
     min-height: 44px;
   }
 }
+
+/* Integration journey and evidence context. */
+header .journey-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  color: #8a978f;
+}
+header .journey-progress a {
+  color: #64766c;
+  text-decoration: none;
+}
+header .journey-progress strong {
+  color: #24584a;
+  background: #e8eee1;
+  border-radius: 12px;
+  padding: 5px 8px;
+}
+header .journey-progress i {
+  font-style: normal;
+  color: #b6beb8;
+}
+.site-context {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 22px;
+  margin: 0 0 26px;
+  padding: 18px 20px;
+  border: 1px solid #ccd5ca;
+  border-left: 4px solid #75965c;
+  border-radius: 6px;
+  background: #fbfaf6;
+}
+.site-context h2 {
+  margin: 0 0 5px;
+  font-size: 18px;
+}
+.site-context p {
+  margin: 0;
+  color: #66766d;
+  font-size: 11px;
+}
+.site-context strong,
+.site-context span {
+  display: block;
+}
+.site-context strong {
+  margin-bottom: 8px;
+  font-size: 10px;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+.site-context span {
+  margin: 5px 0;
+  color: #66766d;
+  font-size: 10px;
+  line-height: 1.4;
+}
+.site-context span::before {
+  content: "· ";
+}
+@media (max-width: 900px) {
+  header .journey-progress {
+    display: none;
+  }
+  .site-context {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}

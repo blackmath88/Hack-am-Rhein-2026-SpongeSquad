@@ -56,7 +56,7 @@ Inspected `andymucyo-ops/Hack-am-Rhein-2026-SpongeSquad`, `feature/hot-spot-map`
 const scenario = createDemoStreet(candidateArea);
 ```
 
-This is a typed integration seam, not a wired map-to-workspace flow. It does not turn area indicators into site geometry, soil permeability or drainage facts. The shipped UI uses a synthetic scenario with no selected site. Andy's app remains on its existing branch.
+On `integration/spatial-journey`, Andy's map snapshot is copied into `data/site-scoping-tool/` and its **Explore in Street Lab** action sends a versioned candidate payload to this app. Street Lab validates the payload and displays the selected identity, evidence leads and unknowns. It does not turn area indicators into site geometry, soil permeability or drainage facts; the same synthetic scenario and parameters are used with or without a selected site. Andy's source branch remains unchanged.
 
 ### Achim's Sponge Street explainer
 
@@ -82,7 +82,7 @@ Uniform rain, no evaporation, no travel time, no sewer capacity limit, no ground
 
 ## Deliberately deferred
 
-Map navigation integration, real-site geometry, further intervention tracks, ownership/decision pathways, engineered hydrology, art assets and deployment. None is implied by the illustrative model.
+Real-site geometry, further intervention tracks, ownership/decision pathways, engineered hydrology, art assets and deployment. None is implied by the illustrative model.
 
 ## Verification on 2026-10-03
 
