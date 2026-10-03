@@ -13,3 +13,7 @@ The root folders are neutral homes for the parallel hackathon workstreams. Every
 ## Working rule
 
 Keep active work inside the relevant folder or feature branch. Existing feature branches remain unchanged. Bring work together through documented inputs and outputs; do not silently rewrite another workstream's implementation.
+
+Each workstream folder now also contains an `index.html` drop-in page. The
+shared landing page links these stable folder routes; teams can replace their
+placeholder cards when they expose a working entry point.
