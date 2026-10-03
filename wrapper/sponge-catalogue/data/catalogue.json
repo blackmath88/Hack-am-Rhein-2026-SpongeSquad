@@ -1,0 +1,811 @@
+{
+  "schema_version": "sponge-catalogue/0.1",
+  "updated": "2026-10-03",
+  "title": "What a sponge city can do: Basel",
+  "purpose": "One column per action. Row 1: what is possible, for whom. Row 2: what Basel is already doing (verified, or visibly empty). Row 3: where the potential is, with numbers from open data. Row 4: how to get there (our proposals).",
+  "segments": {
+    "context": {
+      "new": "New development or full street rebuild",
+      "existing": "Existing street, building or courtyard"
+    },
+    "owner": {
+      "private": "Private owners (courtyards, roofs, forecourts)",
+      "public-building": "Public buildings and their grounds",
+      "allmend": "Allmend: public street space"
+    }
+  },
+  "evidence": {
+    "observed": "Published by an authority or stated in an official source, quoted as published",
+    "derived": "Computed by us from open Basel data; method named; reproducible with scripts/compute_potential.py; for explaining and screening only",
+    "assumed": "Our reasoning or a proposal; not measured",
+    "unknown": "No open data found in the reviewed Basel and federal sources"
+  },
+  "basel_status": {
+    "in-force": "A rule that applies today",
+    "done": "Built",
+    "in-progress": "Under construction, being piloted or being planned",
+    "announced": "Announced; depends on a pending decision",
+    "none-found": "Nothing published found in the reviewed sources"
+  },
+  "sources": {
+    "bpg72": {
+      "label": "Stadtgärtnerei Basel-Stadt: Stadtnatur fördern (§ 72 BPG)",
+      "url": "https://www.bs.ch/bvd/stadtgaertnerei/biodiversitaet/stadtnatur-foerdern"
+    },
+    "fernwaerme": {
+      "label": "Basel-Stadt media release, 16 July 2025: heat protection on about 30 streets",
+      "url": "https://www.bs.ch/medienmitteilungen/bvd/2025-kanton-sorgt-anlaesslich-des-fernwaermeausbaus-fuer-besseren-hitzeschutz-auf-gut-30-strassen"
+    },
+    "sevogel": {
+      "label": "Basel-Stadt media release 2025: Sevogelstrasse",
+      "url": "https://www.bs.ch/medienmitteilungen/bvd/2025-sevogelstrasse-wird-gruen-32-neue-baeume-anlaesslich-fernwaermeausbau"
+    },
+    "engelgasse": {
+      "label": "Basel-Stadt media release 2016: Engelgasse",
+      "url": "https://www.bs.ch/medienmitteilungen/bvd/2016-bessere-entfaltungsmoeglichkeiten-fuer-die-baeume-der-engelgasse"
+    },
+    "voltanord": {
+      "label": "Regierungsratsbeschluss P251765: monitoring of sponge-city pilots, VoltaNord",
+      "url": "https://www.bs.ch/regierungsratsbeschluesse/P251765?backUrl=/apps/regierungsratsbeschluesse"
+    },
+    "zhaw": {
+      "label": "ZHAW project 74640: vegetation building blocks for three Basel streets",
+      "url": "https://www.zhaw.ch/de/forschung/projekt/74640"
+    },
+    "parking2022": {
+      "label": "Basel-Stadt media release 2022: surfaces for depaved parking spaces",
+      "url": "https://www.bs.ch/medienmitteilungen/bvd/2022-die-suche-nach-dem-besten-untergrund-fuer-entsiegelte-parkplaetze"
+    },
+    "subsidy": {
+      "label": "Basel-Stadt media release, 16 Sept 2025: more funding for small greening projects",
+      "url": "https://www.bs.ch/medienmitteilungen/2025-fuer-ein-grueneres-basel-verstaerkte-foerderung-von-kleinprojekten"
+    },
+    "rainfee": {
+      "label": "Basel-Stadt: wastewater fees",
+      "url": "https://www.bs.ch/ls/node/28497"
+    },
+    "skk": {
+      "label": "Basel-Stadt: Umsetzung Stadtklimakonzept",
+      "url": "https://www.bs.ch/schwerpunkte/klima/stadtklima/umsetzung-stadtklimakonzept"
+    },
+    "trees": {
+      "label": "Stadtgärtnerei Basel-Stadt: städtischer Baumbestand",
+      "url": "https://www.bs.ch/bvd/stadtgaertnerei/unsere-abteilungen/gruenflaechenunterhalt/staedtischer-baumbestand"
+    },
+    "klybeck": {
+      "label": "Basel-Stadt media release, 26 Nov 2025: Klybeck planning",
+      "url": "https://www.bs.ch/medienmitteilungen/bvd/2025-entwicklung-des-klybeck-areals-die-planung-erreicht-naechsten-meilenstein"
+    },
+    "landcover": {
+      "label": "data.bs.ch 100477 Bodenbedeckung",
+      "url": "https://data.bs.ch/explore/dataset/100477/"
+    },
+    "parcels": {
+      "label": "data.bs.ch 100201 Liegenschaften: Parzellen",
+      "url": "https://data.bs.ch/explore/dataset/100201/"
+    },
+    "setv": {
+      "label": "geo.bs.ch SETV Schwammstadt-Eignung nach Tagesverkehr",
+      "url": "https://api.geo.bs.ch/stac/v1/collections/SETV"
+    },
+    "fgsk": {
+      "label": "geo.bs.ch FGSK Fokusgebiete Stadtklimakonzept",
+      "url": "https://api.geo.bs.ch/stac/v1/collections/FGSK"
+    },
+    "permits": {
+      "label": "data.bs.ch 100018 Allmendbewilligungen (via the Data Charter snapshot)",
+      "url": "https://data.bs.ch/explore/dataset/100018/"
+    },
+    "parkingcounts": {
+      "label": "data.bs.ch 100329 Parkflächen",
+      "url": "https://data.bs.ch/explore/dataset/100329/"
+    },
+    "groundwater": {
+      "label": "data.bs.ch 100180 groundwater statistics",
+      "url": "https://data.bs.ch/explore/dataset/100180/"
+    },
+    "rotterdam": {
+      "label": "Klimaatadaptatie Nederland: Rotterdam water squares",
+      "url": "https://klimaatadaptatienederland.nl/en/@163422/rotterdam-water"
+    },
+    "tudelft": {
+      "label": "TU Delft, ten Veldhuis (2010): blocked gully pots",
+      "url": "https://delta.tudelft.nl/?p=109226"
+    },
+    "bern36": {
+      "label": "Stadt Bern: Arbeitshilfe Wurzelraum für Strassenbäume",
+      "url": "https://www.bern.ch/themen/planen-und-bauen/bern-baut/arbeitshilfen/wurzelraum-fuer-baeume-im-strassenraum/anhang/arbeitshilfe-wurzelraum-fur-strassenbaume-version.pdf"
+    }
+  },
+  "city_findings": [
+    {
+      "id": "sealed-by-parcel",
+      "evidence": "derived",
+      "sources": [
+        "landcover",
+        "parcels"
+      ],
+      "text": "Of about 1,650 ha of sealed ground in Basel-Stadt, 296 ha (18 %) lies on Allmend parcels and 1,353 ha (82 %) on other parcels: 601 ha buildings, 490 ha other paving (courtyards, forecourts, yards, parking, rail and industrial areas) and 262 ha of road surface.",
+      "method": "Each land-cover polygon is assigned to the parcel containing its representative point; Allmend = parcel type 'Allmendparzelle'.",
+      "limitations": [
+        "Polygons crossing parcel boundaries count wholly to one parcel",
+        "'Other parcels' include land owned by the canton, municipalities and SBB, not only private owners",
+        "Parcel data carries no owner field"
+      ]
+    },
+    {
+      "id": "official-private-potential",
+      "evidence": "observed",
+      "sources": [
+        "skk"
+      ],
+      "text": "The canton states: \"The greatest potential lies in the many large and small private open spaces of our city.\""
+    },
+    {
+      "id": "suitable-in-heat",
+      "evidence": "derived",
+      "sources": [
+        "setv",
+        "fgsk"
+      ],
+      "text": "137.7 km of streets rated sponge-suitable by traffic lie in heat areas marked Fokus (77.9 km) or Verbessern (59.8 km).",
+      "method": "Middle vertex of each segment's longest part, tested against the heat focus polygons; lengths from the canton's segment table.",
+      "limitations": [
+        "Traffic is the only suitability criterion; utilities, groundwater and space are not in the rating",
+        "One point per segment decides its heat area"
+      ]
+    },
+    {
+      "id": "works-near-suitable",
+      "evidence": "derived",
+      "sources": [
+        "permits",
+        "setv",
+        "fgsk"
+      ],
+      "text": "231 of 334 active or upcoming permitted works (snapshot 3 October 2026) lie within 60 m of those suitable streets in heat areas.",
+      "method": "Permit point within 60 m of the middle vertex of a suitable segment in a Fokus or Verbessern area; upcoming = permit ends October 2026 or later.",
+      "limitations": [
+        "Permits are not a coordinated works plan",
+        "60 m is a screening radius, not a design rule"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "unseal-streets",
+      "name": "Unseal street space",
+      "de": "Strassen entsiegeln",
+      "what": "Take out asphalt that traffic does not need; replace it with loosened soil and planting.",
+      "context": [
+        "existing",
+        "new"
+      ],
+      "owner": [
+        "allmend"
+      ],
+      "mechanisms": [
+        "ABSORB",
+        "SWEAT",
+        "COOL"
+      ],
+      "sketch": "street-unseal",
+      "basel": [
+        {
+          "status": "in-progress",
+          "text": "About 1,000 m² unsealed and about 600 m² of new green space at Sevogelstrasse, from spring 2026.",
+          "sources": [
+            "sevogel"
+          ]
+        },
+        {
+          "status": "in-progress",
+          "text": "Heat protection on about 30 streets during the district-heating build-out, including unsealing.",
+          "sources": [
+            "fernwaerme"
+          ]
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "derived",
+          "text": "296 ha of sealed ground lie on Allmend parcels.",
+          "finding": "sealed-by-parcel"
+        },
+        {
+          "evidence": "derived",
+          "text": "137.7 km of traffic-suitable streets lie in heat areas.",
+          "finding": "suitable-in-heat"
+        }
+      ]
+    },
+    {
+      "id": "unseal-courtyards",
+      "name": "Unseal courtyards and forecourts",
+      "de": "Höfe und Vorplätze entsiegeln",
+      "what": "Private and public grounds: replace paving in courtyards, front gardens and yards with planting that takes roof and yard water.",
+      "context": [
+        "existing",
+        "new"
+      ],
+      "owner": [
+        "private",
+        "public-building"
+      ],
+      "mechanisms": [
+        "ABSORB",
+        "STORE",
+        "SWEAT",
+        "COOL"
+      ],
+      "sketch": "courtyard",
+      "basel": [
+        {
+          "status": "announced",
+          "text": "A funding programme for unsealing, trees and green spaces on private property, to launch in 2026 if the Grand Council approves it.",
+          "sources": [
+            "subsidy"
+          ]
+        },
+        {
+          "status": "in-force",
+          "text": "The canton offers advice to owners and grants via the value-added levy fund and Swisslos for citizen initiatives.",
+          "sources": [
+            "skk"
+          ]
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "derived",
+          "text": "490 ha of other paving (courtyards, forecourts, yards, parking, rail and industrial land) lie outside Allmend parcels.",
+          "finding": "sealed-by-parcel"
+        },
+        {
+          "evidence": "observed",
+          "text": "The canton itself sees the greatest potential on private open spaces.",
+          "finding": "official-private-potential"
+        }
+      ]
+    },
+    {
+      "id": "trees-root-space",
+      "name": "Keep trees; give them root space",
+      "de": "Bäume erhalten, Wurzelraum schaffen",
+      "what": "Protect existing trees and plant new ones with enough soil volume and planted area around them.",
+      "context": [
+        "existing",
+        "new"
+      ],
+      "owner": [
+        "allmend",
+        "private",
+        "public-building"
+      ],
+      "mechanisms": [
+        "SHADE",
+        "SWEAT",
+        "COOL"
+      ],
+      "sketch": "tree-pit",
+      "basel": [
+        {
+          "status": "done",
+          "text": "About 200 trees planted along streets and in green spaces in 2024.",
+          "sources": [
+            "fernwaerme"
+          ]
+        },
+        {
+          "status": "done",
+          "text": "Engelgasse: tree pits enlarged and 50 young trees planted (2016).",
+          "sources": [
+            "engelgasse"
+          ]
+        },
+        {
+          "status": "in-progress",
+          "text": "Over 28,000 trees in the cadastre; about 1 % of the stock is renewed each year.",
+          "sources": [
+            "trees"
+          ]
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "derived",
+          "text": "9,132 of 12,504 street-tree points have no mapped planted polygon at the point. This does not mean sealed paving and does not reveal pit size.",
+          "sources": [
+            "landcover"
+          ],
+          "claim": "tree-planting-context"
+        },
+        {
+          "evidence": "observed",
+          "text": "Bern's guidance targets 36 m³ of root space per street tree.",
+          "finding": null,
+          "sources": [
+            "bern36"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tree-trench",
+      "name": "Tree trench (Baumrigole)",
+      "de": "Baumrigole",
+      "what": "A load-bearing root bed under the pavement that also takes street runoff.",
+      "context": [
+        "existing",
+        "new"
+      ],
+      "owner": [
+        "allmend"
+      ],
+      "mechanisms": [
+        "STORE",
+        "SLOW",
+        "SWEAT",
+        "SHADE"
+      ],
+      "sketch": "tree-trench",
+      "basel": [
+        {
+          "status": "in-progress",
+          "text": "Sponge-city elements tested in the new VoltaNord streets, with five years of scientific monitoring.",
+          "sources": [
+            "voltanord"
+          ]
+        },
+        {
+          "status": "in-progress",
+          "text": "ZHAW develops substrates and vegetation for Therwiler-, Lysbüchel- and Weinlagerstrasse.",
+          "sources": [
+            "zhaw"
+          ]
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "derived",
+          "text": "231 active or upcoming works lie near traffic-suitable streets in heat areas: moments when the street is open anyway.",
+          "finding": "works-near-suitable"
+        }
+      ]
+    },
+    {
+      "id": "rain-garden",
+      "name": "Rain garden and swale",
+      "de": "Versickerungsmulde",
+      "what": "A shallow planted hollow that collects runoff from paving and lets it soak in or evaporate.",
+      "context": [
+        "existing",
+        "new"
+      ],
+      "owner": [
+        "allmend",
+        "private",
+        "public-building"
+      ],
+      "mechanisms": [
+        "STORE",
+        "ABSORB",
+        "SWEAT"
+      ],
+      "sketch": "rain-garden",
+      "basel": [
+        {
+          "status": "in-progress",
+          "text": "Vegetated swales and mulch beds that take sidewalk and road runoff, e.g. Sevogelstrasse.",
+          "sources": [
+            "fernwaerme",
+            "sevogel"
+          ]
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "derived",
+          "text": "At the 81 monitoring stations, the shallowest groundwater level in ten years lies 0.8 m to 20.8 m below ground (median 9.8 m). Stations are points, not a depth map; infiltration needs a site test.",
+          "sources": [
+            "groundwater"
+          ],
+          "claim": "groundwater-depth-at-stations"
+        }
+      ]
+    },
+    {
+      "id": "curb-cut",
+      "name": "Lead road water into green",
+      "de": "Strassenwasser in Grünflächen leiten",
+      "what": "Open the kerb so road runoff reaches a rain garden or tree trench instead of the gully.",
+      "context": [
+        "existing",
+        "new"
+      ],
+      "owner": [
+        "allmend"
+      ],
+      "mechanisms": [
+        "SLOW",
+        "STORE"
+      ],
+      "sketch": "curb-cut",
+      "basel": [
+        {
+          "status": "in-progress",
+          "text": "At Sevogelstrasse, rain from sidewalk and road is to collect and soak in under the new trees.",
+          "sources": [
+            "sevogel"
+          ]
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "derived",
+          "text": "About 507 ha of mapped road surface: 245 ha on Allmend parcels and 262 ha on other parcels.",
+          "finding": "sealed-by-parcel"
+        },
+        {
+          "evidence": "unknown",
+          "text": "Where each road drains today is not open data (no sewer or gully data found)."
+        }
+      ]
+    },
+    {
+      "id": "permeable-parking",
+      "name": "Permeable parking",
+      "de": "Versickerungsfähige Parkplätze",
+      "what": "Grass-joint stones or open joints let rain soak in where cars stand.",
+      "context": [
+        "existing",
+        "new"
+      ],
+      "owner": [
+        "allmend",
+        "private",
+        "public-building"
+      ],
+      "mechanisms": [
+        "ABSORB",
+        "SLOW"
+      ],
+      "sketch": "parking",
+      "basel": [
+        {
+          "status": "done",
+          "text": "Surfaces for depaved parking spaces tested in 2022.",
+          "sources": [
+            "parking2022"
+          ]
+        },
+        {
+          "status": "in-progress",
+          "text": "14 grass-joint parking bays at Sevogelstrasse; parking there goes from 36 to 19 spaces.",
+          "sources": [
+            "sevogel"
+          ]
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "observed",
+          "text": "The canton counts about 20,000 blue-zone and about 2,100 paid street parking spaces (counts per street, without geometry).",
+          "finding": null,
+          "sources": [
+            "parkingcounts"
+          ]
+        },
+        {
+          "evidence": "unknown",
+          "text": "Bay geometry is not open, so the paved parking area cannot be measured yet."
+        }
+      ]
+    },
+    {
+      "id": "green-roof",
+      "name": "Green roof",
+      "de": "Dachbegrünung",
+      "what": "A planted layer on flat roofs that holds back and evaporates part of the rain.",
+      "context": [
+        "new",
+        "existing"
+      ],
+      "owner": [
+        "private",
+        "public-building"
+      ],
+      "mechanisms": [
+        "STORE",
+        "SLOW",
+        "SWEAT",
+        "COOL"
+      ],
+      "sketch": "roof",
+      "basel": [
+        {
+          "status": "in-force",
+          "text": "§ 72 BPG: flat roofs of 10 m² or more must be greened when built or renovated (at least 15 cm substrate).",
+          "sources": [
+            "bpg72"
+          ]
+        },
+        {
+          "status": "announced",
+          "text": "Funding for roof greening beyond the minimum, planned from 2026.",
+          "sources": [
+            "subsidy"
+          ]
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "derived",
+          "text": "Buildings cover about 606 ha, 16.6 % of the mapped ground (601 ha of it outside Allmend parcels).",
+          "finding": "sealed-by-parcel"
+        },
+        {
+          "evidence": "unknown",
+          "text": "Which roofs are flat, already green or strong enough is not open data."
+        }
+      ]
+    },
+    {
+      "id": "disconnect-downpipes",
+      "name": "Disconnect downpipes",
+      "de": "Fallrohre abkoppeln",
+      "what": "Lead roof water into a garden, swale or barrel instead of the sewer.",
+      "context": [
+        "existing",
+        "new"
+      ],
+      "owner": [
+        "private",
+        "public-building"
+      ],
+      "mechanisms": [
+        "ABSORB",
+        "SLOW"
+      ],
+      "sketch": "downpipe",
+      "basel": [
+        {
+          "status": "in-force",
+          "text": "Rainwater fee of CHF 0.90 per m² of sealed area connected to the sewer.",
+          "sources": [
+            "rainfee"
+          ]
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "assumed",
+          "text": "≈ Because the fee is charged on connected sealed area, disconnecting a roof should lower it; the fee page does not state this rule explicitly."
+        },
+        {
+          "evidence": "unknown",
+          "text": "How roofs drain today (sewer, infiltration) is not open data."
+        }
+      ]
+    },
+    {
+      "id": "rain-barrel",
+      "name": "Rain barrel or cistern",
+      "de": "Regentonne / Zisterne",
+      "what": "Collect roof water for watering; it helps in storms only if empty beforehand.",
+      "context": [
+        "existing",
+        "new"
+      ],
+      "owner": [
+        "private",
+        "public-building"
+      ],
+      "mechanisms": [
+        "STORE"
+      ],
+      "sketch": "barrel",
+      "basel": [
+        {
+          "status": "none-found",
+          "text": "No Basel programme found."
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "assumed",
+          "text": "≈ Small for flooding, useful for watering young trees and gardens in dry summers."
+        }
+      ]
+    },
+    {
+      "id": "water-square",
+      "name": "Water square",
+      "de": "Wasserplatz",
+      "what": "A public square that stores water briefly in a cloudburst and is a place to stay when dry.",
+      "context": [
+        "new",
+        "existing"
+      ],
+      "owner": [
+        "allmend",
+        "public-building"
+      ],
+      "mechanisms": [
+        "STORE",
+        "SLOW"
+      ],
+      "sketch": "square",
+      "basel": [
+        {
+          "status": "none-found",
+          "text": "No Basel water square found."
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "observed",
+          "text": "Rotterdam's Benthemplein stores about 1,800 m³.",
+          "finding": null,
+          "sources": [
+            "rotterdam"
+          ]
+        },
+        {
+          "evidence": "unknown",
+          "text": "Where Basel's streets pond in cloudbursts is not open (only a modelled national overland-flow map)."
+        }
+      ]
+    },
+    {
+      "id": "clear-gullies",
+      "name": "Keep gullies clear",
+      "de": "Strassenabläufe reinigen",
+      "what": "Leaves, litter and sand in gullies cause much local flooding; cleaning is a sponge action too.",
+      "context": [
+        "existing"
+      ],
+      "owner": [
+        "allmend"
+      ],
+      "mechanisms": [
+        "SLOW"
+      ],
+      "sketch": "gully",
+      "basel": [
+        {
+          "status": "none-found",
+          "text": "No published gully-cleaning data found."
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "observed",
+          "text": "In two Dutch cities, 70 % of resident flood reports were caused by blocked gully pots, not too little pipe capacity.",
+          "finding": null,
+          "sources": [
+            "tudelft"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dig-once",
+      "name": "Dig once",
+      "de": "Gleichzeitig bauen",
+      "what": "When a street is opened for pipes, heating or tracks, rebuild it as a sponge street in the same works.",
+      "context": [
+        "existing"
+      ],
+      "owner": [
+        "allmend"
+      ],
+      "mechanisms": [
+        "ABSORB",
+        "STORE",
+        "SHADE"
+      ],
+      "sketch": "dig-once",
+      "basel": [
+        {
+          "status": "in-progress",
+          "text": "District heating grows by about 60 km by 2037; the canton uses it to redesign streets, about 30 so far; 55 % of these projects hold potential for unsealing and greening.",
+          "sources": [
+            "fernwaerme",
+            "sevogel"
+          ]
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "derived",
+          "text": "231 of 334 active or upcoming permits lie near traffic-suitable streets in heat areas.",
+          "finding": "works-near-suitable"
+        }
+      ]
+    },
+    {
+      "id": "sponge-districts",
+      "name": "Sponge districts from the start",
+      "de": "Schwammstadt in Arealentwicklungen",
+      "what": "In new districts, plan water paths, storage, parks and trees before the buildings.",
+      "context": [
+        "new"
+      ],
+      "owner": [
+        "private",
+        "public-building",
+        "allmend"
+      ],
+      "mechanisms": [
+        "ABSORB",
+        "STORE",
+        "SLOW",
+        "SWEAT",
+        "SHADE",
+        "COOL"
+      ],
+      "sketch": "district",
+      "basel": [
+        {
+          "status": "in-progress",
+          "text": "VoltaNord: sponge-city elements in the new streets, monitored for five years.",
+          "sources": [
+            "voltanord"
+          ]
+        },
+        {
+          "status": "in-progress",
+          "text": "Klybeck (almost 30 ha): two parks, green courtyards, facade greening and unsealed surfaces planned; building plan expected early 2027. Rainwater management is not mentioned in the release.",
+          "sources": [
+            "klybeck"
+          ]
+        }
+      ],
+      "potential": [
+        {
+          "evidence": "assumed",
+          "text": "≈ The cheapest moment: water paths and soil volume cost least before buildings and pipes are fixed."
+        }
+      ]
+    }
+  ],
+  "levers": [
+    {
+      "id": "rules",
+      "name": "Rules",
+      "text": "Ask for sponge-city requirements (water paths, root space, unsealed share) in every building plan, as Klybeck's plan is being drafted.",
+      "evidence": "assumed"
+    },
+    {
+      "id": "coordination",
+      "name": "Dig once by default",
+      "text": "Check every street permit near a suitable street in a heat area for a sponge rebuild; publish a coordinated multi-year works plan.",
+      "evidence": "assumed"
+    },
+    {
+      "id": "money",
+      "name": "Money",
+      "text": "Prioritise the 2026 private greening fund for courtyards in heat areas; state explicitly that disconnected roofs pay a lower rainwater fee.",
+      "evidence": "assumed"
+    },
+    {
+      "id": "standards",
+      "name": "Standards",
+      "text": "Set a root-space target for every new street tree (Bern uses 36 m³) and a standard for kerb inlets into green.",
+      "evidence": "assumed"
+    },
+    {
+      "id": "data",
+      "name": "Data",
+      "text": "Publish gully points and drainage type per street, tree-pit sizes, a green-roof inventory and parking geometry (the Data Charter asks).",
+      "evidence": "assumed"
+    },
+    {
+      "id": "people",
+      "name": "People",
+      "text": "Invite residents to water young trees and report blocked gullies; advise owners of large courtyards directly.",
+      "evidence": "assumed"
+    }
+  ]
+}
