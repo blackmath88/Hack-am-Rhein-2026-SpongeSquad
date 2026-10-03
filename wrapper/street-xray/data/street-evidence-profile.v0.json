@@ -186,5 +186,15 @@
     "supporting_claims": ["tree-context", "groundwater-context"],
     "hypothesis_claims": ["candidate-footprint", "surface-flow-hypothesis"],
     "blocking_claims": ["utility-clearance", "drainage-routing", "infiltration-test"]
+  },
+  "engine": {
+    "interventions": ["tree-trench", "infiltrating-rain-garden"],
+    "facts": { "protection_zone": "none" },
+    "fact_sources": { "protection_zone": "data.bs.ch 100292 Grundwasserschutz: no zone intersects the study point (queried 2026-10-04)" },
+    "checks": {
+      "utility-clearance": { "fact": "utilities", "options": ["clear", "conflict"] },
+      "drainage-routing": { "fact": "overflow_route", "options": ["allowed", "not-allowed"] },
+      "infiltration-test": { "fact": "infiltration", "options": ["ok", "poor"] }
+    }
   }
 }

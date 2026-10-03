@@ -1,16 +1,17 @@
 # Street X-Ray engine
 
-Computed street profile and assessment rules behind Street X-Ray (ADR 0008, proposal ADR 0009). One rule-picked Basel street, every decision-relevant fact typed: what we can see, what we can compute, what we must ask. The page in `..` runs on its own illustrative fixture and does not use this engine yet.
+Computed street profile and assessment rules behind Street X-Ray (ADR 0008, ADR 0009). One rule-picked Basel street, every decision-relevant fact typed: what we can see, what we can compute, what we must ask. The page in `..` uses it: its checks call `assessFacts()`, and `?street=kanonengasse` shows this computed street beside the illustrative Klybeck fixture.
 
 | File | Role |
 |---|---|
 | `scripts/select_street.py` | Picks the demo street by rule and gathers its open inputs into `data/demo-street.json` |
-| `src/profile.mjs` | `computed-street-profile/0.1`: `buildProfile`, `validateProfile`, `scenarios`, `assess` |
-| `scripts/build-profile.mjs` | Writes `data/profile.json`; `--check` fails if it is invalid or stale |
+| `src/profile.js` | `computed-street-profile/0.1`: `buildProfile`, `validateProfile`, `scenarios`, `assess`, `assessFacts` |
+| `src/to-page.js` | Converts the profile into the page's claim shape |
+| `scripts/build-profile.mjs` | Writes `data/profile.json` and `data/kanonengasse.page.json`; `--check` fails if either is invalid or stale |
 | `test/profile.test.mjs` | Unknown never becomes zero, safe or suitable; assessment rules |
 
 ```bash
-npm test                                                   # validate profile + 12 tests
+npm test                                                   # validate profile + 14 tests
 npm run build                                              # rebuild data/profile.json
 python3 scripts/select_street.py --cache /tmp/sponge-cache # re-pick and refetch (uses ../../sponge-catalogue)
 ```

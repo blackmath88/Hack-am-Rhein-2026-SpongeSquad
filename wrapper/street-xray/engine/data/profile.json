@@ -250,7 +250,8 @@
       "gatekeepers": [
         "tba-aue"
       ],
-      "next_action": "Digitise the published 2012 GEP drainage-system map (1:20,000) at this street"
+      "next_action": "Digitise the published 2012 GEP drainage-system map (1:20,000) at this street",
+      "blocks": "Whether to infiltrate, retain or connect an overflow"
     },
     {
       "key": "utilities",
@@ -262,7 +263,8 @@
         "leitungskataster",
         "operators"
       ],
-      "next_action": "Order a Leitungskataster extract for the footprint plus 5 m, stated as early planning"
+      "next_action": "Order a Leitungskataster extract for the footprint plus 5 m, stated as early planning",
+      "blocks": "Whether digging here can go to detailed design"
     },
     {
       "key": "utility_depth",
@@ -273,7 +275,8 @@
       "gatekeepers": [
         "operators"
       ],
-      "next_action": "Ask the operators named on the extract for depths in the footprint"
+      "next_action": "Ask the operators named on the extract for depths in the footprint",
+      "blocks": "How deep a trench or pit may go"
     },
     {
       "key": "infiltration",
@@ -284,7 +287,8 @@
       "gatekeepers": [
         "field"
       ],
-      "next_action": "Commission an infiltration test at the footprint"
+      "next_action": "Commission an infiltration test at the footprint",
+      "blocks": "Whether infiltration is a credible mechanism"
     },
     {
       "key": "overflow_route",
@@ -295,7 +299,8 @@
       "gatekeepers": [
         "tba-aue"
       ],
-      "next_action": "Ask Tiefbauamt where overflow from the footprint may discharge"
+      "next_action": "Ask Tiefbauamt where overflow from the footprint may discharge",
+      "blocks": "Whether the design may rely on an overflow connection"
     },
     {
       "key": "pavement_buildup",
@@ -306,7 +311,8 @@
       "gatekeepers": [
         "field"
       ],
-      "next_action": "Core the pavement while the street is open for the permitted works"
+      "next_action": "Core the pavement while the street is open for the permitted works",
+      "blocks": "Excavation cost and the depth of new soil"
     },
     {
       "key": "gullies",
@@ -318,7 +324,8 @@
         "leitungskataster",
         "public"
       ],
-      "next_action": "Mark visible inlets on the orthophoto; check the Leitungskataster extract"
+      "next_action": "Mark visible inlets on the orthophoto; check the Leitungskataster extract",
+      "blocks": "Where road water can be led into green"
     }
   ],
   "assumptions": {

@@ -64,4 +64,19 @@ assert(page.includes('@media print'), 'Evidence Passport needs a print view');
 assert(page.includes('prefers-reduced-motion'), 'Reduced-motion support is missing');
 assert(!page.includes('AI detected'), 'Unverified observations must not be called AI detections');
 
+// Engine wiring (ADR 0009): every check maps to a declared engine outcome, for both streets.
+const { OUTCOMES, assessFacts } = await import('./engine/src/profile.js');
+const computed = JSON.parse(await readFile(join(root, 'engine/data/kanonengasse.page.json'), 'utf8'));
+for (const street of [profile, computed]) {
+  assert(street.engine, `${street.site.name}: missing engine block`);
+  for (const id of street.intervention.blocking_claims) {
+    const check = street.engine.checks[id];
+    assert(check && OUTCOMES[check.fact], `${street.site.name}: check ${id} has no engine fact`);
+  }
+  const states = assessFacts(street.engine.facts).filter(result => street.engine.interventions.includes(result.id));
+  assert(states.every(result => result.state === 'requires-investigation'), `${street.site.name}: unanswered checks must keep the intervention under investigation`);
+}
+assert(page.includes("from './engine/src/profile.js'"), 'Page must take its decision rules from the engine');
+assert(!page.includes('unlocked.size'), 'The old count-based decision must not return');
+
 console.log(`Street X-Ray smoke passed: ${profile.claims.length} claims, ${treeCount} trees, station ${nearest.station.id}.`);

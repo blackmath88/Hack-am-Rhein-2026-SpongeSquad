@@ -116,6 +116,11 @@
     .unlock-state{font:600 8px var(--mono);text-transform:uppercase;color:var(--amber)}.unlock.on .unlock-state{color:var(--green)}
     .decision-note{margin-top:14px;padding:12px 14px;background:#f6f8f5;border-left:3px solid var(--amber);font-size:10px;line-height:1.55;color:var(--muted)}
     .decision-note.ready{border-color:var(--green)}
+    .street-switch{display:flex;gap:4px;margin-top:8px}.street-switch a{font:600 8px var(--mono);text-transform:uppercase;letter-spacing:.6px;color:var(--muted);border:1px solid var(--line);border-radius:12px;padding:4px 8px;text-decoration:none}.street-switch a[aria-current="page"]{color:var(--dark);border-color:var(--dark)}
+    .unlock.no{background:#fbf3ec;border-color:#e5d3b9}.unlock.no .unlock-icon{background:#f3e3d0;color:var(--amber)}.unlock.no .unlock-state{color:var(--amber)}
+    .futures{margin-top:14px;display:grid;gap:4px}.futures h4{font:600 9px var(--mono);text-transform:uppercase;letter-spacing:.8px;color:var(--soft);margin:0 0 4px}
+    .future{display:grid;grid-template-columns:1fr auto;gap:10px;font-size:10px;padding:7px 10px;border:1px solid var(--line);border-radius:6px}.future small{display:block;color:var(--muted);font-size:9px;margin-top:2px}
+    .future b{font-weight:600}.future .state{font:600 8px var(--mono);text-transform:uppercase;align-self:center;color:var(--amber)}.future.candidate .state{color:var(--green)}.future.excluded{opacity:.6}.future.excluded .state{color:var(--muted)}
     .passport{margin:30px 0 0;background:var(--dark);color:#edf2ee;border-radius:10px;padding:30px}
     .passport-head{display:flex;justify-content:space-between;gap:24px;align-items:start;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:24px}
     .passport h2{font-size:31px;letter-spacing:-.04em;margin:10px 0 7px}.passport-head p{color:#9bada2;margin:0;font-size:11px}
@@ -167,7 +172,7 @@
       <section class="workspace" aria-label="Street evidence workspace">
         <div class="map-column">
           <header class="map-head">
-            <div class="location"><small>Study point · illustrative segment</small><b data-site-name></b><span data-site-length></span></div>
+            <div class="location"><small data-site-status>Study point · illustrative segment</small><b data-site-name></b><span data-site-length></span><nav class="street-switch" aria-label="Street"></nav></div>
             <div class="layer-tabs" role="tablist" aria-label="Evidence layers"></div>
           </header>
           <div class="map-stage" id="map-stage">
@@ -193,7 +198,7 @@
                 <rect x="-40" y="238" width="1040" height="97" fill="#8f9792"/>
                 <path d="M-20 286H980" stroke="#eef0ed" stroke-width="3" stroke-dasharray="28 22" opacity=".8"/>
                 <path d="M-20 236H980M-20 337H980" stroke="#727d76" stroke-width="2"/>
-                <text x="760" y="226" class="base-label">ILLUSTRATIVE 160 M SEGMENT</text>
+                <text x="760" y="226" class="base-label" id="seg-label">ILLUSTRATIVE 160 M SEGMENT</text>
               </g>
               <g opacity=".84">
                 <path d="M80 94h150v83H80zM248 82h118v96H248zM630 77h118v86H630zM767 92h150v87H767z" fill="#f6f7f4" stroke="#c3cbc4"/>
@@ -208,13 +213,13 @@
                   <circle cx="690" cy="357" r="13" fill="#fff" stroke="#246b4e" stroke-width="3"/><circle cx="690" cy="357" r="6" fill="#4c936c"/>
                 </g>
                 <path d="M185 156C250 120 340 126 390 166" fill="none" stroke="#246b4e" stroke-width="2" stroke-dasharray="4 5"/>
-                <g transform="translate(101 123)"><rect width="154" height="35" rx="5" fill="#246b4e"/><text x="12" y="15" class="object-label">16 TREE RECORDS</text><text x="12" y="27" class="object-label" opacity=".7">within 100 m · not all drawn</text></g>
-                <g transform="translate(706 474)"><circle r="48" fill="#fff" stroke="#246b4e" stroke-width="2"/><text x="0" y="-5" text-anchor="middle" class="base-label">GW 0813</text><text x="0" y="10" text-anchor="middle" class="tiny-label">222 m away</text></g>
+                <g transform="translate(101 123)"><rect width="154" height="35" rx="5" fill="#246b4e"/><text x="12" y="15" class="object-label" id="tree-label">16 TREE RECORDS</text><text x="12" y="27" class="object-label" opacity=".7" id="tree-sub">within 100 m · not all drawn</text></g>
+                <g transform="translate(706 474)"><circle r="48" fill="#fff" stroke="#246b4e" stroke-width="2"/><text x="0" y="-5" text-anchor="middle" class="base-label" id="gw-label">GW 0813</text><text x="0" y="10" text-anchor="middle" class="tiny-label" id="gw-sub">222 m away</text></g>
               </g>
 
               <g class="map-layer" data-map-layer="derived">
                 <path d="M157 360L756 286L770 327L171 402Z" fill="rgba(57,116,124,.18)" stroke="#39747c" stroke-width="3" stroke-dasharray="8 6"/>
-                <text x="423" y="357" class="base-label" fill="#39747c">≈ CANDIDATE EDGE STRIP · 384 M² SCENARIO</text>
+                <text x="423" y="357" class="base-label" fill="#39747c" id="strip-label">≈ CANDIDATE EDGE STRIP · 384 M² SCENARIO</text>
                 <path class="flow-path" d="M216 270C365 279 503 292 650 305" fill="none" stroke="#39747c" stroke-width="5" marker-end="url(#arrow-blue)"/>
                 <path class="flow-path" d="M650 305C692 311 724 318 750 331" fill="none" stroke="#39747c" stroke-width="5" marker-end="url(#arrow-blue)"/>
                 <circle class="rain-drop" cx="270" cy="148" r="4" fill="#4d93b8"/><circle class="rain-drop" cx="420" cy="142" r="4" fill="#4d93b8"/><circle class="rain-drop" cx="578" cy="133" r="4" fill="#4d93b8"/><circle class="rain-drop" cx="720" cy="137" r="4" fill="#4d93b8"/>
@@ -250,13 +255,14 @@
             <small class="eyebrow">Transparent scenario · not performance</small>
             <div class="scenario-number"><span id="rain-volume">7.68</span><small>m³ falling on the drawn footprint</small></div>
             <input class="range" id="rainfall" type="range" min="5" max="50" step="5" value="20" aria-label="Scenario rainfall depth in millimetres" />
-            <p><b id="rainfall-label">20 mm rain</b> × 384 m² assumed footprint. This does not predict retention, infiltration or flood reduction.</p>
+            <p><b id="rainfall-label">20 mm rain</b> × <span id="footprint-label">384</span> m² assumed footprint. This does not predict retention, infiltration or flood reduction.</p>
           </div>
         </div>
         <div class="checks">
-          <div class="checks-head"><div><h3>What changes the decision?</h3><p>Use these controls as a review rehearsal. They do not create evidence; they show which verified answers would move the intervention forward.</p></div><span class="eyebrow" id="check-count">0 / 3 unlocked</span></div>
+          <div class="checks-head"><div><h3>What changes the decision?</h3><p>Use these controls as a review rehearsal. Click to cycle through the answers a gatekeeper could give. They do not create evidence; the engine's rules show how each answer would move the intervention.</p></div><span class="eyebrow" id="check-count">0 / 3 answered</span></div>
           <div class="check-list" id="check-list"></div>
           <div class="decision-note" id="decision-note" aria-live="polite"></div>
+          <div class="futures" id="futures"><h4>Three futures · engine rules</h4></div>
         </div>
       </section>
 
@@ -266,9 +272,9 @@
           <div class="passport-actions"><button class="action" id="print" type="button">Print passport</button><a class="action primary" id="street-lab-link" href="/wrapper/street-workspace/">Open illustrative Street Lab →</a></div>
         </header>
         <div class="passport-grid">
-          <article class="passport-cell"><small>Known now</small><b>Context, not site proof</b><ul><li>16 tree records within 100 m</li><li>Groundwater station 222 m away</li><li>Open-source provenance retained</li></ul></article>
-          <article class="passport-cell"><small>Derived / assumed</small><b>Useful only for the question</b><ul><li>384 m² scenario footprint</li><li>Unvalidated flow hypothesis</li><li>Explain and screen only</li></ul></article>
-          <article class="passport-cell"><small>Decision blocked by</small><b>Three decisive unknowns</b><ul><li>Utility clearance</li><li>Drainage destination + capacity</li><li>Local infiltration feasibility</li></ul></article>
+          <article class="passport-cell"><small>Known now</small><b>Context, not site proof</b><ul id="passport-known"></ul></article>
+          <article class="passport-cell"><small>Derived / assumed</small><b>Useful only for the question</b><ul id="passport-derived"></ul></article>
+          <article class="passport-cell"><small>Decision blocked by</small><b id="passport-blocked-title">Decisive unknowns</b><ul id="passport-blocked"></ul></article>
           <article class="passport-cell"><small>Next verified action</small><b>Unlock before design</b><p id="next-action">Request the gated records and commission a local infiltration check. Keep the concept at “requires investigation”.</p></article>
         </div>
         <div class="integrity"><strong>Verdict: promising for concept development, not ready for design.</strong><span data-boundary></span></div>
@@ -277,15 +283,23 @@
   </template>
 
   <script type="module">
+    import { assessFacts, INTERVENTIONS } from './engine/src/profile.js';
+    const STREETS = {
+      klybeck: { label: 'Klybeck · illustrative', url: './data/street-evidence-profile.v0.json' },
+      kanonengasse: { label: 'Kanonengasse · computed', url: './engine/data/kanonengasse.page.json' },
+    };
+    const FUTURE_LABELS = { 'tree-trench':'Tree trench', 'infiltrating-rain-garden':'Infiltrating rain garden', 'lined-bioretention':'Lined bioretention', 'unseal-and-plant':'Unseal and plant', 'no-dig-cooling':'No-dig cooling' };
+    const FACT_LABELS = { dig_deep:'deep digging', dig_shallow:'shallow digging', infiltration:'infiltration', overflow_route:'overflow route', protection_zone:'groundwater protection' };
+    const streetKey = STREETS[new URLSearchParams(location.search).get('street')] ? new URLSearchParams(location.search).get('street') : 'klybeck';
+    const answers = new Map();
     const app = document.querySelector('#app');
     const template = document.querySelector('#app-template');
     const evidenceLabels = { observed:'observed', derived:'derived', modelled:'modelled', assumed:'≈ assumed', unknown:'unknown' };
-    const unlocked = new Set();
     let profile;
     let activeLayer = location.hash.replace('#','') || 'known';
 
     try {
-      profile = await fetch('./data/street-evidence-profile.v0.json').then(response => {
+      profile = await fetch(STREETS[streetKey].url).then(response => {
         if (!response.ok) throw new Error(`Profile request failed: ${response.status}`);
         return response.json();
       });
@@ -299,7 +313,16 @@
 
     function boot(){
       document.querySelectorAll('[data-site-name]').forEach(node => node.textContent = profile.site.name);
-      document.querySelector('[data-site-length]').textContent = `· ${profile.site.length_m} m demo segment`;
+      const computed = profile.site.identity_status.startsWith('computed');
+      document.querySelector('[data-site-status]').textContent = computed ? 'Computed street · picked by rule' : 'Study point · illustrative segment';
+      document.querySelector('[data-site-length]').textContent = `· ${profile.site.length_m} m ${computed ? 'street' : 'demo segment'}`;
+      document.querySelector('.street-switch').append(...Object.entries(STREETS).map(([key, street]) => {
+        const link = document.createElement('a'); link.href = `?street=${key}`; link.textContent = street.label;
+        if (key === streetKey) link.setAttribute('aria-current', 'page');
+        return link;
+      }));
+      fillSchematic(computed);
+      fillPassport();
       document.querySelector('[data-boundary]').textContent = profile.site.boundary;
       document.querySelector('[data-intervention-name]').textContent = profile.intervention.name;
       document.querySelector('[data-intervention-why]').textContent = profile.intervention.why;
@@ -354,39 +377,83 @@
       detail.innerHTML = `<div class="badges"><span class="badge ${claim.evidence_class}">${escapeHtml(evidenceLabels[claim.evidence_class])}</span><span class="badge">${escapeHtml(claim.access_state)}</span><span class="badge">use · ${escapeHtml(claim.permitted_use.join(' + ') || 'none')}</span></div><p><strong>Method:</strong> ${escapeHtml(claim.method || 'No method: evidence is unavailable.')}</p><p><strong>Limit:</strong> ${escapeHtml(claim.limitation)}</p>${gatekeeper}${action}${source}`;
     }
 
+    function fillSchematic(computed){
+      const snap=profile.snapshot, gw=snap.nearest_groundwater_station, area=profile.intervention.scenario.footprint_m2;
+      document.querySelector('#map-title').textContent=`Schematic Street X-Ray of ${profile.site.name}`;
+      document.querySelector('#seg-label').textContent=computed?`GENERIC SCHEMATIC · ${profile.site.length_m} M STREET`:`ILLUSTRATIVE ${profile.site.length_m} M SEGMENT`;
+      document.querySelector('#tree-label').textContent=`${snap.tree_count} TREE RECORD${snap.tree_count===1?'':'S'}`;
+      document.querySelector('#tree-sub').textContent=`${snap.tree_scope ?? `within ${snap.tree_radius_m} m`} · not all drawn`;
+      document.querySelector('#gw-label').textContent=gw.id?`GW ${gw.id.padStart(4,'0')}`:'GW STATION';
+      document.querySelector('#gw-sub').textContent=`${gw.distance_m} m away`;
+      document.querySelector('#strip-label').textContent=computed?`≈ ASSUMED ${area} M² ELEMENT · NOT DRAWN TO SCALE`:`≈ CANDIDATE EDGE STRIP · ${area} M² SCENARIO`;
+      document.querySelector('#footprint-label').textContent=area;
+      const rain=document.querySelector('#rainfall'); rain.value=profile.intervention.scenario.rainfall_mm; updateRainfall({target:rain});
+    }
+
+    function fillPassport(){
+      const item=text=>{const li=document.createElement('li'); li.textContent=text; return li;};
+      const byLayer=layer=>profile.claims.filter(claim=>claim.layer===layer);
+      document.querySelector('#passport-known').replaceChildren(...byLayer('known').slice(0,4).map(claim=>item(`${claim.title} ${claim.value}`)));
+      document.querySelector('#passport-derived').replaceChildren(...byLayer('derived').slice(0,3).map(claim=>item(`${claim.title}: ${claim.value} ${claim.unit}`)), item('Explain and screen only'));
+      const blocked=profile.intervention.blocking_claims.map(id=>profile.claims.find(claim=>claim.id===id));
+      document.querySelector('#passport-blocked-title').textContent=`${blocked.length} decisive unknowns`;
+      document.querySelector('#passport-blocked').replaceChildren(...blocked.map(claim=>item(claim.title)));
+    }
+
     function buildChecks(){
       const list=document.querySelector('#check-list');
       for(const id of profile.intervention.blocking_claims){
         const claim=profile.claims.find(item=>item.id===id);
         const button=document.createElement('button'); button.type='button'; button.className='unlock'; button.dataset.id=id;
         button.setAttribute('aria-pressed','false');
-        button.innerHTML=`<span class="unlock-icon">?</span><span><b>${escapeHtml(claim.title)}</b><small>${escapeHtml(claim.unlock_action)}</small></span><span class="unlock-state">Not verified</span>`;
-        button.addEventListener('click',()=>toggleCheck(button,id)); list.append(button);
+        button.innerHTML=`<span class="unlock-icon">?</span><span><b>${escapeHtml(claim.title)}</b><small>${escapeHtml(claim.unlock_action)}</small></span><span class="unlock-state">Not answered</span>`;
+        button.addEventListener('click',()=>cycleCheck(button,id)); list.append(button);
       }
       updateDecision();
     }
 
-    function toggleCheck(button,id){
-      if(unlocked.has(id)) unlocked.delete(id); else unlocked.add(id);
-      const on=unlocked.has(id); button.classList.toggle('on',on); button.setAttribute('aria-pressed',String(on));
-      button.querySelector('.unlock-icon').textContent=on?'✓':'?'; button.querySelector('.unlock-state').textContent=on?'Answer verified':'Not verified';
+    // Each click moves to the next declared answer, then back to "not answered".
+    function cycleCheck(button,id){
+      const options=profile.engine.checks[id].options;
+      const next=answers.has(id)?options.indexOf(answers.get(id))+1:0;
+      if(next>=options.length) answers.delete(id); else answers.set(id,options[next]);
+      const answer=answers.get(id), positive=answer===options[0];
+      button.classList.toggle('on',positive); button.classList.toggle('no',Boolean(answer)&&!positive);
+      button.setAttribute('aria-pressed',String(Boolean(answer)));
+      button.querySelector('.unlock-icon').textContent=answer?(positive?'✓':'✕'):'?';
+      button.querySelector('.unlock-state').textContent=answer?`Rehearsed: ${answer}`:'Not answered';
       updateDecision();
     }
 
     function updateDecision(){
-      const count=unlocked.size, total=profile.intervention.blocking_claims.length;
-      document.querySelector('#check-count').textContent=`${count} / ${total} unlocked`;
+      const total=profile.intervention.blocking_claims.length;
+      document.querySelector('#check-count').textContent=`${answers.size} / ${total} answered`;
+      const facts=Object.fromEntries([...answers].map(([id,answer])=>[profile.engine.checks[id].fact,answer]));
+      const results=assessFacts(profile.engine.facts,facts);
+      const tracked=results.filter(result=>profile.engine.interventions.includes(result.id));
+      const candidates=tracked.filter(result=>result.state==='candidate');
+      const state=candidates.length?'candidate':tracked.every(result=>result.state==='excluded')?'excluded':'requires-investigation';
       const pill=document.querySelector('#status-pill'), note=document.querySelector('#decision-note'), next=document.querySelector('#next-action');
-      const ready=count===total;
-      pill.textContent=ready?'Candidate for concept design':'Requires investigation'; pill.classList.toggle('candidate',ready);
-      note.classList.toggle('ready',ready);
-      if(ready){
-        note.textContent='All three answers are marked verified in this rehearsal. The concept may advance to site-specific design—but only with the actual records and test results attached.';
+      pill.textContent={candidate:'Candidate for concept design',excluded:'Excluded under these answers','requires-investigation':'Requires investigation'}[state];
+      pill.classList.toggle('candidate',state==='candidate');
+      note.classList.toggle('ready',state==='candidate');
+      const open=profile.intervention.blocking_claims.filter(id=>!answers.has(id)).map(id=>profile.claims.find(item=>item.id===id).title.toLowerCase());
+      if(state==='candidate'){
+        note.textContent=`In this rehearsal, ${candidates.map(result=>FUTURE_LABELS[result.id].toLowerCase()).join(' and ')} could advance to site-specific design—but only with the actual records and test results attached.`;
         next.textContent='Attach the verified records and measurements, then pass a bounded site brief to concept design.';
+      }else if(state==='excluded'){
+        note.textContent=`Under these rehearsed answers the concept is set aside (${tracked.flatMap(result=>result.blocking).map(fact=>FACT_LABELS[fact]).join(', ')}). See which future still works below.`;
+        next.textContent='Switch to a future the answers still allow; keep the request record for the next street.';
       }else{
-        const remaining=profile.intervention.blocking_claims.filter(id=>!unlocked.has(id)).map(id=>profile.claims.find(item=>item.id===id).title.toLowerCase());
-        note.textContent=`Still blocked: ${remaining.join('; ')}. The current evidence supports screening and a verification request, not design.`;
+        note.textContent=`Still open: ${open.join('; ') || tracked.flatMap(result=>result.unresolved).map(fact=>FACT_LABELS[fact]).join(', ')}. The current evidence supports screening and a verification request, not design.`;
         next.textContent='Request the gated records and commission a local infiltration check. Keep the concept at “requires investigation”.';
+      }
+      const futures=document.querySelector('#futures'); futures.querySelectorAll('.future').forEach(node=>node.remove());
+      for(const result of results){
+        const row=document.createElement('div'); row.className=`future ${result.state}`;
+        const why=result.blocking.length?`blocked by ${result.blocking.map(fact=>FACT_LABELS[fact]).join(', ')}`:result.unresolved.length?`open: ${result.unresolved.map(fact=>FACT_LABELS[fact]).join(', ')}`:result.permitted_decision;
+        row.innerHTML=`<span><b>${escapeHtml(FUTURE_LABELS[result.id])}</b> · ${escapeHtml(INTERVENTIONS.find(item=>item.id===result.id).family)}<small>${escapeHtml(why)}</small></span><span class="state">${escapeHtml(result.state.replace('-',' '))}</span>`;
+        futures.append(row);
       }
     }
 

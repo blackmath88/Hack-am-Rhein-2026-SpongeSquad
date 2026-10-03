@@ -26,8 +26,8 @@ export const INTERVENTIONS = [
 
 const S = "https://data.bs.ch/explore/dataset/";
 const field = (key, question, value, evidence, rest = {}) => ({ key, question, value, evidence, ...rest });
-const unknown = (key, question, access, gatekeepers, next_action) =>
-  field(key, question, null, "unknown", { access, gatekeepers, next_action });
+const unknown = (key, question, access, gatekeepers, next_action, blocks) =>
+  field(key, question, null, "unknown", { access, gatekeepers, next_action, blocks });
 const derived = (key, question, value, rest) =>
   field(key, question, value, "derived", { access: "open", validation: "not validated", permitted_use: ["explain", "screen"], ...rest });
 
@@ -48,13 +48,13 @@ export function buildProfile(street, assumptions = DEFAULT_ASSUMPTIONS) {
     derived("works_near", "Will the street be opened soon anyway?", `${street.permits_near.count} active or upcoming permits within ${street.permits_near.radius_m} m (${Object.entries(street.permits_near.by_category).map(([k, v]) => `${v} ${k}`).join(", ")}), ending ${street.permits_near.ends.join(", ")}`, { claim: "active-or-upcoming-works", method: "Permit points within the radius of the line; category by keyword", sources: [S + "100018/"], limitations: ["Permits are not a coordinated works plan", `Snapshot ${street.permits_near.snapshot}`] }),
     derived("groundwater_nearest", "How deep is groundwater nearby?", `${street.groundwater_station.depth_min_m} m below ground at its shallowest (${street.groundwater_station.name}, ${street.groundwater_station.distance_m} m away)`, { claim: "groundwater-depth-at-stations", method: "Terrain height minus 10-year maximum level", sources: [S + "100180/"], limitations: ["A station is a point, not a depth map", "Infiltration needs a site test"] }),
     field("protection_zone", "Is the street in a groundwater protection zone?", street.protection_zone.zones.length ? street.protection_zone.zones.join(", ") : "none", "observed", { access: "open", sources: [street.protection_zone.source], limitations: ["Tested at the middle vertex only"] }),
-    unknown("drainage_system", "Which drainage system serves this area?", "open", ["tba-aue"], "Digitise the published 2012 GEP drainage-system map (1:20,000) at this street"),
-    unknown("utilities", "Is there a line under the footprint?", "restricted", ["leitungskataster", "operators"], "Order a Leitungskataster extract for the footprint plus 5 m, stated as early planning"),
-    unknown("utility_depth", "How deep are the lines?", "operator-held", ["operators"], "Ask the operators named on the extract for depths in the footprint"),
-    unknown("infiltration", "Does water soak away here?", "site-check", ["field"], "Commission an infiltration test at the footprint"),
-    unknown("overflow_route", "Where may overflow water go?", "restricted", ["tba-aue"], "Ask Tiefbauamt where overflow from the footprint may discharge"),
-    unknown("pavement_buildup", "What lies under the asphalt?", "site-check", ["field"], "Core the pavement while the street is open for the permitted works"),
-    unknown("gullies", "Where are the gullies and kerb inlets?", "restricted", ["leitungskataster", "public"], "Mark visible inlets on the orthophoto; check the Leitungskataster extract"),
+    unknown("drainage_system", "Which drainage system serves this area?", "open", ["tba-aue"], "Digitise the published 2012 GEP drainage-system map (1:20,000) at this street", "Whether to infiltrate, retain or connect an overflow"),
+    unknown("utilities", "Is there a line under the footprint?", "restricted", ["leitungskataster", "operators"], "Order a Leitungskataster extract for the footprint plus 5 m, stated as early planning", "Whether digging here can go to detailed design"),
+    unknown("utility_depth", "How deep are the lines?", "operator-held", ["operators"], "Ask the operators named on the extract for depths in the footprint", "How deep a trench or pit may go"),
+    unknown("infiltration", "Does water soak away here?", "site-check", ["field"], "Commission an infiltration test at the footprint", "Whether infiltration is a credible mechanism"),
+    unknown("overflow_route", "Where may overflow water go?", "restricted", ["tba-aue"], "Ask Tiefbauamt where overflow from the footprint may discharge", "Whether the design may rely on an overflow connection"),
+    unknown("pavement_buildup", "What lies under the asphalt?", "site-check", ["field"], "Core the pavement while the street is open for the permitted works", "Excavation cost and the depth of new soil"),
+    unknown("gullies", "Where are the gullies and kerb inlets?", "restricted", ["leitungskataster", "public"], "Mark visible inlets on the orthophoto; check the Leitungskataster extract", "Where road water can be led into green"),
   ];
   const profile = {
     schema_version: SCHEMA,
@@ -100,7 +100,7 @@ export function validateProfile(p) {
     if (!f.access) fail(f.key, "missing access state");
     if (f.evidence === "unknown") {
       if (f.value !== null) fail(f.key, "unknown must have value null, never a stand-in");
-      if (!f.next_action) fail(f.key, "unknown needs a next action");
+      if (!f.next_action || !f.blocks) fail(f.key, "unknown needs a next action and the decision it blocks");
     } else if (f.value === null || f.value === undefined) fail(f.key, "missing value must be typed unknown");
     if (["observed", "derived", "modelled"].includes(f.evidence) && !f.sources?.length) fail(f.key, `${f.evidence} needs sources`);
     if (["derived", "modelled"].includes(f.evidence)) {
@@ -117,12 +117,12 @@ export function validateProfile(p) {
   return errors;
 }
 
-// Facts the rules read: profile values, overridden by hypothetical gatekeeper answers.
-function facts(profile, answers) {
+// Facts the rules read: known values, overridden by hypothetical gatekeeper answers.
+function facts(values, answers) {
   for (const [k, v] of Object.entries(answers)) {
     if (!OUTCOMES[k]?.includes(v)) throw new Error(`Unknown answer ${k}=${v}`);
   }
-  const val = (k) => answers[k] ?? profile.fields.find((f) => f.key === k)?.value ?? null;
+  const val = (k) => answers[k] ?? values[k] ?? null;
   const u = val("utilities"), d = val("utility_depth");
   const zone = val("protection_zone");
   return {
@@ -136,7 +136,12 @@ function facts(profile, answers) {
 
 // A fact that says no excludes; an unknown fact keeps the intervention under investigation.
 export function assess(profile, answers = {}) {
-  const f = facts(profile, answers);
+  return assessFacts(Object.fromEntries(profile.fields.map((f) => [f.key, f.value])), answers);
+}
+
+// Same rules from plain values ({ protection_zone: "none", ... }); used by the page.
+export function assessFacts(values, answers = {}) {
+  const f = facts(values, answers);
   return INTERVENTIONS.map(({ id, family, needs }) => {
     const blocking = needs.filter((n) => f[n] === "no");
     const unresolved = needs.filter((n) => f[n] === null);

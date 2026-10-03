@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { assess, buildProfile, scenarios, validateProfile, STATES } from "../src/profile.mjs";
+import { assess, buildProfile, scenarios, validateProfile, STATES } from "../src/profile.js";
 
 const street = JSON.parse(readFileSync(new URL("../data/demo-street.json", import.meta.url)));
 const catalogue = JSON.parse(readFileSync(new URL("../../../sponge-catalogue/data/catalogue.json", import.meta.url)));
@@ -83,4 +83,26 @@ test("gatekeepers, access states and claims exist in the catalogue and charter",
     for (const g of f.gatekeepers ?? []) assert.ok(catalogue.gatekeepers[g], `${f.key}: gatekeeper ${g}`);
     if (f.claim) assert.ok(claims.has(f.claim), `${f.key}: claim ${f.claim}`);
   }
+});
+
+test("the page fixture keeps the page's evidence rules and maps every check to a declared outcome", async () => {
+  const { OUTCOMES } = await import("../src/profile.js");
+  const page = JSON.parse(readFileSync(new URL("../data/kanonengasse.page.json", import.meta.url)));
+  for (const c of page.claims) {
+    if (c.evidence_class === "unknown") {
+      assert.deepEqual(c.permitted_use, [], c.id);
+      assert.ok(c.unlock_action && c.decision_blocked && c.gatekeeper, c.id);
+    } else assert.ok(!c.permitted_use.includes("design"), c.id);
+  }
+  for (const id of page.intervention.blocking_claims) {
+    assert.ok(page.claims.some((c) => c.id === id), id);
+    assert.deepEqual(page.engine.checks[id].options, OUTCOMES[page.engine.checks[id].fact]);
+  }
+});
+
+test("assessFacts gives the page the same answer as assess", async () => {
+  const { assessFacts } = await import("../src/profile.js");
+  const p = fresh();
+  const answers = { utilities: "clear", overflow_route: "allowed" };
+  assert.deepEqual(assessFacts({ protection_zone: "none" }, answers), assess(p, answers));
 });

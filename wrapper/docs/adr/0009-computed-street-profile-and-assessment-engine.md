@@ -1,6 +1,6 @@
 # ADR 0009: Computed street profile and deterministic assessment engine for Street X-Ray
 
-- Status: Proposed (engine built in `wrapper/street-xray/engine/`; the page does not use it yet)
+- Status: Accepted
 - Date: 2026-10-04
 
 ## Context
@@ -12,7 +12,7 @@ Two things are not covered yet:
 - **computed facts for a real street:** street choice, corridor surface, works nearby;
 - **a tested rule set behind the toggles:** today a stand-in for an unknown could slip through unnoticed.
 
-## Decision (proposed)
+## Decision
 
 1. `engine/scripts/select_street.py` picks a street by rule:
    - rated sponge-suitable by traffic;
@@ -21,7 +21,7 @@ Two things are not covered yet:
    - the most active or upcoming permits within 60 m (ties: longer segment).
 
    It gathers open inputs: a corridor land-cover sample, cadastre trees, the nearest groundwater station and the protection zone. On the 3 October 2026 snapshot this gives Kanonengasse, 241 m, with 24 utility permits.
-2. `engine/src/profile.mjs` builds `computed-street-profile/0.1`. Each field carries an evidence class, access state, sources, and method, limitations, validation and permitted use. An unknown is `null` with gatekeepers and a next action. Scenarios are ranges from typed assumptions, and an unknown input gives an unknown result.
+2. `engine/src/profile.js` builds `computed-street-profile/0.1`. Each field carries an evidence class, access state, sources, and method, limitations, validation and permitted use. An unknown is `null` with gatekeepers and a next action. Scenarios are ranges from typed assumptions, and an unknown input gives an unknown result.
 3. `assess(profile, answers)` is a pure rule table over declared gatekeeper outcomes. It covers five intervention families (space below, shallow, no-dig):
    - a fact that says no excludes;
    - an unresolved fact keeps the intervention under investigation;
@@ -32,10 +32,11 @@ Two things are not covered yet:
 5. The schema name differs on purpose from the page's `street-evidence-profile/0.1`. Two names, two objects, until the owners decide how they converge.
 6. `integration/contracts/` and the Street Lab are unchanged.
 
-## Open questions for the module owner
+## Wiring (decided by the module owner, 2026-10-04)
 
-- Should the page read the engine's profile for a second, computed street, or should the engine adopt the page's claim shape (`layer`, `origin`, `title`)?
-- Should the page's verification toggles call `assess()`, so the rehearsal and the rules cannot drift apart?
+- The page shows both streets. `?street=klybeck` loads the illustrative fixture; `?street=kanonengasse` loads `engine/data/kanonengasse.page.json`. That file is the computed profile converted to the page's claim shape by `engine/src/to-page.js`, and the engine test fails if it is stale.
+- The verification checks call `assessFacts()` from `engine/src/profile.js`. Each check cycles through the declared outcomes of one engine fact. The status pill and the "three futures" list come from the rules, not from a count of toggles. Each fixture carries an `engine` block: the interventions the pill tracks, known facts (the protection zone, queried), and check → fact.
+- `smoke.mjs` checks the wiring for both streets: every check maps to an engine fact, and with no answers nothing that digs is a candidate.
 
 ## Consequences
 
