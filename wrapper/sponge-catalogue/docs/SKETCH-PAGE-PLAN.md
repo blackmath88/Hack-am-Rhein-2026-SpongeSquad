@@ -27,7 +27,7 @@ A self-contained brief for a fresh session that builds the visual layer of the s
 
 `src/page.html` is one HTML file. `scripts/build.mjs` injects `data/catalogue.json` and `data/potential.json` through a `/*__CATALOGUE__*/ null` marker, using the data-charter-map pattern, and writes `dist/index.html`. Add `"build"` to `package.json` and make `"test"` run `build` and then `build-doc --check` plus a smoke check (step 4).
 
-The page has four horizontal bands. There is one column per action (14), in `catalogue.json` order. Column headers show the name plus the German name.
+The page has five horizontal bands. There is one column per action (14), in `catalogue.json` order. Column headers show the name plus the German name.
 
 1. **Row 1, Possible.** Show the sketch, `what`, context chips (new / existing), owner chips (private / public building / Allmend) and mechanism tags.
 2. **Row 2, Basel today.** Each `basel[]` item has:
@@ -40,7 +40,15 @@ The page has four horizontal bands. There is one column per action (14), in `cat
    - show its text with its evidence class badge, using the observed / derived / assumed / unknown styles from §3;
    - when the item references a finding, show that finding's method and limitations in an expandable `<details>`;
    - when it references a Data Charter claim, show the claim id and link to `/wrapper/data-charter-map/`.
-4. **Band, How to get there.** Show the six `levers` as one full-width strip. Mark it "Our proposals (assumed)".
+4. **Row 4, Missing data and the hack.** For each `gaps[]` item:
+   - show the question;
+   - show the access state as a gate glyph (open / gated / site check / unknown, refining gated into restricted, operator-held or project-held), with "assumed" shown when `access_basis` is assumed;
+   - show the gatekeeper names, or "holder not identified";
+   - show the decision it blocks;
+   - list the hacks as small chips (`kind` → `prototype`), with the `cannot` text visible, not hidden.
+
+   The sketch is redrawn in an "x-ray" variant: the ground below the surface is left as a grey void with a hatched "gated" zone where the gap is underground. This is the visual statement that the blank part decides.
+5. **Band, How to get there.** Show the six `levers` as one full-width strip. Mark it "Our proposals (assumed)".
 
 Above the grid, add a short header:
 
@@ -78,7 +86,7 @@ Add filters as two chip groups, context and owner. Columns that don't match dim 
 
   This mirrors the Data Charter's real / inferred / missing separation.
 - **Density.** Aim for an operational, VS Code-like density, with crisp 1 px separators between rows and columns and no dashboard chrome. Row labels go in a sticky left column.
-- **Width.** On desktop the 14 columns scroll horizontally inside the grid container, with the row-label column sticky. On phones (≤ 640 px), switch to one card per action with the three rows stacked, the filters on top, and no horizontal page scroll. Use a 16 px gutter.
+- **Width.** On desktop the 14 columns scroll horizontally inside the grid container, with the row-label column sticky. On phones (≤ 640 px), switch to one card per action with the four rows stacked, the filters on top, and no horizontal page scroll. Use a 16 px gutter.
 - **Fallbacks.** Respect `prefers-reduced-motion`; there is no animation needed beyond a subtle wash fade-in. All text must be real text, not drawn in the SVG.
 
 ## 4. Verification before committing
@@ -96,6 +104,7 @@ The smoke script (`scripts/smoke.mjs`, node only) checks the built `dist/index.h
 - every `sketch` key has an SVG symbol;
 - every none-found item renders the empty-cell text;
 - every potential item renders an evidence badge;
+- every gap renders its access state and every hack its `cannot` text where present;
 - "private" never labels the 1,353 ha bar part;
 - "dig window" does not appear.
 

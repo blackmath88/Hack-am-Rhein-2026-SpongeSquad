@@ -57,6 +57,31 @@ for (const a of cat.actions) {
   if (!a.potential.length) fail(w, "row 3 is empty");
   a.potential.forEach((p, i) => checkItem(`${w} potential[${i}]`, p));
 }
+const PROTOTYPES = new Set(Object.keys(cat.prototypes));
+const NEEDS_CANNOT = new Set(["derive", "digitise", "annotate", "observe", "design-around"]);
+for (const a of cat.actions) {
+  const w = `action ${a.id}`;
+  if (!a.gaps?.length) fail(w, "row 4 is empty");
+  (a.gaps ?? []).forEach((g, i) => {
+    const gw = `${w} gaps[${i}]`;
+    if (!g.question) fail(gw, "missing question");
+    if (g.indicator && !charter.indicators.some((x) => x.id === g.indicator)) fail(gw, `unknown Data Charter indicator '${g.indicator}'`);
+    if (!cat.access_states[g.access]) fail(gw, `unknown access state '${g.access}'`);
+    if (!["sourced", "assumed"].includes(g.access_basis)) fail(gw, "access_basis must be sourced or assumed");
+    for (const k of g.gatekeepers) if (!cat.gatekeepers[k]) fail(gw, `unknown gatekeeper '${k}'`);
+    checkSources(gw, g.sources);
+    const sourced = g.sources?.length || g.gatekeepers.some((k) => cat.gatekeepers[k].sources?.length);
+    if (g.access_basis === "sourced" && !sourced) fail(gw, "sourced access needs a source on the gap or its gatekeeper");
+    if (!g.blocks) fail(gw, "missing the decision it blocks");
+    if (!g.hacks?.length) fail(gw, "no hack");
+    for (const h of g.hacks ?? []) {
+      if (!cat.hack_kinds[h.kind]) fail(gw, `unknown hack kind '${h.kind}'`);
+      if (!PROTOTYPES.has(h.prototype)) fail(gw, `unknown prototype '${h.prototype}'`);
+      if (NEEDS_CANNOT.has(h.kind) && !h.cannot) fail(gw, `${h.kind} hack must say what it cannot establish`);
+    }
+  });
+}
+for (const [k, g] of Object.entries(cat.gatekeepers)) checkSources(`gatekeeper ${k}`, g.sources);
 for (const l of cat.levers) {
   if (l.evidence !== "assumed") fail(`lever ${l.id}`, "levers are proposals (assumed)");
 }
@@ -112,8 +137,21 @@ for (const a of cat.actions) {
   for (const b of a.basel) lines.push(`- **${b.status}**: ${b.text}${b.sources?.length ? ` (${src(b.sources)})` : ""}`);
   lines.push("", "Potential:", "");
   for (const p of a.potential) lines.push(`- ${p.text} — ${ev(p)}`);
+  lines.push("", "Missing data and the hack:", "");
+  for (const g of a.gaps) {
+    const keepers = g.gatekeepers.map((k) => cat.gatekeepers[k].name).join("; ") || "holder not identified";
+    lines.push(`- **${g.question}** ${g.access} (${g.access_basis})${g.indicator ? ` · indicator \`${g.indicator}\`` : ""} · ${keepers}${g.sources?.length ? ` · ${src(g.sources)}` : ""}. Blocks: ${g.blocks}.`);
+    for (const h of g.hacks) lines.push(`  - *${h.kind}* → ${h.prototype}: ${h.text}${h.cannot ? ` Cannot establish: ${h.cannot}` : ""}`);
+  }
   lines.push("");
 }
+lines.push("## Gatekeepers", "", ...Object.values(cat.gatekeepers).map((g) => `- **${g.name}**: ${g.role}${g.sources?.length ? ` (${src(g.sources)})` : ""}`), "");
+lines.push("## Hacks and prototypes", "", "| Hack | Meaning | Uses |", "|---|---|---|");
+const allHacks = cat.actions.flatMap((a) => a.gaps.flatMap((g) => g.hacks));
+for (const [k, v] of Object.entries(cat.hack_kinds)) lines.push(`| ${k} | ${v} | ${allHacks.filter((h) => h.kind === k).length} |`);
+lines.push("", "| Prototype | What it does | Hacks it serves |", "|---|---|---|");
+for (const [k, v] of Object.entries(cat.prototypes)) lines.push(`| ${k} | ${v} | ${allHacks.filter((h) => h.prototype === k).length} |`);
+lines.push("", cat.access_note, "");
 lines.push("## How to get there (proposals)", "", ...cat.levers.map((l) => `- **${l.name}**: ${l.text}`), "");
 lines.push("## Sources", "", ...Object.entries(cat.sources).map(([k, s]) => `- \`${k}\`: [${s.label}](${s.url})`), "");
 const md = lines.join("\n");
@@ -123,7 +161,7 @@ if (process.argv.includes("--check")) {
     console.error("Error: docs/CATALOGUE.md is out of date; run npm run doc");
     process.exit(1);
   }
-  console.log(`catalogue ok: ${cat.actions.length} actions, ${cat.city_findings.length} findings, ${cat.levers.length} levers`);
+  console.log(`catalogue ok: ${cat.actions.length} actions, ${cat.city_findings.length} findings, ${cat.actions.reduce((n, a) => n + a.gaps.length, 0)} gaps, ${cat.levers.length} levers`);
 } else {
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, md);
