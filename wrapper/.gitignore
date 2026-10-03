@@ -2,6 +2,8 @@
 .DS_Store
 hackamrhein-kit/
 random/
+
+# Street workspace
 node_modules/
 dist/
 *.tsbuildinfo
