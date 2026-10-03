@@ -9,6 +9,6 @@
     "preview": "node scripts/serve-dist.mjs",
     "build": "node scripts/build-integration.mjs",
     "build:shell": "node scripts/build-integration.mjs --shell-only",
-    "test": "npm test --prefix wrapper/street-workspace && npm test --prefix wrapper/data-charter-map"
+    "test": "npm test --prefix wrapper/street-workspace && npm test --prefix wrapper/data-charter-map && node wrapper/street-xray/smoke.mjs"
   }
 }

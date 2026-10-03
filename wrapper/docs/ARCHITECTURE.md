@@ -32,14 +32,15 @@ Who can act, what evidence is required, and how does a proposal advance?
 flowchart TD
     A["1 · Data Charter<br/>real, inferred, missing"]
     B["2 · Site scoping<br/>Andy · prototype built"]
-    C["3 · Street world model<br/>vertical slice built"]
-    D["4 · Intervention engine<br/>one patch built"]
-    E["5 · Illustrative simulation<br/>deterministic slice built"]
-    F["6 · Visual experience<br/>React/SVG MVP built"]
-    G["7 · Decision pathway<br/>research only"]
+    X["3 · Street X-Ray<br/>evidence gate built"]
+    C["4 · Street world model<br/>vertical slice built"]
+    D["5 · Intervention engine<br/>one patch built"]
+    E["6 · Illustrative simulation<br/>deterministic slice built"]
+    F["7 · Visual experience<br/>React/SVG MVP built"]
+    G["8 · Decision pathway<br/>research only"]
 
-    A --> B
-    B -->|CandidateArea| C
+    A --> B --> X
+    X -->|Candidate context only| C
     C -->|WorldState| D
     D --> E
     E --> F
@@ -52,6 +53,7 @@ flowchart TD
 | Evidence charter and gap engine | State what should exist, what Basel publishes and what can be inferred | Ported Data Charter with 25 indicators, frozen/live inputs, four inference pilots with typed claims (class, method, inputs, resolution, validation, limitations, permitted use) and explicit missing-data asks | Validate claims before any use beyond explain/screen; agree a handoff v2 before claims enter a site scenario (ADR 0007) |
 | Evidence discovery | Find relevant Basel datasets | Basel-Stadt and opendata.swiss connectors, source registry and metadata model exist in Andy's `feature/hot-spot-map` branch | Verify dataset IDs, schemas, licences, temporal coverage and spatial extent |
 | Site scoping | Identify places worth investigating | React/Leaflet map, `CandidateArea`, indicators, scoring, shortlist and comparison exist | Replace illustrative pins and values with spatially derived evidence |
+| Street X-Ray | Separate available context, limited hypotheses and decision-blocking gaps | One Klybeck study point, three evidence layers, verification rehearsal and printable Evidence Passport | Replace the illustrative segment with a surveyed segment and attach actual gatekeeper responses |
 | Scenario adapter | Translate an area into a street case | Versioned candidate-context handoff implemented on `integration/spatial-journey` | Replace the illustrative context only when verified street-scale inputs exist |
 | Street world | Describe what physically exists | Minimal typed street with zones, surfaces, assets, nodes and connections | Add verified site input only through a scenario-seed contract |
 | Intervention engine | Describe what changes | Reversible rain-garden and runoff-connection patch | Add measures only when they demonstrate a new dependency or trade-off |
