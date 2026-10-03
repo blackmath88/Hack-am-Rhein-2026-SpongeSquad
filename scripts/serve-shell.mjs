@@ -18,6 +18,7 @@ const pages = new Map([
   ['/explainer-videos-context/', 'explainer-videos-context/index.html'],
   ['/presentation-story/', 'presentation-story/index.html'],
   ['/wrapper/', 'wrapper/index.html'],
+  ['/wrapper/street-xray/', 'wrapper/street-xray/index.html'],
   ['/wrapper/prototypes/sponge-street/', 'wrapper/prototypes/sponge-street/index.html'],
 ]);
 const types = {
@@ -40,6 +41,9 @@ createServer(async (request, response) => {
     relative = join('integration', url.pathname);
   }
   if (!relative && url.pathname.startsWith('/wrapper/prototypes/sponge-street/')) {
+    relative = url.pathname.slice(1);
+  }
+  if (!relative && url.pathname.startsWith('/wrapper/street-xray/')) {
     relative = url.pathname.slice(1);
   }
   if (!relative) {

@@ -1,6 +1,15 @@
 # TODO: data gap to decision
 
-Status: broader product direction, intentionally not part of the first hackathon implementation slice.
+Status: narrow Street X-Ray slice implemented; broader automation remains future work.
+
+## Narrow slice now implemented
+
+`wrapper/street-xray/` now proves the core interaction for one illustrative
+Klybeck study segment: known context, bounded hypotheses, explicit blockers, a
+verification rehearsal and a printable Evidence Passport. It deliberately does
+not implement imagery extraction, automated gap investigation, a city-wide
+pipeline or a new cross-team handoff contract. Those broader tasks remain on
+this list.
 
 ## Product thesis
 

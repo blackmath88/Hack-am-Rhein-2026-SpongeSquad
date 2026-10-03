@@ -17,8 +17,9 @@ const workstreamPages = [
   'presentation-story',
   'wrapper',
 ];
+const shellOnly = process.argv.includes('--shell-only');
 
-if (!process.argv.includes('--shell-only')) {
+if (!shellOnly) {
   for (const [source] of apps) {
     const result = spawnSync(npm, ['run', 'build', '--prefix', source], {
       cwd: root,
@@ -38,14 +39,21 @@ for (const page of workstreamPages) {
   mkdirSync(destination, { recursive: true });
   cpSync(join(root, page, 'index.html'), join(destination, 'index.html'));
 }
-for (const [source, target] of apps) {
-  const destination = join(output, target);
-  mkdirSync(destination, { recursive: true });
-  cpSync(join(root, source, 'dist'), destination, { recursive: true });
+if (!shellOnly) {
+  for (const [source, target] of apps) {
+    const destination = join(output, target);
+    mkdirSync(destination, { recursive: true });
+    cpSync(join(root, source, 'dist'), destination, { recursive: true });
+  }
 }
 cpSync(
   join(root, 'wrapper/prototypes/sponge-street'),
   join(output, 'wrapper/prototypes/sponge-street'),
+  { recursive: true },
+);
+cpSync(
+  join(root, 'wrapper/street-xray'),
+  join(output, 'wrapper/street-xray'),
   { recursive: true },
 );
 console.log(`Integrated static build: ${output}`);
