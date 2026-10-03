@@ -3,6 +3,11 @@ import { spawn } from 'node:child_process';
 const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 const services = [
   {
+    label: 'Shared shell',
+    url: 'http://localhost:5172/',
+    args: ['run', 'shell:dev'],
+  },
+  {
     label: 'Site scoping',
     url: 'http://localhost:5173/data/site-scoping-tool/',
     args: ['run', 'dev', '--prefix', 'data/site-scoping-tool', '--', '--host', '0.0.0.0', '--port', '5173', '--strictPort'],

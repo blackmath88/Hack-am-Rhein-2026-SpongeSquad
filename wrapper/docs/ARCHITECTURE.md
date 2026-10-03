@@ -1,6 +1,6 @@
 # SpongeSquad architecture and build status
 
-See also [Product vision](PRODUCT_VISION.md), [MVP boundary](MVP.md), [PR 3 sparring review](PR3-SPARRING.md) and the [architecture decision records](adr/README.md).
+See also [Product vision](PRODUCT_VISION.md), [MVP boundary](MVP.md), [data-gap-to-decision TODO](TODO-DATA-GAP-TO-DECISION.md), [PR 3 sparring review](PR3-SPARRING.md) and the [architecture decision records](adr/README.md).
 
 ## Product spine
 

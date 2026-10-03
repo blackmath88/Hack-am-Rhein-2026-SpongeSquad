@@ -3,32 +3,105 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SpongeSquad journey</title>
-    <style>
-      :root { font-family: Inter, system-ui, sans-serif; color: #203c3b; background: #f5f4ef; }
-      body { margin: 0; min-height: 100vh; display: grid; place-items: center; }
-      main { width: min(880px, calc(100% - 40px)); }
-      small { letter-spacing: .14em; font-weight: 700; color: #657569; }
-      h1 { font-size: clamp(38px, 7vw, 72px); letter-spacing: -.05em; margin: 18px 0 12px; }
-      p { color: #68776f; line-height: 1.6; max-width: 620px; }
-      .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 42px; }
-      a { color: inherit; text-decoration: none; padding: 26px; border: 1px solid #cbd2c9; border-radius: 9px; background: #fbfaf6; }
-      a:hover { border-color: #6d8e76; background: #eef2e8; }
-      a span { display: block; color: #6a7b71; font-size: 12px; margin-bottom: 15px; }
-      a strong { font-size: 24px; }
-      @media (max-width: 620px) { .steps { grid-template-columns: 1fr; } }
-    </style>
+    <meta name="description" content="SpongeSquad shared workspace and end-to-end sponge-city prototype." />
+    <title>SpongeSquad · Shared workspace</title>
+    <link rel="stylesheet" href="/assets/shell.css" />
   </head>
   <body>
-    <main>
-      <small>SPONGE SQUAD · END-TO-END PROTOTYPE</small>
-      <h1>Know the gaps. Find a place. Test the system.</h1>
-      <p>The Data Charter separates published, inferred and missing evidence. Site scoping then carries context—not invented geometry—into a deliberately illustrative street scenario.</p>
-      <div class="steps">
-        <a href="/wrapper/data-charter-map/"><span>01 · EVIDENCE</span><strong>Open Data Charter →</strong></a>
-        <a href="/data/site-scoping-tool/"><span>02 · FIND</span><strong>Open site scoping →</strong></a>
-        <a href="/wrapper/street-workspace/"><span>03 · TEST</span><strong>Open Street Lab →</strong></a>
-      </div>
-    </main>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="/" aria-label="SpongeSquad home">
+          <span class="brand-mark">BS</span>
+          <span><b>Basel / Sponge</b><small>HACK AM RHEIN 2026</small></span>
+        </a>
+        <div class="workspace-label">SHARED WORKSPACE</div>
+        <div class="workspace">SpongeSquad <span>●</span></div>
+        <div class="nav-label">WORKSTREAMS</div>
+        <nav class="side-nav" aria-label="Team workstreams">
+          <a class="nav-item active" href="/" aria-current="page"><span class="nav-icon">⌂</span>Overview</a>
+          <a class="nav-item" href="/frontend/"><span class="nav-icon">◫</span>Frontend</a>
+          <a class="nav-item" href="/data/"><span class="nav-icon">⌖</span>Data</a>
+          <a class="nav-item" href="/explainer-videos-context/"><span class="nav-icon">▶</span>Explainers</a>
+          <a class="nav-item" href="/presentation-story/"><span class="nav-icon">▤</span>Story</a>
+          <a class="nav-item" href="/wrapper/"><span class="nav-icon">⌘</span>Wrapper <em>3</em></a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="scope-card"><span class="pulse"></span> Integration branch<small>Each team keeps ownership of its folder. The wrapper links stable entry points.</small></div>
+          <small class="version">SPONGE SQUAD · MVP SHELL</small>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="crumb">Shared workspace <span>/</span> Overview</div>
+          <nav class="journey-progress" aria-label="Prototype journey">
+            <span>1 · Evidence</span><i>→</i><span>2 · Find</span><i>→</i><span>3 · Test</span><i>→</i><span>4 · Explain</span>
+          </nav>
+          <span class="internal-pill">Working prototype</span>
+        </header>
+
+        <section class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow">SPONGE CITY · BASEL-STADT</div>
+            <h1>One city. Five workstreams.<br /><i>One connected story.</i></h1>
+            <p>Explore what Basel already knows, find a place worth investigating, test a sponge-city intervention, and keep the missing evidence visible.</p>
+            <div class="hero-actions">
+              <a class="button primary" href="/wrapper/data-charter-map/">Start with the evidence <span>→</span></a>
+              <a class="button secondary" href="#workstreams">Meet the workstreams</a>
+            </div>
+          </div>
+          <div class="hero-visual" aria-label="Diagram of the sponge-city journey">
+            <div class="city-grid"></div>
+            <div class="river-line"></div>
+            <div class="journey-node node-evidence"><span>01</span><b>Know</b><small>evidence</small></div>
+            <div class="journey-node node-find"><span>02</span><b>Find</b><small>a place</small></div>
+            <div class="journey-node node-test"><span>03</span><b>Test</b><small>a system</small></div>
+            <div class="journey-node node-explain"><span>04</span><b>Tell</b><small>the story</small></div>
+            <div class="visual-note">From city evidence to one inspectable street</div>
+          </div>
+        </section>
+
+        <section class="journey-section" aria-labelledby="journey-title">
+          <div class="section-heading">
+            <div><div class="eyebrow">END-TO-END MVP</div><h2 id="journey-title">Follow the decision journey</h2></div>
+            <p>Each step is independently useful. Together they form the hackathon demo.</p>
+          </div>
+          <div class="journey-grid">
+            <a class="journey-card" href="/wrapper/data-charter-map/">
+              <span class="step-number">01</span><span class="status live">Live</span>
+              <h3>Know the evidence</h3><p>See what is open, partial, restricted, inferred or missing.</p><b>Data Charter →</b>
+            </a>
+            <a class="journey-card" href="/data/site-scoping-tool/">
+              <span class="step-number">02</span><span class="status live">Live</span>
+              <h3>Find a place</h3><p>Explore provisional heat-and-water screening points in Basel.</p><b>Site scoping →</b>
+            </a>
+            <a class="journey-card" href="/wrapper/street-workspace/">
+              <span class="step-number">03</span><span class="status live">Live</span>
+              <h3>Test the system</h3><p>Apply one intervention and inspect the changed water pathway.</p><b>Street Lab →</b>
+            </a>
+            <a class="journey-card" href="/explainer-videos-context/">
+              <span class="step-number">04</span><span class="status ready">Drop-in</span>
+              <h3>Explain and decide</h3><p>Connect mechanisms, context, video and the final team narrative.</p><b>Explainer space →</b>
+            </a>
+          </div>
+        </section>
+
+        <section class="workstreams-section" id="workstreams" aria-labelledby="workstreams-title">
+          <div class="section-heading">
+            <div><div class="eyebrow">TEAM SPACES</div><h2 id="workstreams-title">A home for every contribution</h2></div>
+            <p>Open a workstream to see its owner, current entry points and a clean place for new material.</p>
+          </div>
+          <div class="workstream-grid">
+            <a class="workstream-card" href="/frontend/"><span class="workstream-mark">FE</span><div><small>SIMON · FRONTEND</small><h3>Product interface</h3><p>Shared UI and integration-ready components.</p></div><span class="arrow">↗</span></a>
+            <a class="workstream-card" href="/data/"><span class="workstream-mark green">DA</span><div><small>ANDY · DATA</small><h3>Map and scoping</h3><p>Sources, candidate areas and spatial evidence.</p></div><span class="arrow">↗</span></a>
+            <a class="workstream-card" href="/explainer-videos-context/"><span class="workstream-mark blue">EX</span><div><small>BALA · CONTEXT</small><h3>Explain the principle</h3><p>Reusable context, explanations and video.</p></div><span class="arrow">↗</span></a>
+            <a class="workstream-card" href="/presentation-story/"><span class="workstream-mark amber">ST</span><div><small>MARY · STORY</small><h3>Demo narrative</h3><p>Slides, speaker flow and presentation assets.</p></div><span class="arrow">↗</span></a>
+            <a class="workstream-card" href="/wrapper/"><span class="workstream-mark dark">WR</span><div><small>ACHIM · WRAPPER</small><h3>Bring it together</h3><p>Evidence, interaction and the end-to-end journey.</p></div><span class="arrow">↗</span></a>
+          </div>
+        </section>
+
+        <footer><span>SpongeSquad · Hack am Rhein 2026</span><span>Basel as a living sponge-city question</span></footer>
+      </main>
+    </div>
   </body>
 </html>
